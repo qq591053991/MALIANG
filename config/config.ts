@@ -309,6 +309,12 @@ export default defineConfig({
       ],
     },
     {
+      name: 'lowcode',
+      path: '/lowcode',
+      component: './LowcodeEditor',
+      layout: false
+    },
+    {
       path: '/',
       redirect: '/dashboard/analysis',
     },
