@@ -2,8 +2,8 @@ import { iComponentCategory } from '@/typings/SchemaCommon';
 
 export default {
   name: '通用标题',
-  type: 'Text',
-  icon: 'icon',
+  type: 'Title',
+  icon: 'icon-biaoti',
   category: iComponentCategory.INOFRMATION,
   config: {
     text: '我是标题',

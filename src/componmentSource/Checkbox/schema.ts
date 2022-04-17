@@ -3,7 +3,7 @@ import { iComponentCategory } from '@/typings/SchemaCommon';
 export default {
   name: '多选框',
   type: 'Checkbox',
-  icon: 'icon',
+  icon: 'icon-yduifuxuankuangxuanzhong',
   category: iComponentCategory.CONTORL,
   config: {
     text: '我是文字',

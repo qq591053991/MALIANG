@@ -17,6 +17,20 @@
     cursor: pointer;
     color: #a1a9b3;
     font-size: 12px;
+
+    &.active {
+      background: #0a0b0d;
+      color: #2483ff;
+
+      .iconfont {
+        color: #2483ff;
+      }
+    }
+
+    .iconfont {
+      font-size: 30px;
+      color: #fff;
+    }
   }
 }
 
@@ -26,5 +40,20 @@
   flex: 1;
 
   .tabsContent {
+    .componmentList {
+      display: grid;
+      grid-template-columns: 2fr 2fr;
+
+      .componmentItem {
+        display: flex;
+        flex-direction: column;
+        text-align: center;
+        cursor: pointer;
+
+        .iconfont {
+          font-size: 40px;
+        }
+      }
+    }
   }
 }

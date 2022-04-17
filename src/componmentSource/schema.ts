@@ -1,7 +1,7 @@
-import Text from './Text/schema';
+import Title from './Title/schema';
 import Checkbox from './Checkbox/schema';
 
 export default {
-  Text,
+  Title,
   Checkbox,
 };

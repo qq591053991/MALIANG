@@ -1,33 +1,47 @@
-import React from 'react';
-import schema from '@/componmentSource/schema';
+import React, { useState } from 'react';
+import schema from '@/ComponmentSource/schema';
 import styles from './index.less';
+import { v4 as uuid } from 'uuid';
 import { iComponentCategory } from '@/typings/SchemaCommon';
-import { Col, Row } from 'antd';
 
 const componmentList = Object.values(schema);
 const tabList = [...new Set(componmentList.map((item) => item.category))];
-const categoryName = {
-  [iComponentCategory.INOFRMATION]: '信息',
-  [iComponentCategory.CONTORL]: '控件',
-};
+
 const cateInfoSet = {
   [iComponentCategory.INOFRMATION]: {
     title: '信息',
-    iconCode: '111',
+    iconClass: 'icon-a-daohang-xinxi',
   },
   [iComponentCategory.CONTORL]: {
     title: '控件',
-    iconCode: '111',
+    iconClass: 'icon-a-daohang-kongjian',
   },
 };
 
 export default function LeftBar() {
+  const [curTab, setCurTab] = useState(iComponentCategory.INOFRMATION);
+
+  function dragStart(event: React.DragEvent, componmentConfig) {
+    event.dataTransfer.setData(
+      'componmentConfig',
+      JSON.stringify(componmentConfig),
+    );
+    event.dataTransfer.setData('componmentId', uuid());
+  }
+
   return (
     <div className={styles.sideBar}>
       <ul className={styles.tabs}>
         {tabList.map((category: iComponentCategory) => (
-          <li className={styles.tabItem}>
-            <i>{cateInfoSet[category]?.iconCode}</i>
+          <li
+            className={`${styles.tabItem} ${
+              curTab === category ? styles.active : ''
+            }`}
+            onClick={() => setCurTab(category)}
+          >
+            <i
+              className={`iconfont ${styles.iconfont} ${cateInfoSet[category]?.iconClass}`}
+            />
             <span>{cateInfoSet[category]?.title}</span>
           </li>
         ))}
@@ -35,12 +49,18 @@ export default function LeftBar() {
       <div className={styles.tabsContentWrap}>
         <div className={styles.tabsContent}>
           <div className={styles.componmentList}>
-            {componmentList.map((item) => (
-              <div className={styles.componmentItem}>
-                <span>{item.icon}</span>
-                <span>{item.name}</span>
-              </div>
-            ))}
+            {componmentList
+              .filter((item) => item?.category === curTab)
+              .map((item) => (
+                <div
+                  className={styles.componmentItem}
+                  onDragStart={(e) => dragStart(e, item)}
+                  draggable
+                >
+                  <i className={`iconfont ${item.icon} ${styles.iconfont}`} />
+                  <span>{item.name}</span>
+                </div>
+              ))}
           </div>
         </div>
       </div>
