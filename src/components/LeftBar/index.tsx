@@ -26,7 +26,7 @@ export default function LeftBar() {
       'componmentConfig',
       JSON.stringify(componmentConfig),
     );
-    event.dataTransfer.setData('componmentId', uuid());
+    event.dataTransfer.setData('componentId', uuid());
   }
 
   return (

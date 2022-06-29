@@ -1,14 +1,12 @@
-import react from 'react';
+import react, { memo } from 'react';
 import { dynamic } from 'umi';
 
 const BuildComponment = (type, config) => {
   return dynamic({
     loader: async () => {
-      const {
-        default: Componment,
-      } = await require(`@/ComponmentSource/${type}`);
+      const { default: Componment } =
+        await require(`@/ComponmentSource/${type}`);
       return (props) => {
-        console.log(config);
         return <Componment {...config}></Componment>;
       };
     },
@@ -16,9 +14,9 @@ const BuildComponment = (type, config) => {
   });
 };
 
-export default function ComponmentRender(props) {
+export default memo(function ComponmentRender(props) {
   // return <DynamicComponment {...props} />
-  const { type, config, category } = props;
+  const { type, config } = props;
   const DynamicComponment = BuildComponment(type, config);
   console.log(props);
   return (
@@ -26,4 +24,4 @@ export default function ComponmentRender(props) {
       <DynamicComponment {...props} />
     </>
   );
-}
+});

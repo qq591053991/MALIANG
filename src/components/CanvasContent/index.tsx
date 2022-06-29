@@ -8,13 +8,12 @@ import ComponmentRender from '../ComponmentRender';
 
 // 画布主内容
 export default function CanvasContent(props) {
-  const { dispatch, state } = useContext(EditorContext);
-  console.log(state);
+  const [state, dispatch] = useContext(EditorContext);
   function onDrop(event: React.DragEvent) {
     const componmentConfig = JSON.parse(
       event.dataTransfer.getData('componmentConfig'),
     );
-    componmentConfig.componmentId = event.dataTransfer.getData('componmentId');
+    componmentConfig.componentId = event.dataTransfer.getData('componentId');
     dispatch({
       type: 'ADD_COMPONMENT',
       payload: {
@@ -22,7 +21,18 @@ export default function CanvasContent(props) {
       },
     });
   }
-  const { componmentList } = state;
+  const { componmentList = [], activedComponentId = '' } = state;
+
+  const selectComponent = (curComponentConfig) => {
+    const { componentId } = curComponentConfig;
+    dispatch({
+      type: 'SELECT_COMPONENT',
+      payload: {
+        componentId,
+      },
+    });
+  };
+
   return (
     <div
       className={styles.main}
@@ -31,7 +41,11 @@ export default function CanvasContent(props) {
     >
       {componmentList.map((componmentConfig) => {
         return (
-          <AlignReferenceLine>
+          <AlignReferenceLine
+            onClick={() => selectComponent(componmentConfig)}
+            actived={activedComponentId === componmentConfig?.componentId}
+            {...componmentConfig}
+          >
             <EditSideToolbar>
               <DragWrap>
                 <ComponmentRender {...componmentConfig} />
