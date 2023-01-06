@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import schema from '@/ComponmentSource/schema';
+import schema from '@/ComponentSource/schema';
 import styles from './index.less';
 import { v4 as uuid } from 'uuid';
 import { iComponentCategory } from '@/typings/SchemaCommon';

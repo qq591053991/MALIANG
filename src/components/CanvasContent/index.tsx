@@ -4,7 +4,7 @@ import EditSideToolbar from '@/components/EditSideToolbar';
 import AlignReferenceLine from '@/components/AlignReferenceLine';
 import DragWrap from '../DragWrap';
 import styles from './index.less';
-import ComponmentRender from '../ComponmentRender';
+import ComponentRender from '../ComponentRender';
 
 // 画布主内容
 export default function CanvasContent(props) {
@@ -35,25 +35,27 @@ export default function CanvasContent(props) {
 
   return (
     <div
-      className={styles.main}
+      className={styles['main']}
       onDrop={onDrop}
       onDragOver={(event) => event.preventDefault()}
     >
-      {componmentList.map((componmentConfig) => {
-        return (
-          <AlignReferenceLine
-            onClick={() => selectComponent(componmentConfig)}
-            actived={activedComponentId === componmentConfig?.componentId}
-            {...componmentConfig}
-          >
-            <EditSideToolbar>
-              <DragWrap>
-                <ComponmentRender {...componmentConfig} />
-              </DragWrap>
-            </EditSideToolbar>
-          </AlignReferenceLine>
-        );
-      })}
+      <div className={styles['canvas-wrap']} id="canvas-wrap">
+        {componmentList.map((componmentConfig) => {
+          return (
+            <DragWrap>
+              <AlignReferenceLine
+                onClick={() => selectComponent(componmentConfig)}
+                actived={activedComponentId === componmentConfig?.componentId}
+                {...componmentConfig}
+              >
+                <EditSideToolbar>
+                  <ComponentRender {...componmentConfig} />
+                </EditSideToolbar>
+              </AlignReferenceLine>
+            </DragWrap>
+          );
+        })}
+      </div>
     </div>
   );
 }
