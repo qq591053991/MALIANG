@@ -1,4 +1,4 @@
-import React, { useContext, Provider, useReducer, createContext } from 'react';
+import React, { useReducer, createContext } from 'react';
 import LeftBar from '@/components/LeftBar';
 import CanvasContent from '@/components/CanvasContent';
 import RightBar from '@/components/RightBar';
@@ -11,10 +11,7 @@ interface iEditorState {
   height: number;
 }
 
-export const EditorContext = createContext({
-  state: {},
-  dispatch: () => {},
-});
+export const EditorContext = createContext();
 
 const defaultEditorState: iEditorState = {
   componmentList: [],
@@ -22,32 +19,55 @@ const defaultEditorState: iEditorState = {
   height: 1080,
 };
 
-const reducer = (
-  state: iEditorState,
-  action: { type: string; payload: any },
-) => {
+function reducer(state: iEditorState, action: { type: string; payload: any }) {
   switch (action.type) {
     case 'ADD_COMPONMENT':
-      const newState = {
+      return {
         ...state,
         componmentList: state.componmentList.concat(
-          action.payload.componmentConfig,
+          action.payload.componentConfig,
         ),
       };
-      return newState;
+    case 'SELECT_COMPONENT':
+      return {
+        ...state,
+        activedComponentId: action.payload.componentId,
+      };
+    case 'UPDATE_COMPONENT_LAYOUT':
+      return {
+        ...state,
+        componmentList: updateLayoutById(
+          state.componmentList,
+          action.payload.componentId,
+          action.payload.layoutConfig,
+        ),
+      };
+    default:
+      return state;
   }
-};
+}
+
+function updateLayoutById(componmentList, componentId, layoutConfig) {
+  return componmentList.map((item) => {
+    if (item.componentId === componentId) {
+      item = {
+        ...item,
+        layout: {
+          ...item?.layout,
+          ...layoutConfig,
+        },
+      };
+    }
+    return item;
+  });
+}
 
 export default function Editor() {
-  const [editorState, dispatch] = useReducer(reducer, defaultEditorState);
+  const editorState = useReducer(reducer, defaultEditorState);
+
   return (
     <div className={styles.editor}>
-      <EditorContext.Provider
-        value={{
-          state: editorState,
-          dispatch,
-        }}
-      >
+      <EditorContext.Provider value={editorState}>
         <LeftBar></LeftBar>
         <CanvasContent></CanvasContent>
         <RightBar></RightBar>

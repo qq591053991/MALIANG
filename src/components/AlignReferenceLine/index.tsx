@@ -3,10 +3,24 @@ import styles from '../CanvasContent/index.less';
 
 interface iProps {
   children: React.ReactElement;
+  actived: Boolean;
+  onClick: (event: React.MouseEvent) => void;
 }
 
 // 布局参考对齐辅助线
 export default function AlignReferenceLine(props: iProps) {
-  const { children } = props;
-  return <div className={styles['align-reference-lien-wrap']}>{children}</div>;
+  const { children, onClick, actived } = props;
+  console.log(actived);
+  return (
+    <div
+      onClick={onClick}
+      className={actived ? '' : ''}
+      style={{
+        height: '100%',
+        width: '100%',
+      }}
+    >
+      {children}
+    </div>
+  );
 }

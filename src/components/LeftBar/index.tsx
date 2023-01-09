@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import schema from '@/ComponmentSource/schema';
+import schema from '@/ComponentSource/schema';
 import styles from './index.less';
 import { v4 as uuid } from 'uuid';
 import { iComponentCategory } from '@/typings/SchemaCommon';
@@ -21,12 +21,12 @@ const cateInfoSet = {
 export default function LeftBar() {
   const [curTab, setCurTab] = useState(iComponentCategory.INOFRMATION);
 
-  function dragStart(event: React.DragEvent, componmentConfig) {
+  function dragStart(event: React.DragEvent, componentConfig) {
     event.dataTransfer.setData(
-      'componmentConfig',
-      JSON.stringify(componmentConfig),
+      'componentConfig',
+      JSON.stringify(componentConfig),
     );
-    event.dataTransfer.setData('componmentId', uuid());
+    event.dataTransfer.setData('componentId', uuid());
   }
 
   return (
