@@ -11,7 +11,14 @@ export default function AlignReferenceLine(props: iProps) {
   const { children, onClick, actived } = props;
   console.log(actived);
   return (
-    <div onClick={onClick} className={actived ? '' : ''}>
+    <div
+      onClick={onClick}
+      className={actived ? '' : ''}
+      style={{
+        height: '100%',
+        width: '100%',
+      }}
+    >
       {children}
     </div>
   );

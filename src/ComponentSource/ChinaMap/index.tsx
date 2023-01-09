@@ -17,5 +17,7 @@ export default function ChinaMap(props) {
       },
     ],
   };
-  return <ReactEcharts option={options} />;
+  return (
+    <ReactEcharts option={options} style={{ height: '100%', width: '100%' }} />
+  );
 }

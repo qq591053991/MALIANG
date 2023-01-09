@@ -25,7 +25,7 @@ function reducer(state: iEditorState, action: { type: string; payload: any }) {
       return {
         ...state,
         componmentList: state.componmentList.concat(
-          action.payload.componmentConfig,
+          action.payload.componentConfig,
         ),
       };
     case 'SELECT_COMPONENT':
@@ -33,13 +33,38 @@ function reducer(state: iEditorState, action: { type: string; payload: any }) {
         ...state,
         activedComponentId: action.payload.componentId,
       };
+    case 'UPDATE_COMPONENT_LAYOUT':
+      return {
+        ...state,
+        componmentList: updateLayoutById(
+          state.componmentList,
+          action.payload.componentId,
+          action.payload.layoutConfig,
+        ),
+      };
     default:
       return state;
   }
 }
 
+function updateLayoutById(componmentList, componentId, layoutConfig) {
+  return componmentList.map((item) => {
+    if (item.componentId === componentId) {
+      item = {
+        ...item,
+        layout: {
+          ...item?.layout,
+          ...layoutConfig,
+        },
+      };
+    }
+    return item;
+  });
+}
+
 export default function Editor() {
   const editorState = useReducer(reducer, defaultEditorState);
+
   return (
     <div className={styles.editor}>
       <EditorContext.Provider value={editorState}>

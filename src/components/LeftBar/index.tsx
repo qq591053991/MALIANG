@@ -21,10 +21,10 @@ const cateInfoSet = {
 export default function LeftBar() {
   const [curTab, setCurTab] = useState(iComponentCategory.INOFRMATION);
 
-  function dragStart(event: React.DragEvent, componmentConfig) {
+  function dragStart(event: React.DragEvent, componentConfig) {
     event.dataTransfer.setData(
-      'componmentConfig',
-      JSON.stringify(componmentConfig),
+      'componentConfig',
+      JSON.stringify(componentConfig),
     );
     event.dataTransfer.setData('componentId', uuid());
   }
