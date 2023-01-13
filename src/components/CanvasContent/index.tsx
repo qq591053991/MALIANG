@@ -6,19 +6,24 @@ import { Resizable, ResizableBox } from 'react-resizable';
 import DragWrap from '../DragWrap';
 import Calibration from '../Calibration';
 import { throttle } from '@/utils/tool';
+import { debounce } from 'lodash';
 import ComponentRender from '../ComponentRender';
+import MoveableWrap from '../MoveableWrap';
 
 import styles from './index.less';
-import 'react-resizable/css/styles.css';
-import { DndContext } from '@dnd-kit/core';
-import Draggable from '../Draggable';
-import LayoutWrap from '../LayoutWrap';
+import Ruler from '@scena/react-ruler';
+import { useScroll } from 'ahooks';
+// import 'react-resizable/css/styles.css';
 
 // 画布主内容
 export default function CanvasContent(props) {
   const [state, dispatch] = useContext(EditorContext);
   const [scaleNum, setScale] = useState(1);
   const [dragstate, setDragState] = useState({ x: 0, y: 0 });
+  const [diffmove, setDiffMove] = useState({
+    start: { x: 0, y: 0 },
+    move: false,
+  });
 
   const handleSlider = useMemo(() => {
     return (type: any) => {
@@ -34,6 +39,7 @@ export default function CanvasContent(props) {
     setScale(1);
     setDragState({ x: 0, y: 0 });
   };
+
   function onDrop(event: React.DragEvent) {
     const componentConfig = JSON.parse(
       event.dataTransfer.getData('componentConfig'),
@@ -53,40 +59,35 @@ export default function CanvasContent(props) {
       },
     });
   }
-  const { componmentList = [], activedComponentId = '' } = state;
+  const { componentList = [], canvasConfig, curComponentConfig = {} } = state;
 
-  const selectComponent = (curComponentConfig) => {
-    const { componentId } = curComponentConfig;
+  const selectCanvas = () => {
+    dispatch({
+      type: 'SELECT_CANVAS',
+    });
+  };
+
+  const selectComponent = (curComponentConfig: Record<string, any>) => {
     dispatch({
       type: 'SELECT_COMPONENT',
       payload: {
-        componentId,
+        componentConfig: curComponentConfig,
       },
     });
   };
 
-  function handleCmpDragEnd(data) {
-    console.log(data);
-    const {
-      active: {
-        data: {
-          current: { layout },
-        },
-      },
-    } = data;
-    const { left = 0, top = 0 } = layout || {};
+  // 拖拽结束后组件更新布局坐标位置
+  function handleCmpDragEnd(componentId, layoutConfig) {
     dispatch({
       type: 'UPDATE_COMPONENT_LAYOUT',
       payload: {
-        componentId: data?.active?.id,
-        layoutConfig: {
-          left: left + data?.delta?.x,
-          top: top + data?.delta?.y,
-        },
+        componentId: componentId,
+        layoutConfig,
       },
     });
   }
 
+  // resize后更新组件布局大小
   function handleCmpResize(componentConfig, size) {
     dispatch({
       type: 'UPDATE_COMPONENT_LAYOUT',
@@ -100,74 +101,66 @@ export default function CanvasContent(props) {
   }
 
   const containerRef = useRef<HTMLDivElement>(null);
-  const [diffmove, setDiffMove] = useState({
-    start: { x: 0, y: 0 },
-    move: false,
-  });
-  const mousedownfn = useMemo(() => {
-    return (e: React.MouseEvent<HTMLDivElement>) => {
-      if (e.target === containerRef.current) {
-        setDiffMove({
-          start: {
-            x: e.clientX,
-            y: e.clientY,
-          },
-          move: true,
-        });
-      }
-    };
-  }, []);
+  const hRulerRef = useRef(null);
+  const vRulerRef = useRef(null);
+  const scroll = useScroll(containerRef);
 
-  const mousemovefn = useMemo(() => {
-    return (e: React.MouseEvent<HTMLDivElement>) => {
-      if (diffmove.move) {
-        let diffx: number;
-        let diffy: number;
-        const newX = e.clientX;
-        const newY = e.clientY;
-        diffx = newX - diffmove.start.x;
-        diffy = newY - diffmove.start.y;
-        setDiffMove({
-          start: {
-            x: newX,
-            y: newY,
-          },
-          move: true,
-        });
-        setDragState((prev) => {
-          return {
-            x: prev.x + diffx,
-            y: prev.y + diffy,
-          };
-        });
-      }
-    };
-  }, [diffmove.move, diffmove.start.x, diffmove.start.y]);
-
-  const mouseupfn = useMemo(() => {
-    return () => {
+  const mousedownfn = (e: React.MouseEvent<HTMLDivElement>) => {
+    if (e.target === containerRef.current) {
       setDiffMove({
-        start: { x: 0, y: 0 },
-        move: false,
+        start: {
+          x: e.clientX,
+          y: e.clientY,
+        },
+        move: true,
       });
-    };
-  }, []);
+    }
+  };
 
-  const onwheelFn = useMemo(() => {
-    return (e: React.WheelEvent<HTMLDivElement>) => {
-      if (e.deltaY < 0) {
-        setDragState((prev) => ({
-          x: prev.x,
-          y: prev.y + 40,
-        }));
-      } else {
-        setDragState((prev) => ({
-          x: prev.x,
-          y: prev.y - 40,
-        }));
-      }
-    };
-  }, []);
+  const mousemovefn = (e: React.MouseEvent<HTMLDivElement>) => {
+    if (diffmove.move) {
+      let diffx: number;
+      let diffy: number;
+      const newX = e.clientX;
+      const newY = e.clientY;
+      diffx = newX - diffmove.start.x;
+      diffy = newY - diffmove.start.y;
+      setDiffMove({
+        start: {
+          x: newX,
+          y: newY,
+        },
+        move: true,
+      });
+      setDragState((prev) => {
+        return {
+          x: prev.x + diffx,
+          y: prev.y + diffy,
+        };
+      });
+    }
+  };
+
+  const mouseupfn = () => {
+    setDiffMove({
+      start: { x: 0, y: 0 },
+      move: false,
+    });
+  };
+
+  const onwheelFn = (e: React.WheelEvent<HTMLDivElement>) => {
+    if (e.deltaY < 0) {
+      setDragState((prev) => ({
+        x: prev.x,
+        y: prev.y + 40,
+      }));
+    } else {
+      setDragState((prev) => ({
+        x: prev.x,
+        y: prev.y - 40,
+      }));
+    }
+  };
 
   useEffect(() => {
     if (diffmove.move && containerRef.current) {
@@ -188,81 +181,99 @@ export default function CanvasContent(props) {
         id="calibration"
         ref={containerRef}
         onMouseDown={mousedownfn}
-        onMouseMove={throttle(mousemovefn, 500)}
+        onMouseMove={throttle(mousemovefn, 100)}
         onMouseUp={mouseupfn}
         onMouseLeave={mouseupfn}
         onWheel={onwheelFn}
       >
-        <div className={styles.tickMarkTop}>
-          <Calibration direction="up" id="calibrationUp" multiple={scaleNum} />
-        </div>
-        <div className={styles.tickMarkLeft}>
-          <Calibration
-            direction="right"
-            id="calibrationRight"
-            multiple={scaleNum}
-          />
-        </div>
-        {/* <SourceBox
-          dragState={dragstate}
-          setDragState={setDragState}
-          scaleNum={scaleNum}
-          canvasId={canvasId}
-          allType={allType}
-        />
-        <CanvasControl scaleNum={scaleNum} handleSlider={handleSlider} backSize={backSize} /> */}
-        <div className={styles.canvasBox} id="canvasBox">
-          {/* <div className={styles['canvas-wrap']} id="canvas-wrap"> */}
-          <DndContext onDragEnd={handleCmpDragEnd}>
-            {componmentList.map((componentConfig) => {
+        <div
+          style={{
+            width: '5000px',
+            height: '3000px',
+          }}
+        >
+          <div className={styles.cover}></div>
+          <div className={styles.tickMarkTop}>
+            <Ruler
+              ref={hRulerRef}
+              type="horizontal"
+              shortLineSize={3}
+              longLineSize={5}
+              textOffset={[0, 10]}
+              zoom={1}
+              scrollPos={scroll?.left - 30}
+            />
+          </div>
+          <div className={styles.tickMarkLeft}>
+            <Ruler
+              ref={vRulerRef}
+              type="vertical"
+              shortLineSize={3}
+              longLineSize={5}
+              textOffset={[10, 0]}
+              zoom={1}
+              scrollPos={scroll?.top - 30}
+            />
+          </div>
+          <div
+            className={styles.canvasBox}
+            id="canvasBox"
+            onClick={(e) => {
+              e.stopPropagation();
+              selectCanvas();
+            }}
+            style={{
+              ...canvasConfig,
+            }}
+          >
+            {componentList.map((componentConfig) => {
               return (
-                <Resizable
-                  width={
-                    componentConfig?.layout?.width
-                      ? componentConfig?.layout?.width
-                      : 200
+                <MoveableWrap
+                  componentConfig={componentConfig}
+                  actived={
+                    componentConfig.componentId ===
+                    curComponentConfig?.componentId
                   }
-                  height={
-                    componentConfig?.layout?.height
-                      ? componentConfig?.layout?.height
-                      : 200
-                  }
-                  onResize={(e, { size }) => {
+                  onDrag={(e) => {
+                    e.target.style.transform = `translate(${e.beforeTranslate[0]}px, ${e.beforeTranslate[1]}px)`;
+                  }}
+                  nativeOnClick={(e) => {
                     e.stopPropagation();
-                    handleCmpResize(componentConfig, size);
+                    selectComponent(componentConfig);
+                  }}
+                  onDragStart={(e) => {
+                    selectComponent(componentConfig);
+                  }}
+                  onDragEnd={({ lastEvent }) => {
+                    if (!lastEvent) return;
+                    const { left, top } = lastEvent;
+                    handleCmpDragEnd(componentConfig.componentId, {
+                      left,
+                      top,
+                    });
+                  }}
+                  onResize={(e) => {
+                    const beforeTranslate = e.drag.beforeTranslate;
+                    // frame.translate = beforeTranslate;
+                    e.target.style.width = `${e.width}px`;
+                    e.target.style.height = `${e.height}px`;
+                    e.target.style.transform = `translate(${beforeTranslate[0]}px, ${beforeTranslate[1]}px)`;
+                  }}
+                  onResizeEnd={(e) => {
+                    if (!e.lastEvent) return;
+                    handleCmpResize(componentConfig, {
+                      height: e.lastEvent.height,
+                      width: e.lastEvent.width,
+                    });
                   }}
                 >
-                  <div
-                    className="test"
-                    style={{
-                      width: componentConfig?.layout?.width ?? 200 + 'px',
-                      height: componentConfig?.layout?.height ?? 200 + 'px',
-                      left: `${componentConfig?.layout?.left}px`,
-                      top: `${componentConfig?.layout?.top}px`,
-                    }}
-                  >
-                    <Draggable
-                      id={componentConfig.componentId}
-                      data={componentConfig}
-                    >
-                      <AlignReferenceLine
-                        onClick={() => selectComponent(componentConfig)}
-                        actived={
-                          activedComponentId === componentConfig?.componentId
-                        }
-                        {...componentConfig}
-                      >
-                        <EditSideToolbar>
-                          <ComponentRender {...componentConfig} />
-                        </EditSideToolbar>
-                      </AlignReferenceLine>
-                    </Draggable>
-                  </div>
-                </Resizable>
+                  <EditSideToolbar>
+                    <ComponentRender {...componentConfig} />
+                  </EditSideToolbar>
+                </MoveableWrap>
               );
             })}
-          </DndContext>
-          {/* </div> */}
+          </div>
         </div>
       </div>
     </div>

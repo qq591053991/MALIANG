@@ -6,9 +6,7 @@ export default {
   icon: 'icon-xianxingtu',
   category: iComponentCategory.CONTORL,
   config: {
-    text: '我是文字',
-    color: '#666',
-    fontSize: 16,
+    dataType: 'dynamic',
   },
   baseConfig: [
     {
@@ -29,9 +27,49 @@ export default {
   ],
   dataConfig: [
     {
-      key: 'options',
-      name: '选项',
-      type: 'List',
+      key: 'dataType',
+      name: '数据类型',
+      type: 'Radio',
+      options: [
+        {
+          label: '静态数据',
+          value: 'static',
+        },
+        {
+          label: '动态数据',
+          value: 'dynamic',
+        },
+      ],
+    },
+    // {
+    //   key: 'method',
+    //   name: '请求方法',
+    //   type: 'Select',
+    //   options: [
+    //     {
+    //       label: 'GET',
+    //       value: 'GET'
+    //     },
+    //     {
+    //       label: 'POST',
+    //       value: 'POST'
+    //     },
+    //   ]
+    // },
+    {
+      key: 'dataIndex',
+      name: '数据指标',
+      type: 'Select',
+      options: [
+        {
+          label: '利率分布',
+          value: 'interestRrate',
+        },
+        {
+          label: '额度分布',
+          value: 'quota',
+        },
+      ],
     },
   ],
   styleConfig: [

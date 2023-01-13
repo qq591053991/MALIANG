@@ -17,5 +17,5 @@ export default function Bar(props) {
       },
     ],
   };
-  return <ReactEcharts option={options} />;
+  return <ReactEcharts option={options} style={{ height: '100%' }} />;
 }

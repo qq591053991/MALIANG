@@ -8,7 +8,7 @@ import CardPicker from '../../components/FormComponents/CardPicker';
 import Table from '../../components/FormComponents/Table';
 import Pos from '../../components/FormComponents/Pos';
 import { Store } from 'antd/lib/form/interface';
-import RichText from '../../components/FormComponents/XEditor';
+// import RichText from '../../components/FormComponents/XEditor';
 import FormItems from '../../components/FormComponents/FormItems';
 const normFile = (e: any) => {
   console.log('Upload event:', e);
@@ -23,8 +23,7 @@ const { Option } = Select;
 const { TextArea } = Input;
 
 const formItemLayout = {
-  labelCol: { span: 6 },
-  wrapperCol: { span: 16 },
+  labelCol: { style: { width: 110 } },
 };
 
 interface FormEditorProps {
@@ -33,11 +32,10 @@ interface FormEditorProps {
   onDel: Function;
   defaultValue: { [key: string]: any };
   config: Array<any>;
-  rightPannelRef: RefObject<HTMLDivElement>;
 }
 
 const FormEditor = (props: FormEditorProps) => {
-  const { config, defaultValue, onSave, uid, rightPannelRef } = props;
+  const { config, defaultValue, onSave, uid } = props;
   const onFinish = (values: Store) => {
     onSave && onSave(values);
   };
@@ -53,7 +51,7 @@ const FormEditor = (props: FormEditorProps) => {
   const handlechange = () => {
     onFinish(form.getFieldsValue());
   };
-
+  console.log(config, defaultValue);
   return (
     <Form
       form={form}
@@ -62,6 +60,7 @@ const FormEditor = (props: FormEditorProps) => {
       onFinish={onFinish}
       initialValues={defaultValue}
       onValuesChange={handlechange}
+      colon={false}
     >
       {config.map((item, i) => {
         return (
@@ -86,11 +85,11 @@ const FormEditor = (props: FormEditorProps) => {
                 <MutiText />
               </Form.Item>
             )}
-            {item.type === 'DataList' && (
+            {/* {item.type === 'DataList' && (
               <Form.Item label={item.name} name={item.key}>
                 <DataList cropRate={item.cropRate} />
               </Form.Item>
-            )}
+            )} */}
             {item.type === 'Color' && (
               <Form.Item label={item.name} name={item.key}>
                 <Color />
@@ -99,11 +98,14 @@ const FormEditor = (props: FormEditorProps) => {
 
             {item.type === 'Select' && (
               <Form.Item label={item.name} name={item.key}>
-                <Select placeholder="请选择">
-                  {item.range.map((v: any, i: number) => {
+                <Select
+                  placeholder="请选择"
+                  popupClassName="dark-select-dropdown"
+                >
+                  {item?.options?.map((v: any, i: number) => {
                     return (
-                      <Option value={v.key} key={i}>
-                        {v.text}
+                      <Option value={v.value} key={i}>
+                        {v.label}
                       </Option>
                     );
                   })}
@@ -112,15 +114,7 @@ const FormEditor = (props: FormEditorProps) => {
             )}
             {item.type === 'Radio' && (
               <Form.Item label={item.name} name={item.key}>
-                <Radio.Group>
-                  {item.range.map((v: any, i: number) => {
-                    return (
-                      <Radio value={v.key} key={i}>
-                        {v.text}
-                      </Radio>
-                    );
-                  })}
-                </Radio.Group>
+                <Radio.Group options={item?.options} />
               </Form.Item>
             )}
             {item.type === 'Switch' && (
@@ -157,16 +151,16 @@ const FormEditor = (props: FormEditorProps) => {
                 <Pos />
               </Form.Item>
             )}
-            {item.type === 'FormItems' && (
+            {/* {item.type === 'FormItems' && (
               <Form.Item name={item.key} valuePropName="formList">
                 <FormItems data={item.data} rightPannelRef={rightPannelRef} />
               </Form.Item>
-            )}
-            {item.type === 'RichText' && (
+            )} */}
+            {/* {item.type === 'RichText' && (
               <Form.Item label={item.name} name={item.key} noStyle={true}>
                 <RichText />
               </Form.Item>
-            )}
+            )} */}
           </React.Fragment>
         );
       })}

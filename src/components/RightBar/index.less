@@ -1,4 +1,267 @@
 .rightBar {
   width: 300px;
-  background: #1d2126;
+  background: var(--ml-nav-active-bg);
+  z-index: 2;
+
+  .tabs {
+    display: flex;
+    height: 40px;
+    line-height: 40px;
+
+    .tab-item {
+      flex: 1;
+      height: 100%;
+      display: inline-block;
+      text-align: center;
+      background: var(--ml-nav-bg);
+      transition: 0.2s;
+      outline: 0;
+      color: #bcc9d4;
+      font-size: 12px;
+      cursor: pointer;
+      padding: 0 5px;
+      border-top: 2px solid transparent;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      overflow: hidden;
+
+      &.active {
+        background: var(--ml-nav-active-bg);
+        color: var(--ml-main-color);
+        border-top: 2px solid var(--ml-main-color);
+      }
+    }
+  }
+
+  :global {
+    #form_editor {
+      .ant-form-item {
+        font-size: 12px;
+        // height: 24px;
+        padding: 4px;
+        margin: 14px 0;
+        box-sizing: content-box;
+
+        .ant-form-item-label {
+          padding-left: 20px;
+          padding-right: 12px;
+          text-align: start;
+
+          & > label {
+            height: 24px;
+            line-height: 24px;
+            color: #fff;
+            font-size: 12px;
+          }
+        }
+
+        .ant-form-item-control {
+          padding-right: 20px;
+
+          & > * {
+            min-height: 24px;
+          }
+        }
+
+        .ant-input,
+        .ant-input-number,
+        .ant-select-selector {
+          border: var(--ml-gui-component-border);
+          background-color: transparent;
+          width: 162px;
+          height: 24px;
+        }
+
+        .ant-select-selector {
+          box-shadow: none;
+
+          &:hover {
+            border: 1px solid var(--ml-gui-primary-color);
+          }
+
+          .ant-select-selection-item {
+            color: #fff;
+          }
+
+          .ant-select-selection-item,
+          .ant-select-selection-placeholder {
+            font-size: 12px;
+            line-height: 1.7;
+          }
+        }
+
+        .ant-select-arrow {
+          color: var(--ml-gui-font-color-base);
+        }
+        &:hover {
+          .ant-select-arrow {
+            color: var(--ml-gui-primary-color);
+          }
+        }
+
+        .ant-select-single:not(.ant-select-customize-input)
+          .ant-select-selector
+          .ant-select-selection-search-input {
+          height: auto;
+        }
+
+        .ant-input {
+          color: #fff;
+          height: 24px;
+          line-height: 24px;
+          padding: 0 7px;
+          font-size: 12px;
+          border: var(--ml-gui-component-border);
+
+          &:hover {
+            border: 1px solid var(--ml-gui-primary-color);
+          }
+
+          &:focus,
+          &-focused {
+            box-shadow: none;
+          }
+        }
+
+        .ant-select {
+          text-align: center;
+        }
+
+        .ant-radio-wrapper {
+          font-size: 12px;
+          color: #fff;
+          margin-right: 0;
+        }
+
+        .ant-input-number {
+          box-sizing: border-box;
+          font-variant: tabular-nums;
+          list-style: none;
+          position: relative;
+          width: 100%;
+          min-width: 0;
+          color: #fff;
+          font-size: 12px;
+          line-height: 1.5715;
+          background-color: transparent;
+          background-image: none;
+          transition: all 0.3s;
+          display: inline-block;
+          width: 90px;
+          margin: 0;
+          padding: 0;
+          border: var(--ml-gui-component-border);
+          border-radius: 2px;
+
+          &:hover {
+            border: 1px solid var(--ml-gui-primary-color);
+          }
+
+          .ant-input-number-handler-wrap {
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 22px;
+            height: 100%;
+            background: #141414;
+            // border-left: var(--ml-gui-component-border);
+            border-radius: 0 2px 2px 0;
+            opacity: 1;
+            transition: opacity 0.24s linear 0.1s;
+            z-index: 2;
+          }
+        }
+
+        .ant-input-number:focus,
+        .ant-input-number-focused {
+          box-shadow: none;
+        }
+
+        .ant-input-number-handler {
+          position: relative;
+          display: block;
+          width: 100%;
+          height: 50%;
+          overflow: hidden;
+          color: hsla(0, 0%, 100%, 0.45);
+          font-weight: 700;
+          line-height: 0;
+          text-align: center;
+          transition: all 0.1s linear;
+          border: 1px solid transparent;
+
+          &:hover {
+            height: 50% !important;
+          }
+
+          &:active {
+            background: transparent;
+          }
+
+          &.ant-input-number-handler-down:hover {
+            border: 1px solid transparent;
+            border-left: 1px solid var(--ml-gui-primary-color);
+            border-top: 1px solid var(--ml-gui-primary-color);
+          }
+
+          &.ant-input-number-handler-up:hover {
+            border: 1px solid transparent;
+            border-left: 1px solid var(--ml-gui-primary-color);
+            border-bottom: 1px solid var(--ml-gui-primary-color);
+          }
+        }
+
+        .ant-input-number-handler-down-inner,
+        .ant-input-number-handler-up-inner {
+          color: hsla(0, 0%, 100%, 0.45);
+        }
+
+        .ant-input-number-input {
+          height: 20px;
+          line-height: 20px;
+          padding-left: 4px;
+        }
+
+        .ant-form-item-control-input-content {
+          line-height: 14px;
+        }
+
+        .ant-upload-list-picture-card-container {
+          display: flex;
+          margin-left: 30px;
+        }
+      }
+    }
+  }
+}
+
+:global {
+  .dark-select-dropdown {
+    border-radius: 1px !important;
+    padding: 0 !important;
+    border: 1px solid var(--ml-gui-primary-color);
+
+    .rc-virtual-list {
+      background: var(--ml-gui-background-color-back);
+    }
+
+    .ant-select-item.ant-select-item-option {
+      font-size: 12px;
+      background: var(--ml-gui-background-color-back);
+      color: var(--ml-gui-font-color-base);
+      border-left: 2px solid transparent;
+
+      &.ant-select-item-option-selected {
+        font-weight: normal;
+        color: var(--ml-gui-font-color-1);
+        border-left: 2px solid var(--ml-gui-primary-color);
+      }
+
+      &:hover {
+        background: var(--ml-gui-background-hover-color);
+        border-left: 2px solid var(--ml-gui-primary-color);
+        cursor: pointer;
+      }
+    }
+  }
 }

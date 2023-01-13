@@ -4,8 +4,8 @@ import styles from './index.less';
 import { v4 as uuid } from 'uuid';
 import { iComponentCategory } from '@/typings/SchemaCommon';
 
-const componmentList = Object.values(schema);
-const tabList = [...new Set(componmentList.map((item) => item.category))];
+const componentList = Object.values(schema);
+const tabList = [...new Set(componentList.map((item) => item.category))];
 
 const cateInfoSet = {
   [iComponentCategory.INOFRMATION]: {
@@ -48,8 +48,8 @@ export default function LeftBar() {
       </ul>
       <div className={styles.tabsContentWrap}>
         <div className={styles.tabsContent}>
-          <div className={styles.componmentList}>
-            {componmentList
+          <div className={styles.componentList}>
+            {componentList
               .filter((item) => item?.category === curTab)
               .map((item) => (
                 <div

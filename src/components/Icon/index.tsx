@@ -3,23 +3,14 @@ import * as Icon from '@ant-design/icons';
 import { AntdIconProps } from '@ant-design/icons/lib/components/AntdIcon';
 import { AntdIconType } from './icon';
 import { IIconConfig } from './schema';
-import logo from '@/assets/icon_01.png';
+// import logo from '@/assets/icon_01.png';
 
 interface IconType extends IIconConfig {
   isTpl?: boolean;
 }
 const XIcon = memo((props: IconType) => {
-  const {
-    color,
-    size,
-    link,
-    text,
-    fontSize,
-    fontColor,
-    type,
-    spin,
-    isTpl,
-  } = props;
+  const { color, size, link, text, fontSize, fontColor, type, spin, isTpl } =
+    props;
 
   const MyIcon: React.ForwardRefExoticComponent<
     Pick<AntdIconProps, AntdIconType> & React.RefAttributes<HTMLSpanElement>

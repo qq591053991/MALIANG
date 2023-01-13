@@ -26,9 +26,11 @@ export default function Draggable(props) {
       {...attributes}
       style={{
         position: 'relative',
-        height: '100%',
-        width: '100%',
+        // height: '100%',
+        // width: '100%',
         ...style,
+        width: data?.layout?.width ? data?.layout?.width : 200,
+        height: data?.layout?.height ? data?.layout?.height : 200,
       }}
     >
       {props.children}

@@ -1,0 +1,24 @@
+.target {
+  width: 200px;
+  height: 200px;
+  position: absolute;
+  border: 1px dashed transparent;
+  cursor: move;
+
+  &:hover {
+    border: 1px dashed #4af;
+    background: rgba(115, 170, 229, 0.5);
+  }
+}
+
+:global {
+  .target {
+    & + .moveable-test {
+      visibility: hidden !important;
+
+      &.actived {
+        visibility: visible !important;
+      }
+    }
+  }
+}

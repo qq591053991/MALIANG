@@ -6,17 +6,29 @@ import styles from './index.less';
 import Draggable from 'react-draggable';
 
 interface iEditorState {
-  componmentList: any[];
+  componentList: any[];
   width: number;
   height: number;
+  curComponentConfig?: Record<string, any> | null;
+  canvasConfig?: {
+    width: number;
+    height: number;
+    backgroundColor: string;
+  };
 }
 
 export const EditorContext = createContext();
 
 const defaultEditorState: iEditorState = {
-  componmentList: [],
+  componentList: [],
   width: 1920,
   height: 1080,
+  curComponentConfig: null,
+  canvasConfig: {
+    width: 1920,
+    height: 1080,
+    backgroundColor: 'rgba(7,11,23,1)',
+  },
 };
 
 function reducer(state: iEditorState, action: { type: string; payload: any }) {
@@ -24,22 +36,44 @@ function reducer(state: iEditorState, action: { type: string; payload: any }) {
     case 'ADD_COMPONMENT':
       return {
         ...state,
-        componmentList: state.componmentList.concat(
+        componentList: state.componentList.concat(
           action.payload.componentConfig,
         ),
       };
     case 'SELECT_COMPONENT':
       return {
         ...state,
-        activedComponentId: action.payload.componentId,
+        curComponentConfig: action.payload.componentConfig,
+      };
+    case 'SELECT_CANVAS':
+      return {
+        ...state,
+        curComponentConfig: null,
+      };
+    case 'UPDATE_CANVAS':
+      return {
+        ...state,
+        canvasConfig: {
+          ...state.canvasConfig,
+          ...action.payload.canvasConfig,
+        },
       };
     case 'UPDATE_COMPONENT_LAYOUT':
       return {
         ...state,
-        componmentList: updateLayoutById(
-          state.componmentList,
+        componentList: updateLayoutById(
+          state.componentList,
           action.payload.componentId,
           action.payload.layoutConfig,
+        ),
+      };
+    case 'UPDATE_COMPONENT_CONFIG':
+      return {
+        ...state,
+        componentList: updateConfigById(
+          state.componentList,
+          state?.curComponentConfig?.componentId,
+          action.payload.componentConfig,
         ),
       };
     default:
@@ -47,8 +81,23 @@ function reducer(state: iEditorState, action: { type: string; payload: any }) {
   }
 }
 
-function updateLayoutById(componmentList, componentId, layoutConfig) {
-  return componmentList.map((item) => {
+function updateConfigById(componentList, componentId, config) {
+  return componentList.map((item) => {
+    if (item.componentId === componentId) {
+      item = {
+        ...item,
+        config: {
+          ...item?.config,
+          ...config,
+        },
+      };
+    }
+    return item;
+  });
+}
+
+function updateLayoutById(componentList, componentId, layoutConfig) {
+  return componentList.map((item) => {
     if (item.componentId === componentId) {
       item = {
         ...item,

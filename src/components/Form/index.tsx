@@ -4,7 +4,7 @@ import BaseForm from './BaseForm';
 import styles from './index.less';
 import { IFormConfig } from './schema';
 import { IsPC } from '@/utils/tool';
-import logo from '@/assets/form.png';
+// import logo from '@/assets/form.png';
 const FormComponent = (props: IFormConfig & { isTpl: boolean }) => {
   const {
     title,
@@ -41,11 +41,11 @@ const FormComponent = (props: IFormConfig & { isTpl: boolean }) => {
   const isEditorPage = window.location.pathname.indexOf('editor') > -1;
   return (
     <>
-      {props.isTpl && (
+      {/* {props.isTpl && (
         <div>
           <img src={logo} alt="" />
         </div>
-      )}
+      )} */}
       {!props.isTpl && (
         <div
           className={styles.formWrap}

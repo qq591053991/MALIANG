@@ -11,7 +11,6 @@ import {
   RcFile,
 } from 'antd/lib/upload/interface';
 import { isDev, unParams, uuid } from '@/utils/tool';
-import req from '@/utils/req';
 import styles from './index.less';
 
 const { TabPane } = Tabs;
