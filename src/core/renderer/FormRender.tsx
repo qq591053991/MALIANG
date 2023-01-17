@@ -7,6 +7,7 @@ import Color from '../../components/FormComponents/Color';
 import CardPicker from '../../components/FormComponents/CardPicker';
 import Table from '../../components/FormComponents/Table';
 import Pos from '../../components/FormComponents/Pos';
+import MLMonacoEditor from '@/components/FormComponents/MLMonacoEditor';
 import { Store } from 'antd/lib/form/interface';
 // import RichText from '../../components/FormComponents/XEditor';
 import FormItems from '../../components/FormComponents/FormItems';
@@ -29,7 +30,6 @@ const formItemLayout = {
 interface FormEditorProps {
   uid: string;
   onSave: Function;
-  onDel: Function;
   defaultValue: { [key: string]: any };
   config: Array<any>;
 }
@@ -46,12 +46,14 @@ const FormEditor = (props: FormEditorProps) => {
     return () => {
       form.resetFields();
     };
-  }, [uid, form]);
+  }, [uid, form, defaultValue]);
 
   const handlechange = () => {
     onFinish(form.getFieldsValue());
   };
+
   console.log(config, defaultValue);
+
   return (
     <Form
       form={form}
@@ -149,6 +151,11 @@ const FormEditor = (props: FormEditorProps) => {
             {item.type === 'Pos' && (
               <Form.Item label={item.name} name={item.key}>
                 <Pos />
+              </Form.Item>
+            )}
+            {item.type === 'MonacoEditor' && (
+              <Form.Item label={item.name} name={item.key}>
+                <MLMonacoEditor />
               </Form.Item>
             )}
             {/* {item.type === 'FormItems' && (

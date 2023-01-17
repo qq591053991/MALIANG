@@ -12,12 +12,12 @@ export default function Draggable(props) {
   const style = transform
     ? {
         transform: `translate3d(${transform.x}px, ${transform.y}px, 0)`,
-        // left: `${data?.layout?.left}px`,
-        // top: `${data?.layout?.top}px`,
+        // left: `${data?.config?.left}px`,
+        // top: `${data?.config?.top}px`,
       }
     : {
-        // left: `${data?.layout?.left}px`,
-        // top: `${data?.layout?.top}px`,
+        // left: `${data?.config?.left}px`,
+        // top: `${data?.config?.top}px`,
       };
   return (
     <Element
@@ -29,8 +29,8 @@ export default function Draggable(props) {
         // height: '100%',
         // width: '100%',
         ...style,
-        width: data?.layout?.width ? data?.layout?.width : 200,
-        height: data?.layout?.height ? data?.layout?.height : 200,
+        width: data?.config?.width ? data?.config?.width : 200,
+        height: data?.config?.height ? data?.config?.height : 200,
       }}
     >
       {props.children}

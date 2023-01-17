@@ -50,8 +50,8 @@ export default function CanvasContent(props) {
       payload: {
         componentConfig: {
           ...componentConfig,
-          layout: {
-            ...componentConfig?.layout,
+          config: {
+            ...componentConfig?.config,
             left: event?.clientX,
             top: event?.clientY,
           },

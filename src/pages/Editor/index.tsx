@@ -101,8 +101,8 @@ function updateLayoutById(componentList, componentId, layoutConfig) {
     if (item.componentId === componentId) {
       item = {
         ...item,
-        layout: {
-          ...item?.layout,
+        config: {
+          ...item?.config,
           ...layoutConfig,
         },
       };

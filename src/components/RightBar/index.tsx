@@ -2,8 +2,10 @@ import React, { memo, useContext, useMemo, useState } from 'react';
 import styles from './index.less';
 import { EditorContext } from '@/pages/Editor';
 import { FormRender } from '@/core';
+import { BaseFormConfig } from '@/ComponentSource/BaseConfig';
+import { uuid } from '@/utils/tool';
 
-export default memo(function RightBar(props) {
+export default function RightBar(props) {
   const [state, dispatch] = useContext(EditorContext);
   const { curComponentConfig, canvasConfig } = state;
   const [curTab, setCurTab] = useState({
@@ -73,23 +75,23 @@ export default memo(function RightBar(props) {
     // },
   ];
 
-  const handleCanvasSave = useMemo(() => {
+  const handleCanvasSave = () => {
     return (data: any) => {
       dispatch({
         type: 'UPDATE_CANVAS',
         payload: { canvasConfig: data },
       });
     };
-  }, [canvasFormConfig, dispatch]);
+  };
 
-  const handleComponentConfigSave = useMemo(() => {
+  const handleComponentConfigSave = () => {
     return (data: any) => {
       dispatch({
         type: 'UPDATE_COMPONENT_CONFIG',
         payload: { componentConfig: data },
       });
     };
-  }, [curComponentConfig, dispatch]);
+  };
 
   const getFormConfig = function () {
     if (curTab.key === 'data') {
@@ -101,6 +103,7 @@ export default memo(function RightBar(props) {
     return curComponentConfig?.baseConfig;
   };
 
+  console.log(curComponentConfig?.config);
   return (
     <div className={styles.rightBar}>
       <ul className={styles.tabs}>
@@ -123,24 +126,19 @@ export default memo(function RightBar(props) {
               config={canvasFormConfig}
               defaultValue={canvasConfig}
               onSave={handleCanvasSave}
-              onDel={(e) => {
-                console.log(e);
-              }}
             />
           )}
           {curComponentConfig && (
             <FormRender
-              uid={curComponentConfig.componentId}
+              // uid={curComponentConfig.componentId}
+              uid={uuid()}
               config={getFormConfig()}
               defaultValue={curComponentConfig.config}
               onSave={handleComponentConfigSave}
-              onDel={(e) => {
-                console.log(e);
-              }}
             />
           )}
         </div>
       </div>
     </div>
   );
-});
+}

@@ -1,4 +1,5 @@
 import { iComponentCategory } from '@/typings/SchemaCommon';
+import { BaseConfig, BaseFormConfig } from '../BaseConfig';
 
 export default {
   name: '折线图',
@@ -6,14 +7,20 @@ export default {
   icon: 'icon-xianxingtu',
   category: iComponentCategory.CONTORL,
   config: {
+    ...BaseConfig,
     dataType: 'dynamic',
+    dataSource: {
+      xAxisData: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+      yAxisData: [200, 430, 524, 318, 235, 147, 260],
+    },
   },
   baseConfig: [
-    {
-      key: 'title',
-      name: '文字',
-      type: 'Text',
-    },
+    ...BaseFormConfig,
+    // {
+    //   key: 'title',
+    //   name: '标题',
+    //   type: 'Text',
+    // },
     {
       key: 'color',
       name: '标题颜色',
@@ -21,7 +28,7 @@ export default {
     },
     {
       key: 'fontSize',
-      name: '文字大小',
+      name: '标题文字大小',
       type: 'Number',
     },
   ],
@@ -70,6 +77,11 @@ export default {
           value: 'quota',
         },
       ],
+    },
+    {
+      key: 'dataSource',
+      name: '数据源',
+      type: 'MonacoEditor',
     },
   ],
   styleConfig: [

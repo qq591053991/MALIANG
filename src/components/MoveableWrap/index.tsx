@@ -51,8 +51,8 @@ export default function MoveableWrap(
     setTarget(document.querySelector(`.target-${componentId}`)!);
     setElementGuidelines([document.querySelector('.target')]);
   }, []);
-  const { layout, componentId } = componentConfig;
-  const { height, width, left, top } = layout;
+  const { config, componentId } = componentConfig;
+  const { height, width, left, top } = config;
   return (
     <>
       <div
