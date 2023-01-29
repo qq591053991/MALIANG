@@ -46,13 +46,15 @@ const FormEditor = (props: FormEditorProps) => {
     return () => {
       form.resetFields();
     };
-  }, [uid, form, defaultValue]);
+  }, [uid, form]);
 
   const handlechange = () => {
     onFinish(form.getFieldsValue());
   };
 
-  console.log(config, defaultValue);
+  useEffect(() => {
+    form.setFieldsValue(defaultValue);
+  }, [defaultValue]);
 
   return (
     <Form

@@ -66,6 +66,13 @@ function reducer(state: iEditorState, action: { type: string; payload: any }) {
           action.payload.componentId,
           action.payload.layoutConfig,
         ),
+        curComponentConfig: {
+          ...state?.curComponentConfig,
+          config: {
+            ...state?.curComponentConfig?.config,
+            ...action.payload.layoutConfig,
+          },
+        },
       };
     case 'UPDATE_COMPONENT_CONFIG':
       return {
@@ -75,6 +82,10 @@ function reducer(state: iEditorState, action: { type: string; payload: any }) {
           state?.curComponentConfig?.componentId,
           action.payload.componentConfig,
         ),
+        curComponentConfig: {
+          ...state?.curComponentConfig,
+          config: action.payload.componentConfig,
+        },
       };
     default:
       return state;
@@ -113,7 +124,6 @@ function updateLayoutById(componentList, componentId, layoutConfig) {
 
 export default function Editor() {
   const editorState = useReducer(reducer, defaultEditorState);
-
   return (
     <div className={styles.editor}>
       <EditorContext.Provider value={editorState}>

@@ -75,22 +75,20 @@ export default function RightBar(props) {
     // },
   ];
 
-  const handleCanvasSave = () => {
+  const handleCanvasSave = useMemo(() => {
     return (data: any) => {
       dispatch({
         type: 'UPDATE_CANVAS',
         payload: { canvasConfig: data },
       });
     };
-  };
+  }, [dispatch]);
 
-  const handleComponentConfigSave = () => {
-    return (data: any) => {
-      dispatch({
-        type: 'UPDATE_COMPONENT_CONFIG',
-        payload: { componentConfig: data },
-      });
-    };
+  const handleComponentConfigSave = (data: any) => {
+    dispatch({
+      type: 'UPDATE_COMPONENT_CONFIG',
+      payload: { componentConfig: data },
+    });
   };
 
   const getFormConfig = function () {
@@ -130,8 +128,7 @@ export default function RightBar(props) {
           )}
           {curComponentConfig && (
             <FormRender
-              // uid={curComponentConfig.componentId}
-              uid={uuid()}
+              uid={curComponentConfig.componentId}
               config={getFormConfig()}
               defaultValue={curComponentConfig.config}
               onSave={handleComponentConfigSave}
