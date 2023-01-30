@@ -77,25 +77,15 @@ export default function CanvasContent(props) {
   };
 
   // 拖拽结束后组件更新布局坐标位置
-  function handleCmpDragEnd(componentId, layoutConfig) {
+  function updateLayout(
+    componentId: string,
+    layoutConfig: Record<string, any>,
+  ) {
     dispatch({
       type: 'UPDATE_COMPONENT_LAYOUT',
       payload: {
         componentId: componentId,
         layoutConfig,
-      },
-    });
-  }
-
-  // resize后更新组件布局大小
-  function handleCmpResize(componentConfig, size) {
-    dispatch({
-      type: 'UPDATE_COMPONENT_LAYOUT',
-      payload: {
-        componentId: componentConfig?.componentId,
-        layoutConfig: {
-          ...size,
-        },
       },
     });
   }
@@ -246,24 +236,26 @@ export default function CanvasContent(props) {
                   }}
                   onDragEnd={({ lastEvent }) => {
                     if (!lastEvent) return;
-                    const { left, top } = lastEvent;
-                    handleCmpDragEnd(componentConfig.componentId, {
-                      left,
-                      top,
+                    const { beforeTranslate } = lastEvent;
+                    updateLayout(componentConfig.componentId, {
+                      left: beforeTranslate[0],
+                      top: beforeTranslate[1],
                     });
                   }}
                   onResize={(e) => {
                     const beforeTranslate = e.drag.beforeTranslate;
-                    // frame.translate = beforeTranslate;
                     e.target.style.width = `${e.width}px`;
                     e.target.style.height = `${e.height}px`;
                     e.target.style.transform = `translate(${beforeTranslate[0]}px, ${beforeTranslate[1]}px)`;
                   }}
-                  onResizeEnd={(e) => {
-                    if (!e.lastEvent) return;
-                    handleCmpResize(componentConfig, {
-                      height: e.lastEvent.height,
-                      width: e.lastEvent.width,
+                  onResizeEnd={({ lastEvent }) => {
+                    if (!lastEvent) return;
+                    const { beforeTranslate } = lastEvent.drag;
+                    updateLayout(componentConfig.componentId, {
+                      height: lastEvent.height,
+                      width: lastEvent.width,
+                      left: beforeTranslate[0],
+                      top: beforeTranslate[1],
                     });
                   }}
                 >

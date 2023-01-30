@@ -1,13 +1,12 @@
 import { iComponentCategory } from '@/typings/SchemaCommon';
-import { BaseConfig, BaseFormConfig } from '../BaseConfig';
+import { BaseModel } from '../BaseConfig';
 
-export default {
+export default new BaseModel({
   name: '折线图',
   type: 'Line',
   icon: 'icon-xianxingtu',
   category: iComponentCategory.CONTORL,
   config: {
-    ...BaseConfig,
     dataType: 'dynamic',
     dataSource: {
       xAxisData: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
@@ -15,7 +14,6 @@ export default {
     },
   },
   baseConfig: [
-    ...BaseFormConfig,
     // {
     //   key: 'title',
     //   name: '标题',
@@ -66,7 +64,7 @@ export default {
     {
       key: 'dataIndex',
       name: '数据指标',
-      type: 'Select',
+      type: 'DataIndexSelector',
       options: [
         {
           label: '利率分布',
@@ -77,11 +75,27 @@ export default {
           value: 'quota',
         },
       ],
+      dependencies: {
+        items: [
+          {
+            dependKey: 'dataType',
+            dependValues: ['dynamic'],
+          },
+        ],
+      },
     },
     {
       key: 'dataSource',
       name: '数据源',
       type: 'MonacoEditor',
+      dependencies: {
+        items: [
+          {
+            dependKey: 'dataType',
+            dependValues: ['static'],
+          },
+        ],
+      },
     },
   ],
   styleConfig: [
@@ -97,4 +111,4 @@ export default {
     },
   ],
   eventConfig: [{}],
-};
+});

@@ -17,7 +17,6 @@ export default memo(function ComponentRender(props) {
   // return <DynamicComponent {...props} />
   const { type, config } = props;
   const DynamicComponent = BuildComponent(type, config);
-  console.log(props);
   return (
     <>
       <DynamicComponent {...props} />

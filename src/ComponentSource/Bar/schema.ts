@@ -1,6 +1,7 @@
 import { iComponentCategory } from '@/typings/SchemaCommon';
+import { BaseModel } from '../BaseConfig';
 
-export default {
+export default new BaseModel({
   name: '柱状图',
   type: 'Bar',
   icon: 'icon-zhuzhuangtu',
@@ -43,4 +44,4 @@ export default {
     },
   ],
   eventConfig: [{}],
-};
+});
