@@ -65,21 +65,38 @@ export default new BaseModel({
       key: 'dataIndex',
       name: '数据指标',
       type: 'DataIndexSelector',
-      options: [
-        {
-          label: '利率分布',
-          value: 'interestRrate',
-        },
-        {
-          label: '额度分布',
-          value: 'quota',
-        },
-      ],
+      options: [],
       dependencies: {
         items: [
           {
             dependKey: 'dataType',
             dependValues: ['dynamic'],
+          },
+        ],
+      },
+    },
+    {
+      key: 'isPolling',
+      name: '定时刷新',
+      type: 'Switch',
+      dependencies: {
+        items: [
+          {
+            dependKey: 'dataType',
+            dependValues: ['dynamic'],
+          },
+        ],
+      },
+    },
+    {
+      key: 'pollingInterval',
+      name: '刷新时间',
+      type: 'Number',
+      dependencies: {
+        items: [
+          {
+            dependKey: 'isPolling',
+            dependValues: [true],
           },
         ],
       },

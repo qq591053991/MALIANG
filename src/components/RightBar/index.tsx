@@ -5,7 +5,7 @@ import { FormRender } from '@/core';
 import { BaseFormConfig } from '@/ComponentSource/BaseConfig';
 import { uuid } from '@/utils/tool';
 
-export default function RightBar(props) {
+function RightBar(props) {
   const [state, dispatch] = useContext(EditorContext);
   const { curComponentConfig, canvasConfig } = state;
   const [curTab, setCurTab] = useState({
@@ -84,12 +84,14 @@ export default function RightBar(props) {
     };
   }, [dispatch]);
 
-  const handleComponentConfigSave = (data: any) => {
-    dispatch({
-      type: 'UPDATE_COMPONENT_CONFIG',
-      payload: { componentConfig: data },
-    });
-  };
+  const handleComponentConfigSave = useMemo(() => {
+    return (data: any) => {
+      dispatch({
+        type: 'UPDATE_COMPONENT_CONFIG',
+        payload: { componentConfig: data },
+      });
+    };
+  }, []);
 
   const getFormConfig = function () {
     if (curTab.key === 'data') {
@@ -139,3 +141,5 @@ export default function RightBar(props) {
     </div>
   );
 }
+
+export default memo(RightBar);
