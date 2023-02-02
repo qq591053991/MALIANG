@@ -75,6 +75,11 @@ export default new BaseModel({
         ],
       },
     },
+    // {
+    //   key: 'dataTransform',
+    //   name: '数据格式转换',
+    //   type: 'DataTransform',
+    // },
     {
       key: 'isPolling',
       name: '定时刷新',

@@ -19,15 +19,17 @@ const BuildDatasource = async (config) => {
   return res;
 };
 
-const PollComponent = (props) => {
-  const { Cmp, config } = props;
-  console.log(props.config, config);
+const PollingWrapComponent = (props) => {
+  const { Component, config } = props;
   const { isPolling, pollingInterval = 0 } = config;
-  const { data: res } = useRequest(async () => await BuildDatasource(config), {
-    pollingInterval: isPolling ? pollingInterval : 0,
-  });
+  const { data: res, run } = useRequest(
+    async () => await BuildDatasource(config),
+    {
+      pollingInterval: isPolling ? pollingInterval : 0,
+    },
+  );
   const _config = { ...config, dataSource: res };
-  return <Cmp {..._config} />;
+  return <Component {..._config} />;
 };
 
 const BuildComponent = (type, config) => {
@@ -36,7 +38,7 @@ const BuildComponent = (type, config) => {
       const { default: Component } = await require(`@/ComponentSource/${type}`);
 
       return (props) => {
-        return <PollComponent Cmp={Component} config={config} />;
+        return <PollingWrapComponent Component={Component} config={config} />;
       };
     },
     loading: () => <div>加载中....</div>,

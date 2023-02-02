@@ -12,6 +12,7 @@ import { Store } from 'antd/lib/form/interface';
 import { useWatch } from 'antd/lib/form/Form';
 import DataIndexSelector from '@/components/FormComponents/DataIndexSelector';
 import { useWhyDidYouUpdate } from 'ahooks';
+import EventEditor from '@/components/FormComponents/EventEditor';
 
 const normFile = (e: any) => {
   if (Array.isArray(e)) {
@@ -123,6 +124,11 @@ const FormItemRender = memo(
         {item.type === 'MonacoEditor' && (
           <Form.Item label={item.name} name={item.key}>
             <MLMonacoEditor />
+          </Form.Item>
+        )}
+        {item.type === 'Event' && (
+          <Form.Item label={item.name} name={item.key}>
+            <EventEditor />
           </Form.Item>
         )}
       </React.Fragment>
