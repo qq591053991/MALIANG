@@ -7,7 +7,9 @@ export default new BaseModel({
   icon: 'icon-xianxingtu',
   category: iComponentCategory.CONTORL,
   config: {
-    dataType: 'dynamic',
+    dataType: 'api',
+    requestUrl:
+      'https://www.fastmock.site/mock/37597c10a5a6e25ce79c38731203c4fd/maliang/indicator/interest/rate/distribution',
     dataSource: {
       xAxisData: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
       yAxisData: [200, 430, 524, 318, 235, 147, 260],
@@ -32,35 +34,65 @@ export default new BaseModel({
   ],
   dataConfig: [
     {
+      key: 'DataMapping',
+      name: '数据接口',
+      type: 'DataMapping',
+    },
+    {
       key: 'dataType',
       name: '数据类型',
-      type: 'Radio',
+      type: 'Select',
       options: [
         {
           label: '静态数据',
           value: 'static',
         },
         {
-          label: '动态数据',
+          label: '内置指标',
           value: 'dynamic',
+        },
+        {
+          label: 'API',
+          value: 'api',
         },
       ],
     },
-    // {
-    //   key: 'method',
-    //   name: '请求方法',
-    //   type: 'Select',
-    //   options: [
-    //     {
-    //       label: 'GET',
-    //       value: 'GET'
-    //     },
-    //     {
-    //       label: 'POST',
-    //       value: 'POST'
-    //     },
-    //   ]
-    // },
+    {
+      key: 'method',
+      name: '请求方式',
+      type: 'Select',
+      options: [
+        {
+          label: 'GET',
+          value: 'get',
+        },
+        {
+          label: 'POST',
+          value: 'post',
+        },
+      ],
+      dependencies: {
+        items: [
+          {
+            dependKey: 'dataType',
+            dependValues: ['api'],
+          },
+        ],
+      },
+    },
+    {
+      key: 'requestUrl',
+      name: 'URL',
+      type: 'TextArea',
+      dependencies: {
+        items: [
+          {
+            dependKey: 'dataType',
+            dependValues: ['api'],
+          },
+        ],
+      },
+    },
     {
       key: 'dataIndex',
       name: '数据指标',

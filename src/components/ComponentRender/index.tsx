@@ -4,17 +4,16 @@ import { dynamic, request } from 'umi';
 import useRequest from '_@ahooksjs_use-request@2.8.15@@ahooksjs/use-request';
 
 const BuildDatasource = async (config) => {
-  const { dataType, dataIndex: dataIndexJSON } = config;
+  const { dataType, dataIndex: dataIndexJSON, requestUrl } = config;
   if (!dataType || !dataIndexJSON) {
-    return;
+    return config?.dataSource;
   }
   if (dataType === 'static') {
     return config?.dataSource;
   }
   const dataIndex = JSON.parse(dataIndexJSON);
-  const res = await request(
-    'https://www.fastmock.site/mock/37597c10a5a6e25ce79c38731203c4fd/maliang/indicator/interest/rate/distribution',
-  );
+  const reqUrl = dataType === 'api' ? requestUrl : dataIndex?.uri;
+  const res = await request(reqUrl);
 
   return res;
 };
@@ -28,6 +27,7 @@ const PollingWrapComponent = (props) => {
       pollingInterval: isPolling ? pollingInterval : 0,
     },
   );
+  console.log(res);
   const _config = { ...config, dataSource: res };
   return <Component {..._config} />;
 };

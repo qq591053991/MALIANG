@@ -1,0 +1,42 @@
+.mapping-table {
+  :global {
+    .ant-table {
+      background: var(--ml-nav-active-bg);
+      color: #bcc9d4;
+
+      .ant-table-thead > tr > th {
+        background: transparent;
+        color: #bcc9d4;
+        border-bottom: none;
+      }
+
+      .ant-table-tbody > tr > td {
+        border-bottom: none;
+      }
+
+      .ant-table-tbody > tr.ant-table-row:hover > td,
+      .ant-table-tbody > tr > td.ant-table-cell-row-hover {
+        background: transparent;
+      }
+
+      .ant-input-affix-wrapper {
+        background: transparent;
+        border: 1px solid transparent;
+        padding: 0 !important;
+
+        &:focus,
+        &-focused {
+          box-shadow: none;
+        }
+      }
+
+      .ant-input-suffix {
+        display: none;
+      }
+
+      .ant-form-item.ant-form-item-has-success {
+        padding: 0 !important;
+      }
+    }
+  }
+}

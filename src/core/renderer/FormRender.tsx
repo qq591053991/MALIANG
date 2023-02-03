@@ -13,6 +13,8 @@ import { useWatch } from 'antd/lib/form/Form';
 import DataIndexSelector from '@/components/FormComponents/DataIndexSelector';
 import { useWhyDidYouUpdate } from 'ahooks';
 import EventEditor from '@/components/FormComponents/EventEditor';
+import { ProFormTextArea } from '@ant-design/pro-components';
+import DataMapping from '@/components/FormComponents/DataMapping';
 
 const normFile = (e: any) => {
   if (Array.isArray(e)) {
@@ -51,10 +53,39 @@ const FormItemRender = memo(
             <Input />
           </Form.Item>
         )}
-        {item.type === 'TextArea' && (
-          <Form.Item label={item.name} name={item.key}>
-            <TextArea rows={4} />
+        {item.type === 'DataMapping' && (
+          <Form.Item
+            label={item.name}
+            name={item.key}
+            labelCol={{
+              style: {
+                width: '100%',
+              },
+            }}
+            wrapperCol={{
+              style: {
+                width: '100%',
+                padding: '10px 20px',
+              },
+            }}
+            style={{
+              display: 'flex',
+            }}
+          >
+            <DataMapping label={item.name} name={item.key} />
           </Form.Item>
+        )}
+        {item.type === 'TextArea' && (
+          <ProFormTextArea
+            label={item.name}
+            name={item.key}
+            fieldProps={{
+              autoSize: {
+                minRows: 2,
+                maxRows: 6,
+              },
+            }}
+          />
         )}
         {item.type === 'MutiText' && (
           <Form.Item label={item.name} name={item.key}>
@@ -62,10 +93,10 @@ const FormItemRender = memo(
           </Form.Item>
         )}
         {/* {item.type === 'DataList' && (
-    <Form.Item label={item.name} name={item.key}>
-      <DataList cropRate={item.cropRate} />
-    </Form.Item>
-  )} */}
+          <Form.Item label={item.name} name={item.key}>
+            <DataList cropRate={item.cropRate} />
+          </Form.Item>
+        )} */}
         {item.type === 'Color' && (
           <Form.Item label={item.name} name={item.key}>
             <Color />
