@@ -25,6 +25,7 @@ export default new BaseModel({
       key: 'ClickEvent',
       name: '点击事件',
       type: 'Event',
+      eventCallbackKey: 'ClickCallback',
     },
   ],
 });

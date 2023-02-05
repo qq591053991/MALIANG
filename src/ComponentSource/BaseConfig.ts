@@ -9,6 +9,11 @@ export const BaseConfig = {
 
 export const BaseFormConfig = [
   {
+    key: 'componentName',
+    name: '名称',
+    type: 'Text',
+  },
+  {
     key: 'width',
     name: '宽度',
     type: 'Number',

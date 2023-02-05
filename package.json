@@ -28,7 +28,7 @@
     "@loadable/component": "^5.15.2",
     "@scena/react-ruler": "^0.12.2",
     "ahooks": "^3.7.4",
-    "antd": "^4.7.3",
+    "antd": "^4.24.2",
     "antd-img-crop": "^4.5.2",
     "echarts": "^5.4.1",
     "echarts-for-react": "^3.0.2",
@@ -47,8 +47,7 @@
     "umi": "^3.5.20",
     "uuid": "^8.3.2",
     "xlsx": "^0.18.5",
-    "yh-react-popover": "^0.3.0",
-    "zarm": "^2.9.17"
+    "yh-react-popover": "^0.3.0"
   },
   "devDependencies": {
     "@types/loadable__component": "^5.13.4",

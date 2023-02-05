@@ -10,7 +10,7 @@ import Pos from '../../components/FormComponents/Pos';
 import MLMonacoEditor from '@/components/FormComponents/MLMonacoEditor';
 import { Store } from 'antd/lib/form/interface';
 import { useWatch } from 'antd/lib/form/Form';
-import DataIndexSelector from '@/components/FormComponents/DataIndexSelector';
+import DataQuotaSelector from '@/components/FormComponents/DataQuotaSelector';
 import { useWhyDidYouUpdate } from 'ahooks';
 import EventEditor from '@/components/FormComponents/EventEditor';
 import { ProFormTextArea } from '@ant-design/pro-components';
@@ -103,15 +103,19 @@ const FormItemRender = memo(
           </Form.Item>
         )}
 
-        {item.type === 'DataIndexSelector' && (
+        {item.type === 'DataQuotaSelector' && (
           <Form.Item label={item.name} name={item.key}>
-            <DataIndexSelector />
+            <DataQuotaSelector />
           </Form.Item>
         )}
 
         {item.type === 'Select' && (
           <Form.Item label={item.name} name={item.key}>
-            <Select placeholder="请选择" popupClassName="dark-select-dropdown">
+            <Select
+              placeholder="请选择"
+              popupClassName="dark-select-dropdown"
+              {...item}
+            >
               {item?.options?.map((v: any, i: number) => {
                 return (
                   <Option value={v.value} key={i}>

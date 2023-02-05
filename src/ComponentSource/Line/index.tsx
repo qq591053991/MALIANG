@@ -2,10 +2,12 @@ import React from 'react';
 import ReactEcharts from 'echarts-for-react';
 
 export default function Line(props) {
-  const { dataSource = {} } = props;
+  const { dataSource = [] } = props;
   const defaultXData = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
   const defaultYData = [150, 230, 224, 218, 135, 147, 260];
-  const { xAxisData = defaultXData, yAxisData = defaultYData } = dataSource;
+  const xAxisData = dataSource?.map((item) => item?.xAxisData) || defaultXData;
+  const yAxisData = dataSource?.map((item) => item?.yAxisData) || defaultYData;
+  console.log(props);
   const options = {
     xAxis: {
       type: 'category',

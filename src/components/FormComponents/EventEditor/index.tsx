@@ -1,24 +1,72 @@
-import React, { useRef, useState } from 'react';
-import MonacoEditor from 'react-monaco-editor';
-import * as monaco from 'monaco-editor';
+import React, { useContext, useMemo, useRef, useState } from 'react';
 import { Form, Button, Modal, Select } from 'antd';
 import {
+  EditableProTable,
+  ProColumns,
   ProForm,
+  ProFormDependency,
   ProFormList,
   ProFormSelect,
 } from '@ant-design/pro-components';
 
 import styles from './index.less';
+import { EditorContext } from '@/pages/Editor';
 
 const formItemLayout = {
   labelCol: { style: { width: 110 } },
 };
 
+function BuildComponentListOptions(
+  componentList: any[],
+  curComponentConfig: any,
+) {
+  return componentList
+    ?.filter((item) => item.componentId !== curComponentConfig?.componentId)
+    ?.map((item) => {
+      return {
+        label: item?.config?.componentName,
+        value: item?.componentId,
+      };
+    });
+}
+
 export default function EventEditor(props) {
-  const { value, onChange } = props;
+  const { value = {}, onChange } = props;
+  const [state, dispatch] = useContext(EditorContext);
+  const { curComponentConfig, componentList } = state;
+  console.log(componentList);
+  const componentListOptions = useMemo(
+    () => BuildComponentListOptions(componentList, curComponentConfig),
+    [],
+  );
   const monacoRef = useRef();
   const [code, setCode] = useState(JSON.stringify(value));
   const [visible, setVisible] = useState(false);
+  const [editableKeys, setEditableRowKeys] = useState<React.Key[]>(() =>
+    value?.filterParams?.map((item: any) => item.key),
+  );
+  const columns: ProColumns[] = [
+    {
+      title: '参数名',
+      dataIndex: 'key',
+      editable: false,
+      // width: 28,
+    },
+    {
+      title: '运算符',
+      dataIndex: 'mapping',
+      // width: 60,
+      fieldProps: {
+        placeholder: '',
+      },
+    },
+    {
+      title: '参数值',
+      dataIndex: 'valueKey',
+      valueType: 'select',
+    },
+  ];
+
   const [form] = Form.useForm();
   function onCodeChange(newValue, e) {
     try {
@@ -38,7 +86,7 @@ export default function EventEditor(props) {
   }
 
   function onOk() {
-    onChange(JSON.parse(code));
+    onChange(form.getFieldsValue());
     setVisible(false);
   }
   return (
@@ -68,11 +116,11 @@ export default function EventEditor(props) {
         zIndex={1050}
         width={'40%'}
       >
-        <Form
+        <ProForm
           form={form}
-          // name={`form_editor`}
           {...formItemLayout}
           submitter={false}
+          layout="horizontal"
           // onFinish={onFinish}
           // initialValues={defaultValue}
           // onValuesChange={handlechange}
@@ -88,28 +136,57 @@ export default function EventEditor(props) {
               },
             ]}
           />
-          {/* <ProFormList>
-            
-          </ProFormList> */}
-        </Form>
-        {/* <MonacoEditor
-          width={'100%'}
-          height={400}
-          language="json"
-          theme="vs-dark"
-          value={code}
-          onChange={onCodeChange}
-          editorDidMount={(editor) => {
-            if (!monacoRef.current) {
-              monacoRef.current = editor;
-            }
-            formatCode();
-            setCode(editor?.getValue());
-          }}
-        /> */}
+          <ProFormSelect
+            label="联动组件"
+            name="componentId"
+            options={componentListOptions}
+          />
+          <ProFormSelect
+            label="组件动作"
+            name="cmpAction"
+            initialValue={'refresh'}
+            allowClear={false}
+            options={[
+              {
+                label: '筛选数据',
+                value: 'filter',
+              },
+              {
+                label: '刷新数据',
+                value: 'refresh',
+              },
+            ]}
+          />
+          <ProFormDependency name={['cmpAction']}>
+            {({ cmpAction }) => {
+              if (cmpAction !== 'filter') {
+                return;
+              }
+              return (
+                <Form.Item label="筛选参数设置" name="filterParams">
+                  <EditableProTable
+                    headerTitle={null}
+                    columns={columns}
+                    rowKey="key"
+                    value={value?.filterParams || []}
+                    onChange={onChange}
+                    toolBarRender={false}
+                    recordCreatorProps={false}
+                    editable={{
+                      type: 'multiple',
+                      editableKeys,
+                      onValuesChange: (record, recordList) => {
+                        onChange(recordList);
+                      },
+                      onChange: setEditableRowKeys,
+                    }}
+                  />
+                </Form.Item>
+              );
+            }}
+          </ProFormDependency>
+        </ProForm>
       </Modal>
     </>
   );
 }
-
-export { monaco };

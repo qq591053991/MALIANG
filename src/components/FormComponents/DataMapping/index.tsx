@@ -10,17 +10,17 @@ import React, { useState } from 'react';
 
 import styles from './index.less';
 
+export interface MappingItem {
+  key: string;
+  mapping: string;
+}
+export type MappingList = MappingItem[];
+
 export default function DataMapping(props) {
-  const {
-    name,
-    label,
-    value = [{ key: 'xAxis', mapping: 0 }],
-    onChange,
-  } = props;
+  const { value = [{ key: 'xAxis', mapping: '' }], onChange } = props;
   const [editableKeys, setEditableRowKeys] = useState<React.Key[]>(() =>
     value.map((item) => item.key),
   );
-  console.log('datamapping');
   const columns: ProColumns[] = [
     {
       title: '字段',
@@ -32,6 +32,9 @@ export default function DataMapping(props) {
       title: '映射',
       dataIndex: 'mapping',
       width: 60,
+      fieldProps: {
+        placeholder: '',
+      },
     },
   ];
   return (

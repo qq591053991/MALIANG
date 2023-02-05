@@ -89,6 +89,7 @@
       height: 20px;
       position: fixed;
     }
+
     .tickMarkTop {
       width: 100%;
       height: 20px;
@@ -113,6 +114,12 @@
       position: relative;
       left: 50px;
       top: 50px;
+
+      :global {
+        .moveable-control-box {
+          z-index: 1000;
+        }
+      }
 
       .align-reference-lien-wrap {
         width: 200px;

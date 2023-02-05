@@ -10,10 +10,40 @@ export default new BaseModel({
     dataType: 'api',
     requestUrl:
       'https://www.fastmock.site/mock/37597c10a5a6e25ce79c38731203c4fd/maliang/indicator/interest/rate/distribution',
-    dataSource: {
-      xAxisData: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
-      yAxisData: [200, 430, 524, 318, 235, 147, 260],
-    },
+    dataSource: [
+      {
+        xAxisData: 'Mon',
+        yAxisData: Math.random(),
+      },
+      {
+        xAxisData: 'Tue',
+        yAxisData: Math.random(),
+      },
+      {
+        xAxisData: 'Wed',
+        yAxisData: Math.random(),
+      },
+      {
+        xAxisData: 'Thu',
+        yAxisData: Math.random(),
+      },
+      {
+        xAxisData: 'Fri',
+        yAxisData: Math.random(),
+      },
+      {
+        xAxisData: 'Sat',
+        yAxisData: Math.random(),
+      },
+      {
+        xAxisData: 'Sun',
+        yAxisData: Math.random(),
+      },
+    ],
+    dataMapping: [
+      { key: 'xAxisData', mapping: '' },
+      { key: 'yAxisData', mapping: '' },
+    ],
   },
   baseConfig: [
     // {
@@ -34,11 +64,6 @@ export default new BaseModel({
   ],
   dataConfig: [
     {
-      key: 'DataMapping',
-      name: '数据接口',
-      type: 'DataMapping',
-    },
-    {
       key: 'dataType',
       name: '数据类型',
       type: 'Select',
@@ -49,13 +74,18 @@ export default new BaseModel({
         },
         {
           label: '内置指标',
-          value: 'dynamic',
+          value: 'quota',
         },
         {
           label: 'API',
           value: 'api',
         },
       ],
+    },
+    {
+      key: 'dataMapping',
+      name: '数据接口',
+      type: 'DataMapping',
     },
     {
       key: 'method',
@@ -71,6 +101,7 @@ export default new BaseModel({
           value: 'post',
         },
       ],
+      defaultValue: 'get',
       dependencies: {
         items: [
           {
@@ -94,15 +125,15 @@ export default new BaseModel({
       },
     },
     {
-      key: 'dataIndex',
+      key: 'dataQuota',
       name: '数据指标',
-      type: 'DataIndexSelector',
+      type: 'DataQuotaSelector',
       options: [],
       dependencies: {
         items: [
           {
             dependKey: 'dataType',
-            dependValues: ['dynamic'],
+            dependValues: ['quota'],
           },
         ],
       },
@@ -120,7 +151,7 @@ export default new BaseModel({
         items: [
           {
             dependKey: 'dataType',
-            dependValues: ['dynamic'],
+            dependValues: ['quota', 'api'],
           },
         ],
       },

@@ -3,14 +3,10 @@ import { Select } from 'antd';
 import { useRequest } from 'ahooks';
 import { getApiList } from '@/services/editor';
 
-function DataIndexSelector(props) {
+function DataQuotaSelector(props) {
   const { value, onChange } = props;
   const [sId, setSid] = useState(JSON.parse(value || '{}')?.id);
-  const {
-    data: res,
-    loading,
-    run,
-  } = useRequest(getApiList, {
+  const { data: res, loading, run } = useRequest(getApiList, {
     manual: true,
   });
   useEffect(() => {
@@ -40,6 +36,6 @@ function DataIndexSelector(props) {
     </Select>
   );
 }
-export default memo(DataIndexSelector, function (prevProps, nextProps) {
+export default memo(DataQuotaSelector, function (prevProps, nextProps) {
   return true;
 });

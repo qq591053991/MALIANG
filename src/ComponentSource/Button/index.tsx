@@ -2,7 +2,7 @@ import React from 'react';
 import { Button } from 'antd';
 
 export default function MLButton(props) {
-  const { text, ClickEvent } = props;
+  const { text, ClickCallback } = props;
   return (
     <Button
       style={{
@@ -11,7 +11,7 @@ export default function MLButton(props) {
         textAlign: 'center',
         lineHeight: 1.5,
       }}
-      onClick={() => ClickEvent?.()}
+      onClick={() => ClickCallback?.()}
     >
       {text}
     </Button>

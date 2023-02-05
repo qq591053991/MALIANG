@@ -41,7 +41,7 @@ interface EditableCellProps {
   title: React.ReactNode;
   editable: boolean;
   children: React.ReactNode;
-  dataIndex: string;
+  dataQuota: string;
   record: any;
   handleSave: (record: Item) => void;
 }
@@ -50,7 +50,7 @@ const EditableCell: React.FC<EditableCellProps> = ({
   title,
   editable,
   children,
-  dataIndex,
+  dataQuota,
   record,
   handleSave,
   ...restProps
@@ -67,7 +67,7 @@ const EditableCell: React.FC<EditableCellProps> = ({
 
   const toggleEdit = () => {
     setEditing(!editing);
-    form.setFieldsValue({ [dataIndex]: record[dataIndex] });
+    form.setFieldsValue({ [dataQuota]: record[dataQuota] });
   };
 
   const save = async () => {
@@ -86,7 +86,7 @@ const EditableCell: React.FC<EditableCellProps> = ({
     childNode = editing ? (
       <Form.Item
         style={{ margin: 0 }}
-        name={dataIndex}
+        name={dataQuota}
         rules={[
           {
             required: true,
@@ -118,14 +118,14 @@ class EditableTable extends React.Component<any, any> {
   columns: (
     | {
         title: string;
-        dataIndex: string;
+        dataQuota: string;
         width: string;
         editable: boolean;
         render?: undefined;
       }
     | {
         title: string;
-        dataIndex: string;
+        dataQuota: string;
         render: (text: string, record: any) => JSX.Element | null;
         width?: undefined;
         editable?: undefined;
@@ -142,19 +142,19 @@ class EditableTable extends React.Component<any, any> {
     this.columns = [
       {
         title: '名字',
-        dataIndex: 'name',
+        dataQuota: 'name',
         width: '180px',
         editable: true,
       },
       {
         title: '值',
-        dataIndex: 'value',
+        dataQuota: 'value',
         width: '120px',
         editable: true,
       },
       {
         title: '操作',
-        dataIndex: 'operation',
+        dataQuota: 'operation',
         render: (text: string, record) =>
           this.state.dataSource.length >= 1 ? (
             <Popconfirm
@@ -307,7 +307,7 @@ class EditableTable extends React.Component<any, any> {
         onCell: (record) => ({
           record,
           editable: col.editable,
-          dataIndex: col.dataIndex,
+          dataQuota: col.dataQuota,
           title: col.title,
           handleSave: this.handleSave,
         }),
