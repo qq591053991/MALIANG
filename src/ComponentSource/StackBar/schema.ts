@@ -1,48 +1,115 @@
 import { iComponentCategory } from '@/typings/SchemaCommon';
-import { ChartModel } from '../ChartModel';
+import { BaseModel } from '../BaseConfig';
 
-export default new ChartModel({
-  name: '折线图',
-  type: 'Line',
-  icon: 'icon-xianxingtu',
+const defaultDatasource = [
+  {
+    xAxis: '5%',
+    yAxis: '200',
+    series: '大盘',
+  },
+  {
+    xAxis: '5%',
+    yAxis: '100',
+    series: 'xx贷',
+  },
+  {
+    xAxis: '5%',
+    yAxis: '200',
+    series: 'xx贷款2',
+  },
+  {
+    xAxis: '5%-8%',
+    yAxis: '25',
+    series: '大盘',
+  },
+  {
+    xAxis: '5%-8%',
+    yAxis: '125',
+    series: 'xx贷',
+  },
+  {
+    xAxis: '5%-8%',
+    yAxis: '100',
+    series: 'xx贷款2',
+  },
+  {
+    xAxis: '12%-15%',
+    yAxis: '190',
+    series: '大盘',
+  },
+  {
+    xAxis: '12%-15%',
+    yAxis: '110',
+    series: 'xx贷',
+  },
+  {
+    xAxis: '12%-15%',
+    yAxis: '170',
+    series: 'xx贷款2',
+  },
+  {
+    xAxis: '15%-18%',
+    yAxis: '90',
+    series: '大盘',
+  },
+  {
+    xAxis: '15%-18%',
+    yAxis: '60',
+    series: 'xx贷',
+  },
+  {
+    xAxis: '15%-18%',
+    yAxis: '70',
+    series: 'xx贷款2',
+  },
+  {
+    xAxis: '18%-20%',
+    yAxis: '240',
+    series: '大盘',
+  },
+  {
+    xAxis: '18%-20%',
+    yAxis: '170',
+    series: 'xx贷',
+  },
+  {
+    xAxis: '18%-20%',
+    yAxis: '280',
+    series: 'xx贷款2',
+  },
+  {
+    xAxis: '20%-24%',
+    yAxis: '420',
+    series: '大盘',
+  },
+  {
+    xAxis: '20%-24%',
+    yAxis: '190',
+    series: 'xx贷',
+  },
+  {
+    xAxis: '20%-24%',
+    yAxis: '390',
+    series: 'xx贷款2',
+  },
+];
+
+export default new BaseModel({
+  name: '堆积柱状图',
+  type: 'StackBar',
+  icon: 'icon-zhuzhuangduidietu',
   category: iComponentCategory.CHART,
   config: {
-    dataType: 'api',
+    width: 540,
+    height: 300,
+    dataType: 'static',
     requestUrl:
       'https://www.fastmock.site/mock/37597c10a5a6e25ce79c38731203c4fd/maliang/indicator/interest/rate/distribution',
-    dataSource: [
-      {
-        xAxis: 'Mon',
-        yAxis: Math.random(),
-      },
-      {
-        xAxis: 'Tue',
-        yAxis: Math.random(),
-      },
-      {
-        xAxis: 'Wed',
-        yAxis: Math.random(),
-      },
-      {
-        xAxis: 'Thu',
-        yAxis: Math.random(),
-      },
-      {
-        xAxis: 'Fri',
-        yAxis: Math.random(),
-      },
-      {
-        xAxis: 'Sat',
-        yAxis: Math.random(),
-      },
-      {
-        xAxis: 'Sun',
-        yAxis: Math.random(),
-      },
-    ],
+    dataSource: defaultDatasource,
     dataMapping: [
       { key: 'xAxis', mapping: '' },
       { key: 'yAxis', mapping: '' },
+      { key: 'series', mapping: '' },
     ],
   },
   baseConfig: [],

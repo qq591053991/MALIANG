@@ -4,6 +4,7 @@ import React, {
   MouseEventHandler,
   ReactNode,
   useEffect,
+  useRef,
   useState,
 } from 'react';
 import Moveable, { MoveableProps, OnResize } from 'react-moveable';
@@ -16,6 +17,7 @@ interface iMoveableWrapProps {
   height?: number;
   actived: boolean;
   nativeOnClick: MouseEventHandler<HTMLDivElement>;
+  mode: 'preview' | 'editor';
 }
 
 function boundParent() {
@@ -38,6 +40,7 @@ export default function MoveableWrap(
   props: MoveableProps & iMoveableWrapProps,
 ) {
   const {
+    mode,
     children,
     componentConfig,
     actived,
@@ -51,17 +54,22 @@ export default function MoveableWrap(
     setTarget(document.querySelector(`.target-${componentId}`)!);
     setElementGuidelines([document.querySelector('.target')]);
   }, []);
-  const { config, componentId } = componentConfig;
-  const { height, width, left, top } = config;
-  console.log(left, top);
+
+  const { config = {}, componentId } = componentConfig;
+  const { height, width, left, top, zIndex = 1 } = config;
   return (
     <>
       <div
-        className={`target-${componentId} target ${styles['target']}`}
+        className={`
+        target-${componentId}
+        target ${styles['target']}
+        ${mode === 'preview' ? styles['preview'] : ''}
+        `}
         style={{
           height,
           width,
-          transform: `translate3d(${left},${top})`,
+          zIndex,
+          transform: `translate(${left}px,${top}px)`,
         }}
         onClick={nativeOnClick}
       >

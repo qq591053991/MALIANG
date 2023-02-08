@@ -22,6 +22,11 @@ export default {
       type: 'Color',
     },
     {
+      key: 'backgroundColor',
+      name: '背景颜色',
+      type: 'Color',
+    },
+    {
       key: 'fontSize',
       name: '字体大小',
       type: 'Number',

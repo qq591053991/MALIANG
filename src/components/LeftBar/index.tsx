@@ -16,6 +16,10 @@ const cateInfoSet = {
     title: '控件',
     iconClass: 'icon-a-daohang-kongjian',
   },
+  [iComponentCategory.CHART]: {
+    title: '图表',
+    iconClass: 'icon-a-daohang-tubiao',
+  },
 };
 
 export default function LeftBar() {

@@ -1,0 +1,43 @@
+.header {
+  height: 40px;
+  line-height: 40px;
+  background: var(--ml-header-bg-color);
+  color: #a1aeb3;
+  position: relative;
+  padding: 0 40px;
+
+  .global-action {
+    position: absolute;
+    right: 40px;
+
+    .header-button {
+      height: 24px;
+      width: 40px;
+      line-height: 24px;
+      background: var(--ml-btn-bg-default);
+      font-size: 0;
+      border: 1px solid rgba(255, 235, 235, 0.1);
+      transition: 0.2s;
+      text-align: center;
+      cursor: pointer;
+
+      &:hover {
+        background: #414750;
+      }
+
+      & + .header-button {
+        margin-left: 10px;
+      }
+
+      .header-button-icon {
+        color: #fff;
+      }
+    }
+
+    // &>* {
+    //   font-size: 18px;
+    //   cursor: pointer;
+    //   color: transparent;
+    // }
+  }
+}

@@ -23,16 +23,21 @@ export const BaseFormConfig = [
     name: '高度',
     type: 'Number',
   },
-  // {
-  //   key: 'top',
-  //   name: '纵向偏移',
-  //   type: 'Number',
-  // },
-  // {
-  //   key: 'left',
-  //   name: '横向偏移',
-  //   type: 'Number',
-  // },
+  {
+    key: 'top',
+    name: '纵向偏移',
+    type: 'Number',
+  },
+  {
+    key: 'left',
+    name: '横向偏移',
+    type: 'Number',
+  },
+  {
+    key: 'zIndex',
+    name: '组件层级',
+    type: 'Number',
+  },
 ];
 
 interface iSchema {

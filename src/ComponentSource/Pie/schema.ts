@@ -2,12 +2,12 @@ import { iComponentCategory } from '@/typings/SchemaCommon';
 import { ChartModel } from '../ChartModel';
 
 export default new ChartModel({
-  name: '折线图',
-  type: 'Line',
-  icon: 'icon-xianxingtu',
+  name: '饼图',
+  type: 'Pie',
+  icon: 'icon-shanxingtu',
   category: iComponentCategory.CHART,
   config: {
-    dataType: 'api',
+    dataType: 'static',
     requestUrl:
       'https://www.fastmock.site/mock/37597c10a5a6e25ce79c38731203c4fd/maliang/indicator/interest/rate/distribution',
     dataSource: [

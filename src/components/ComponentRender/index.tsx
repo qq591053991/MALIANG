@@ -5,6 +5,7 @@ import { useRequest } from 'ahooks';
 import { MappingList } from '../FormComponents/DataMapping';
 import { EventCenter } from '@/ComponentSource/EventConfig';
 import { EditorContext } from '@/pages/Editor';
+import ComponentLoading from '../ComponentLoading';
 
 const BuildMappingData = ({ config = {}, data = [] }) => {
   try {
@@ -36,7 +37,7 @@ const BuildDatasource = async (config) => {
   }
 
   if (dataType === 'static') {
-    return config?.dataSource;
+    return BuildMappingData({ config, data: config?.dataSource });
   }
   if (dataType === 'api') {
     reqUrl = requestUrl;
@@ -90,27 +91,35 @@ const PollingWrapComponent = (props) => {
       pollingInterval: isPolling ? pollingInterval : 0,
     },
   );
-  config.config.run = run;
-  const eventCallback = useEventCallback({ config });
+  // config.config.run = run;
+  // const eventCallback = useEventCallback({ config });
   const _config = { ...config?.config, dataSource: res };
-  return <Component {..._config} {...eventCallback} />;
+  return (
+    <Component
+      {..._config}
+      // {...eventCallback}
+    />
+  );
 };
 
 const BuildComponent = (type, config) => {
   return dynamic({
     loader: async () => {
       const { default: Component } = await require(`@/ComponentSource/${type}`);
-
+      // await new Promise((resolve, reject) => {
+      //   setTimeout(async () => {
+      //     resolve('')
+      //   }, 3000)
+      // })
       return (props) => {
         return <PollingWrapComponent Component={Component} config={config} />;
       };
     },
-    loading: () => <div>加载中....</div>,
+    loading: () => <ComponentLoading />,
   });
 };
 
 export default memo(function ComponentRender(props) {
-  // return <DynamicComponent {...props} />
   const { type, config } = props;
   const DynamicComponent = useMemo(() => {
     return BuildComponent(type, props);

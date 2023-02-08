@@ -1,49 +1,67 @@
 import { iComponentCategory } from '@/typings/SchemaCommon';
-import { ChartModel } from '../ChartModel';
+import { BaseModel } from '../BaseConfig';
 
-export default new ChartModel({
-  name: '折线图',
-  type: 'Line',
-  icon: 'icon-xianxingtu',
-  category: iComponentCategory.CHART,
+const mockDataSource = {
+  data: [
+    [
+      '裸体人像检测*置信度0.23',
+      '人脸翻拍*置信度0.23',
+      '中介背景识别*置信度0.23',
+    ],
+    ['注意力异常*置信度0.23', '年龄范围*20-29青年', '身份证翻拍*置信度0.34'],
+    ['身份证造假*置信度0.23', '拍摄场景*车内', '额度评分*554'],
+    [
+      '裸体人像检测*置信度0.23',
+      '人脸翻拍*置信度0.23',
+      '中介背景识别*置信度0.23',
+    ],
+    ['注意力异常*置信度0.23', '年龄范围*20-29青年', '身份证翻拍*置信度0.34'],
+    ['身份证造假*置信度0.23', '拍摄场景*车内', '额度评分*554'],
+    [
+      '裸体人像检测*置信度0.23',
+      '人脸翻拍*置信度0.23',
+      '中介背景识别*置信度0.23',
+    ],
+    ['注意力异常*置信度0.23', '年龄范围*20-29青年', '身份证翻拍*置信度0.34'],
+    ['身份证造假*置信度0.23', '拍摄场景*车内', '额度评分*554'],
+    [
+      '裸体人像检测*置信度0.23',
+      '人脸翻拍*置信度0.23',
+      '中介背景识别*置信度0.23',
+    ],
+    ['注意力异常*置信度0.23', '年龄范围*20-29青年', '身份证翻拍*置信度0.34'],
+    ['身份证造假*置信度0.23', '拍摄场景*车内', '额度评分*554'],
+    [
+      '裸体人像检测*置信度0.23',
+      '人脸翻拍*置信度0.23',
+      '中介背景识别*置信度0.23',
+    ],
+    ['注意力异常*置信度0.23', '年龄范围*20-29青年', '身份证翻拍*置信度0.34'],
+    ['身份证造假*置信度0.23', '拍摄场景*车内', '额度评分*554'],
+    [
+      '裸体人像检测*置信度0.23',
+      '人脸翻拍*置信度0.23',
+      '中介背景识别*置信度0.23',
+    ],
+    ['注意力异常*置信度0.23', '年龄范围*20-29青年', '身份证翻拍*置信度0.34'],
+    ['身份证造假*置信度0.23', '拍摄场景*车内', '额度评分*554'],
+  ],
+};
+
+export default new BaseModel({
+  name: '轮播表',
+  type: 'ScrollBoard',
+  icon: 'icon-lunbobiaoge',
+  category: iComponentCategory.CONTORL,
   config: {
-    dataType: 'api',
+    dataType: 'static',
     requestUrl:
       'https://www.fastmock.site/mock/37597c10a5a6e25ce79c38731203c4fd/maliang/indicator/interest/rate/distribution',
-    dataSource: [
-      {
-        xAxis: 'Mon',
-        yAxis: Math.random(),
-      },
-      {
-        xAxis: 'Tue',
-        yAxis: Math.random(),
-      },
-      {
-        xAxis: 'Wed',
-        yAxis: Math.random(),
-      },
-      {
-        xAxis: 'Thu',
-        yAxis: Math.random(),
-      },
-      {
-        xAxis: 'Fri',
-        yAxis: Math.random(),
-      },
-      {
-        xAxis: 'Sat',
-        yAxis: Math.random(),
-      },
-      {
-        xAxis: 'Sun',
-        yAxis: Math.random(),
-      },
-    ],
-    dataMapping: [
-      { key: 'xAxis', mapping: '' },
-      { key: 'yAxis', mapping: '' },
-    ],
+    dataSource: mockDataSource,
+    // dataMapping: [
+    //   { key: 'xAxis', mapping: '' },
+    //   { key: 'yAxis', mapping: '' },
+    // ],
   },
   baseConfig: [],
   dataConfig: [
@@ -66,11 +84,11 @@ export default new ChartModel({
         },
       ],
     },
-    {
-      key: 'dataMapping',
-      name: '数据接口',
-      type: 'DataMapping',
-    },
+    // {
+    //   key: 'dataMapping',
+    //   name: '数据接口',
+    //   type: 'DataMapping',
+    // },
     {
       key: 'method',
       name: '请求方式',

@@ -4,9 +4,18 @@
 }
 
 .main {
-  height: 100vh;
-  // height: calc(100% - 56px);
+  height: calc(100vh - 40px);
   display: flex;
+
+  &.preview {
+    height: 100%;
+    overflow: initial;
+
+    .canvasBox {
+      left: 0;
+      top: 0;
+    }
+  }
 
   .list {
     width: 350px;
@@ -76,6 +85,80 @@
     }
   }
 
+  .canvasBox {
+    width: calc(100% - 50px);
+    height: calc(100% - 50px);
+    position: relative;
+    left: 50px;
+    top: 50px;
+    transform-origin: 0 0;
+
+    :global {
+      .moveable-control-box {
+        z-index: 1000;
+      }
+    }
+
+    .align-reference-lien-wrap {
+      width: 200px;
+      height: 200px;
+    }
+
+    .side-toobar-wrap {
+      width: 100%;
+      height: 100%;
+    }
+
+    .canvas {
+      position: relative;
+      width: 375px;
+      background-color: #fff;
+      box-shadow: 2px 0px 10px rgba(0, 0, 0, 0.2);
+      position: absolute;
+      left: 0;
+      top: 0;
+      transition: transform 300ms ease-out;
+
+      .dragItem {
+        display: inline-block;
+        position: absolute;
+        z-index: 2;
+        border: 2px solid transparent;
+        cursor: move;
+
+        &:hover {
+          border: 2px solid #06c;
+        }
+
+        :global(a) {
+          display: block;
+          pointer-events: none;
+        }
+      }
+
+      .selected {
+        display: inline-block;
+        position: absolute;
+        z-index: 2;
+        cursor: move;
+
+        :global(a) {
+          display: block;
+          pointer-events: none;
+        }
+
+        border: 2px solid #06c;
+
+        .tooltip {
+          position: relative;
+          // z-index: 999999;
+          width: 388px;
+          text-align: right;
+        }
+      }
+    }
+  }
+
   .tickMark {
     overflow: scroll;
     height: 100%;
@@ -94,91 +177,18 @@
       width: 100%;
       height: 20px;
       position: fixed;
-      top: 0;
+      top: 40px;
       left: 320px;
-      z-index: 1;
+      z-index: 800;
     }
 
     .tickMarkLeft {
       width: 20px;
       height: 100%;
       position: fixed;
-      top: 20px;
+      top: 60px;
       left: 300px;
-      z-index: 1;
-    }
-
-    .canvasBox {
-      width: calc(100% - 50px);
-      height: calc(100% - 50px);
-      position: relative;
-      left: 50px;
-      top: 50px;
-
-      :global {
-        .moveable-control-box {
-          z-index: 1000;
-        }
-      }
-
-      .align-reference-lien-wrap {
-        width: 200px;
-        height: 200px;
-      }
-
-      .side-toobar-wrap {
-        width: 100%;
-        height: 100%;
-      }
-
-      .canvas {
-        position: relative;
-        width: 375px;
-        background-color: #fff;
-        box-shadow: 2px 0px 10px rgba(0, 0, 0, 0.2);
-        position: absolute;
-        left: 0;
-        top: 0;
-        transition: transform 300ms ease-out;
-
-        .dragItem {
-          display: inline-block;
-          position: absolute;
-          z-index: 2;
-          border: 2px solid transparent;
-          cursor: move;
-
-          &:hover {
-            border: 2px solid #06c;
-          }
-
-          :global(a) {
-            display: block;
-            pointer-events: none;
-          }
-        }
-
-        .selected {
-          display: inline-block;
-          position: absolute;
-          z-index: 2;
-          cursor: move;
-
-          :global(a) {
-            display: block;
-            pointer-events: none;
-          }
-
-          border: 2px solid #06c;
-
-          .tooltip {
-            position: relative;
-            // z-index: 999999;
-            width: 388px;
-            text-align: right;
-          }
-        }
-      }
+      z-index: 800;
     }
 
     .canvasBox2 {

@@ -1,0 +1,42 @@
+.series-title {
+  display: flex;
+  justify-content: space-between;
+  color: #fff;
+
+  :global {
+    .anticon {
+      font-size: 16px;
+      margin-right: 4px;
+      cursor: pointer;
+    }
+  }
+}
+
+.tabs {
+  display: flex;
+  height: 40px;
+  line-height: 40px;
+  border-bottom: 2px solid var(--ml-main-color);
+
+  .tab-item {
+    flex: 0 60px;
+    height: 100%;
+    display: inline-block;
+    text-align: center;
+    // background: var(--ml-nav-bg);
+    transition: 0.2s;
+    outline: 0;
+    color: #bcc9d4;
+    font-size: 12px;
+    cursor: pointer;
+    padding: 0 5px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+
+    &.active {
+      // background: var(--ml-nav-active-bg);
+      color: var(--ml-main-color);
+    }
+  }
+}

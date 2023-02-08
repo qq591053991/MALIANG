@@ -15,6 +15,7 @@ import { useWhyDidYouUpdate } from 'ahooks';
 import EventEditor from '@/components/FormComponents/EventEditor';
 import { ProFormTextArea } from '@ant-design/pro-components';
 import DataMapping from '@/components/FormComponents/DataMapping';
+import Series from '@/components/FormComponents/Series';
 
 const normFile = (e: any) => {
   if (Array.isArray(e)) {
@@ -97,6 +98,11 @@ const FormItemRender = memo(
             <DataList cropRate={item.cropRate} />
           </Form.Item>
         )} */}
+        {item.type === 'Series' && (
+          <Form.Item label={item.name} name={item.key} noStyle>
+            <Series />
+          </Form.Item>
+        )}
         {item.type === 'Color' && (
           <Form.Item label={item.name} name={item.key}>
             <Color />

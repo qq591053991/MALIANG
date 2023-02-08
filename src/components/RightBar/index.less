@@ -1,7 +1,7 @@
 .rightBar {
   width: 300px;
   background: var(--ml-nav-active-bg);
-  z-index: 2;
+  z-index: 900;
 
   .tabs {
     display: flex;
@@ -38,9 +38,10 @@
       .ant-form-item {
         font-size: 12px;
         // height: 24px;
-        padding: 4px;
-        margin: 14px 0;
+        padding: 12px 4px;
+        margin: 0;
         box-sizing: content-box;
+        border-bottom: 1px solid #29313c;
 
         .ant-form-item-label {
           padding-left: 20px;
@@ -93,6 +94,7 @@
         .ant-select-arrow {
           color: var(--ml-gui-font-color-base);
         }
+
         &:hover {
           .ant-select-arrow {
             color: var(--ml-gui-primary-color);

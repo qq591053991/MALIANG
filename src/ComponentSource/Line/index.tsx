@@ -5,23 +5,24 @@ export default function Line(props) {
   const { dataSource = [] } = props;
   const defaultXData = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
   const defaultYData = [150, 230, 224, 218, 135, 147, 260];
-  const xAxisData = dataSource?.map((item) => item?.xAxisData) || defaultXData;
-  const yAxisData = dataSource?.map((item) => item?.yAxisData) || defaultYData;
-  console.log(props);
+  const xAxis = dataSource?.map((item) => item?.xAxis) || defaultXData;
+  const yAxis = dataSource?.map((item) => item?.yAxis) || defaultYData;
   const options = {
     xAxis: {
       type: 'category',
-      data: xAxisData,
+      data: xAxis,
     },
     yAxis: {
       type: 'value',
     },
     series: [
       {
-        data: yAxisData,
+        data: yAxis,
         type: 'line',
       },
     ],
   };
-  return <ReactEcharts option={options} style={{ height: '100%' }} />;
+  return (
+    <ReactEcharts option={options} style={{ height: '100%' }} theme="dark" />
+  );
 }

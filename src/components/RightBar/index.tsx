@@ -1,9 +1,17 @@
-import React, { memo, useContext, useMemo, useState } from 'react';
+import React, {
+  memo,
+  useContext,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from 'react';
 import styles from './index.less';
 import { EditorContext } from '@/pages/Editor';
 import { FormRender } from '@/core';
 import { BaseFormConfig } from '@/ComponentSource/BaseConfig';
 import { uuid } from '@/utils/tool';
+import { useWhyDidYouUpdate } from 'ahooks';
 
 function RightBar(props) {
   const [state, dispatch] = useContext(EditorContext);
@@ -14,23 +22,31 @@ function RightBar(props) {
     children: '配置',
   });
 
-  const tabList = [
-    {
-      label: '配置',
-      key: 'config',
-      children: '配置',
-    },
-    {
-      label: '数据',
-      key: 'data',
-      children: '数据',
-    },
-    {
-      label: '交互',
-      key: 'event',
-      children: '交互',
-    },
-  ];
+  const tabList = curComponentConfig
+    ? [
+        {
+          label: '配置',
+          key: 'config',
+          children: '配置',
+        },
+        {
+          label: '数据',
+          key: 'data',
+          children: '数据',
+        },
+        {
+          label: '交互',
+          key: 'event',
+          children: '交互',
+        },
+      ]
+    : [
+        {
+          label: '配置',
+          key: 'config',
+          children: '配置',
+        },
+      ];
 
   const canvasFormConfig = [
     {
@@ -91,7 +107,7 @@ function RightBar(props) {
         payload: { componentConfig: data },
       });
     };
-  }, []);
+  }, [dispatch]);
 
   const getFormConfig = function () {
     if (curTab.key === 'data') {
@@ -103,7 +119,23 @@ function RightBar(props) {
     return curComponentConfig?.baseConfig;
   };
 
-  console.log(curComponentConfig?.config);
+  const getFormRenderProps = useMemo(() => {
+    if (!curComponentConfig) {
+      return {
+        uid: 'canvas',
+        config: canvasFormConfig,
+        defaultValue: canvasConfig,
+        onSave: handleCanvasSave,
+      };
+    }
+    return {
+      uid: curComponentConfig?.componentId,
+      config: getFormConfig(),
+      defaultValue: curComponentConfig.config,
+      onSave: handleComponentConfigSave,
+    };
+  }, [curComponentConfig, curTab]);
+
   return (
     <div className={styles.rightBar}>
       <ul className={styles.tabs}>
@@ -120,22 +152,7 @@ function RightBar(props) {
       </ul>
       <div className={styles.tabsContentWrap}>
         <div className={styles.tabsContent}>
-          {!curComponentConfig && (
-            <FormRender
-              uid={'canvas'}
-              config={canvasFormConfig}
-              defaultValue={canvasConfig}
-              onSave={handleCanvasSave}
-            />
-          )}
-          {curComponentConfig && (
-            <FormRender
-              uid={curComponentConfig.componentId}
-              config={getFormConfig()}
-              defaultValue={curComponentConfig.config}
-              onSave={handleComponentConfigSave}
-            />
-          )}
+          <FormRender {...getFormRenderProps} />
         </div>
       </div>
     </div>

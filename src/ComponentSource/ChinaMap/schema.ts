@@ -4,7 +4,7 @@ export default {
   name: '中国地图',
   type: 'ChinaMap',
   icon: 'icon-zhuzhuangtu',
-  category: iComponentCategory.CONTORL,
+  category: iComponentCategory.CHART,
   config: {},
   baseConfig: [
     {

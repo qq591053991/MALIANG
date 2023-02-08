@@ -18,6 +18,9 @@ import { useScroll } from 'ahooks';
 // 画布主内容
 export default function CanvasContent(props) {
   const [state, dispatch] = useContext(EditorContext);
+  const { componentList = [], canvasConfig, curComponentConfig = {} } = state;
+  const { mode } = state;
+  console.log(state, dispatch);
   const [scaleNum, setScale] = useState(1);
   const [dragstate, setDragState] = useState({ x: 0, y: 0 });
   const [diffmove, setDiffMove] = useState({
@@ -52,14 +55,14 @@ export default function CanvasContent(props) {
           ...componentConfig,
           config: {
             ...componentConfig?.config,
-            left: event?.clientX,
-            top: event?.clientY,
+            left: event?.clientX - 350,
+            top: event?.clientY - 50,
+            zIndex: componentList?.length + 1,
           },
         },
       },
     });
   }
-  const { componentList = [], canvasConfig, curComponentConfig = {} } = state;
 
   const selectCanvas = () => {
     dispatch({
@@ -70,6 +73,24 @@ export default function CanvasContent(props) {
   const selectComponent = (curComponentConfig: Record<string, any>) => {
     dispatch({
       type: 'SELECT_COMPONENT',
+      payload: {
+        componentConfig: curComponentConfig,
+      },
+    });
+  };
+
+  const onCopy = () => {
+    dispatch({
+      type: 'COPY_COMPONENT',
+      payload: {
+        componentConfig: curComponentConfig,
+      },
+    });
+  };
+
+  const onDelete = () => {
+    dispatch({
+      type: 'DELETE_COMPONENT',
       payload: {
         componentConfig: curComponentConfig,
       },
@@ -152,13 +173,61 @@ export default function CanvasContent(props) {
     }
   };
 
-  useEffect(() => {
-    if (diffmove.move && containerRef.current) {
-      containerRef.current.style.cursor = 'move';
-    } else {
-      containerRef.current!.style.cursor = 'default';
+  //数据大屏自适应函数
+  const handleScreenAuto = () => {
+    if (mode !== 'preview') {
+      return;
     }
-  }, [diffmove.move]);
+    const canvasDraftWidth = canvasConfig?.width; //画布的宽度
+    const canvasDraftHeight = canvasConfig?.height; //画布的高度
+    //根据屏幕的变化适配的比例
+    const scale = document.documentElement.clientWidth / canvasDraftWidth;
+    //缩放比例
+    (
+      document.querySelector('#canvasBox') as any
+    ).style.transform = `scale(${scale})`;
+  };
+
+  useEffect(() => {
+    //初始化自适应  ----在刚显示的时候就开始适配一次
+    handleScreenAuto();
+    //绑定自适应函数   ---防止浏览器栏变化后不再适配
+    window.onresize = () => handleScreenAuto();
+    //退出大屏后自适应消失   ---这是react的组件销毁生命周期，如果你是vue则写在deleted中。最好在退出大屏的时候接触自适应
+    return () => {
+      window.onresize = null;
+    };
+  }, []);
+
+  // useEffect(() => {
+  //   if (diffmove.move && containerRef && containerRef.current && containerRef.current.style) {
+  //     containerRef.current.style.cursor = 'move';
+  //   } else {
+  //     containerRef.current.style.cursor = 'default';
+  //   }
+  // }, [diffmove.move]);
+
+  if (mode === 'preview') {
+    return (
+      <div className={`${styles['main']} ${styles['preview']}`}>
+        <div
+          className={styles.canvasBox}
+          id="canvasBox"
+          style={{
+            ...canvasConfig,
+          }}
+        >
+          {componentList.map((componentConfig) => {
+            return (
+              <MoveableWrap componentConfig={componentConfig} mode={mode}>
+                <ComponentRender {...componentConfig} />
+              </MoveableWrap>
+            );
+          })}
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div
@@ -259,7 +328,14 @@ export default function CanvasContent(props) {
                     });
                   }}
                 >
-                  <EditSideToolbar>
+                  <EditSideToolbar
+                    actived={
+                      componentConfig.componentId ===
+                      curComponentConfig?.componentId
+                    }
+                    onCopy={onCopy}
+                    onDelete={onDelete}
+                  >
                     <ComponentRender {...componentConfig} />
                   </EditSideToolbar>
                 </MoveableWrap>
