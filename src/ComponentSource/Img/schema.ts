@@ -7,8 +7,8 @@ export default new BaseModel({
   icon: 'icon-yduifuxuankuangxuanzhong',
   category: iComponentCategory.CONTORL,
   config: {
-    width: 88,
-    height: 32,
+    width: 400,
+    height: 320,
   },
   baseConfig: [
     {
