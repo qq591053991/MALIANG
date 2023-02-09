@@ -1,4 +1,6 @@
-export const default_theme = {
+import { EChartsOption } from 'echarts-for-react';
+
+export const default_theme: EChartsOption = {
   color: [
     '#0a73ff',
     '#3dabff',
@@ -298,6 +300,9 @@ export const default_theme = {
     },
   },
   tooltip: {
+    backgroundColor: 'rgba(0, 0, 0, 0.65)',
+    borderColor: 'none',
+    borderWidth: 0,
     axisPointer: {
       lineStyle: {
         color: '#ff0000',
@@ -307,6 +312,9 @@ export const default_theme = {
         color: '#ff0000',
         width: 1,
       },
+    },
+    textStyle: {
+      color: '#fff',
     },
   },
   timeline: {
