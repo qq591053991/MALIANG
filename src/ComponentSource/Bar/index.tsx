@@ -1,5 +1,6 @@
 import React from 'react';
 import ReactEcharts from 'echarts-for-react';
+import MyEcharts from '@/components/MyEcharts';
 
 export default function Bar(props) {
   const { dataSource = [] } = props;
@@ -22,7 +23,5 @@ export default function Bar(props) {
       },
     ],
   };
-  return (
-    <ReactEcharts option={options} style={{ height: '100%' }} theme="dark" />
-  );
+  return <MyEcharts option={options} />;
 }

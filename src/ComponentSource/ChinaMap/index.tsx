@@ -1,5 +1,6 @@
 import React from 'react';
 import ReactEcharts from 'echarts-for-react';
+import MyEcharts from '@/components/MyEcharts';
 
 export default function ChinaMap(props) {
   const options = {
@@ -18,6 +19,6 @@ export default function ChinaMap(props) {
     ],
   };
   return (
-    <ReactEcharts option={options} style={{ height: '100%', width: '100%' }} />
+    <MyEcharts option={options} style={{ height: '100%', width: '100%' }} />
   );
 }

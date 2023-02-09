@@ -1,4 +1,6 @@
 import React, { useReducer, createContext } from 'react';
+import echarts, { registerTheme } from 'echarts';
+import { default_theme } from '@/theme/echart-theme';
 import LeftBar from '@/components/LeftBar';
 import CanvasContent from '@/components/CanvasContent';
 import RightBar from '@/components/RightBar';
@@ -7,6 +9,9 @@ import { v4 as uuid } from 'uuid';
 import TopBar from '@/components/TopBar';
 import { useLocation } from 'umi';
 import { mockCanvasConfigure } from './mock.js';
+
+registerTheme('default_theme', default_theme);
+
 interface iEditorState {
   mode: 'preview' | 'edit';
   componentList: any[];
