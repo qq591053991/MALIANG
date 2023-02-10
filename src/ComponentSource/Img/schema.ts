@@ -12,9 +12,9 @@ export default new BaseModel({
   },
   baseConfig: [
     {
-      key: 'Img',
+      key: 'imgUrl',
       name: '图片',
-      type: 'Select',
+      type: 'Image',
     },
   ],
   dataConfig: [],

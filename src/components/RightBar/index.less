@@ -62,6 +62,33 @@
           & > * {
             min-height: 24px;
           }
+
+          .ant-input-affix-wrapper {
+            border: var(--ml-gui-component-border);
+            background-color: transparent;
+            padding: 0 0 0 4px !important;
+            margin-bottom: 3px;
+            border-radius: 0;
+
+            .anticon {
+              color: var(--ml-gui-font-color-base);
+            }
+
+            &:focus,
+            &-focused {
+              box-shadow: none;
+              border: 1px solid var(--ml-gui-primary-color);
+            }
+
+            .ant-input,
+            .ant-input-number,
+            .ant-select-selector {
+              border: none;
+              background-color: transparent;
+              width: 162px;
+              height: 24px;
+            }
+          }
         }
 
         .ant-input,
@@ -71,6 +98,7 @@
           background-color: transparent;
           width: 162px;
           height: 24px;
+          border-radius: 0;
         }
 
         .ant-select-selector {
@@ -153,7 +181,7 @@
           margin: 0;
           padding: 0;
           border: var(--ml-gui-component-border);
-          border-radius: 2px;
+          border-radius: 0;
 
           &:hover {
             border: 1px solid var(--ml-gui-primary-color);
@@ -232,6 +260,77 @@
           display: flex;
           margin-left: 30px;
         }
+      }
+    }
+
+    .ml-gui-icon {
+      cursor: pointer;
+      font-size: var(--ml-gui-font-size-base);
+      color: var(--ml-gui-font-color-base);
+      font-size: 16px;
+      font-style: normal;
+      transition: transform var(--ml-gui-transition-time)
+        var(--ml-gui-transition-easing);
+
+      &:hover {
+        color: var(--ml-gui-hover-color) !important;
+      }
+    }
+
+    .ml-gui-image-content {
+      width: 100%;
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: var(--ml-gui-image-content-height);
+      padding: 10px;
+      margin-top: 3px;
+      background: var(--ml-gui-component-background-color);
+      border: 1px solid var(--ml-gui-component-border-color);
+      font-size: var(--ml-gui-font-size-base);
+      color: var(--ml-gui-font-color-1);
+      outline: none;
+      box-shadow: none;
+
+      & > img {
+        height: 100%;
+        width: 100%;
+        object-fit: contain;
+      }
+
+      .ml-gui-image-cover {
+        position: absolute;
+        top: 0;
+        left: 0;
+        height: 100%;
+        width: 100%;
+        background: var(--ml-gui-cover-color);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: var(--ml-gui-font-size-base);
+        color: var(--ml-gui-font-color-base);
+
+        & > span {
+          cursor: pointer;
+        }
+
+        & > span:hover {
+          font-size: var(--ml-gui-font-size-base);
+          color: var(--ml-gui-hover-color);
+        }
+      }
+
+      .ml-gui-image-inner-content {
+        max-width: 100%;
+        max-height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        font-size: var(--ml-gui-font-size-base);
+        color: var(--ml-gui-font-color-base);
       }
     }
   }

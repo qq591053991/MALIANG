@@ -101,7 +101,7 @@ export default function EventEditor(props) {
         编辑
       </Button>
       <Modal
-        className={styles['dark-modal']}
+        className="dark-modal"
         open={visible}
         title="交互设计"
         okButtonProps={{

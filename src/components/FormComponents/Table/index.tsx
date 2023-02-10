@@ -95,7 +95,7 @@ const EditableCell: React.FC<EditableCellProps> = ({
         ]}
       >
         <Input
-          ref={(inputRef as unknown) as () => RefObject<HTMLInputElement>}
+          ref={inputRef as unknown as () => RefObject<HTMLInputElement>}
           onPressEnter={save}
           onBlur={save}
         />
@@ -197,7 +197,7 @@ class EditableTable extends React.Component<any, any> {
     const uid = uuid(8, 10);
     const newData = {
       key: uid,
-      name: `dooring ${dataSource.length + 1}`,
+      name: `${dataSource.length + 1}`,
       value: 32,
     };
     const newDataSource = [...dataSource, newData];

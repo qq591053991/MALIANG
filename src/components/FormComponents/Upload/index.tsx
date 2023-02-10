@@ -1,6 +1,10 @@
 import React from 'react';
 import { Upload, Modal, message, Tabs, Result } from 'antd';
-import { PlusOutlined, CheckCircleFilled } from '@ant-design/icons';
+import {
+  PlusOutlined,
+  CheckCircleFilled,
+  LinkOutlined,
+} from '@ant-design/icons';
 // 图片上传考虑使用作者最新发布的组件库react-cropper-pro, 支持上传,自由裁切, 压缩等功能
 // import ImgCrop from 'react-cropper-pro';
 import ImgCrop from 'antd-img-crop';
@@ -12,6 +16,7 @@ import {
 } from 'antd/lib/upload/interface';
 import { isDev, unParams, uuid } from '@/utils/tool';
 import styles from './index.less';
+import Input from 'antd/lib/input/Input';
 
 const { TabPane } = Tabs;
 
@@ -96,7 +101,7 @@ class PicturesWall extends React.Component<PicturesWallType> {
     const fileList = [
       {
         uid: uuid(8, 16),
-        name: 'h5-dooring图片库',
+        name: '图片库',
         status: 'done',
         url: this.state.curSelectedImg,
       },
@@ -208,7 +213,7 @@ class PicturesWall extends React.Component<PicturesWallType> {
             onChange={this.handleChange}
             name="file"
             listType="picture-card"
-            className={styles.avatarUploader}
+            className={` ${styles.avatarUploader}`}
             action={action}
             withCredentials={withCredentials}
             headers={{
@@ -261,7 +266,7 @@ class PicturesWall extends React.Component<PicturesWallType> {
                             key={i}
                             onClick={() => this.handleImgSelected(item)}
                           >
-                            <img src={item} alt="趣谈前端-h5-dooring" />
+                            <img src={item} />
                             <span className={styles.iconBtn}>
                               <CheckCircleFilled />
                             </span>
@@ -275,7 +280,7 @@ class PicturesWall extends React.Component<PicturesWallType> {
             <TabPane tab="更多" key="more">
               <Result
                 status="500"
-                title="Dooring温馨提示"
+                title="温馨提示"
                 subTitle="更多素材, 正在筹备中..."
               />
             </TabPane>

@@ -10,8 +10,6 @@ import { mockCanvasConfigure } from './mock.js';
 interface iEditorState {
   mode: 'preview' | 'edit';
   componentList: any[];
-  width: number;
-  height: number;
   curComponentConfig?: Record<string, any> | null;
   canvasConfig?: {
     width: number;
@@ -44,12 +42,10 @@ const defaultEditorState: iEditorState =
     : {
         mode: 'edit',
         componentList: [],
-        width: 1920,
-        height: 1080,
         curComponentConfig: null,
         canvasConfig: {
           width: 1920,
-          height: 1080,
+          height: 960,
           backgroundColor: 'rgba(7,11,23,1)',
         },
         ...getCanvasConfigure(),

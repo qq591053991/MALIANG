@@ -7,4 +7,8 @@ export default [
     path: '/preview',
     component: '@/pages/Editor/index',
   },
+  {
+    path: '/project',
+    component: '@/pages/Project/index',
+  },
 ];

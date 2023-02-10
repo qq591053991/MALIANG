@@ -1,4 +1,5 @@
 :root {
+  --ml-scroll-track-bg: #1c222b;
   --ml-header-bg-color: #1d1e1f;
   --ml-gui-bg: #191c21;
   --ml-nav-bg: #13161a;
@@ -45,6 +46,28 @@
   --ml-gui-padding-border-color: #737c80;
   --ml-gui-field-show-hide-bg: #6d7278;
   --ml-btn-bg-default: #303640;
+  --ml-gui-image-content-height: 120px;
+
+  --ml-input-bg: #262c33;
+}
+
+::-webkit-scrollbar {
+  display: block;
+  width: 10px;
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #434b55;
+  border: 1px solid #434b55;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--ml-scroll-track-bg);
 }
 
 .iconfont {
@@ -64,4 +87,63 @@ ul,
 li {
   margin: 0;
   padding: 0;
+}
+
+.ellipsis {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.dark-modal {
+  color: #fff;
+
+  .ant-form {
+    color: #fff;
+
+    .ant-form-item-label > label {
+      color: #fff;
+    }
+  }
+
+  .ant-modal-content {
+    position: relative;
+    background-color: #303640;
+    background-clip: padding-box;
+    border: 0;
+    border-radius: 2px;
+    box-shadow: 0 3px 6px -4px rgb(0 0 0 / 48%), 0 6px 16px 0 rgb(0 0 0 / 32%),
+      0 9px 28px 8px rgb(0 0 0 / 20%);
+    pointer-events: auto;
+
+    .ant-modal-close {
+      color: hsla(0, 0%, 100%, 0.45);
+
+      &:hover {
+        color: hsla(0, 0%, 100%, 0.75);
+        text-decoration: none;
+      }
+    }
+
+    .ant-modal-header {
+      padding: 16px 24px;
+      color: hsla(0, 0%, 100%, 0.85);
+      background: #303640;
+      border-bottom: 1px solid #495361;
+      border-radius: 2px 2px 0 0;
+
+      .ant-modal-title {
+        margin: 0;
+        color: hsla(0, 0%, 100%, 0.85);
+        font-weight: 500;
+        font-size: 16px;
+        line-height: 22px;
+        word-wrap: break-word;
+      }
+    }
+
+    .ant-modal-footer {
+      border-top: 1px solid #495361;
+    }
+  }
 }

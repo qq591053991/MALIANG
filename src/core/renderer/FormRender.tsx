@@ -16,6 +16,7 @@ import EventEditor from '@/components/FormComponents/EventEditor';
 import { ProFormTextArea } from '@ant-design/pro-components';
 import DataMapping from '@/components/FormComponents/DataMapping';
 import Series from '@/components/FormComponents/Series';
+import ImageForm from '@/components/FormComponents/ImageForm';
 
 const normFile = (e: any) => {
   if (Array.isArray(e)) {
@@ -101,6 +102,11 @@ const FormItemRender = memo(
         {item.type === 'Series' && (
           <Form.Item label={item.name} name={item.key} noStyle>
             <Series />
+          </Form.Item>
+        )}
+        {item.type === 'Image' && (
+          <Form.Item label={item.name} name={item.key}>
+            <ImageForm />
           </Form.Item>
         )}
         {item.type === 'Color' && (
