@@ -15,8 +15,9 @@ import { useWhyDidYouUpdate } from 'ahooks';
 import EventEditor from '@/components/FormComponents/EventEditor';
 import { ProFormTextArea } from '@ant-design/pro-components';
 import DataMapping from '@/components/FormComponents/DataMapping';
-import Series from '@/components/FormComponents/Series';
+import TabList from '@/components/FormComponents/TabList';
 import ImageForm from '@/components/FormComponents/ImageForm';
+import GroupForm from '@/components/FormComponents/GroupForm';
 
 const normFile = (e: any) => {
   if (Array.isArray(e)) {
@@ -45,6 +46,11 @@ const FormItemRender = memo(
     const { item } = props;
     return (
       <React.Fragment key={item.key}>
+        {item.type === 'Group' && (
+          <Form.Item label={item.name} name={item.key} noStyle>
+            <GroupForm {...item} />
+          </Form.Item>
+        )}
         {item.type === 'Number' && (
           <Form.Item label={item.name} name={item.key}>
             <InputNumber max={item.range && item.range[1]} />
@@ -99,9 +105,9 @@ const FormItemRender = memo(
             <DataList cropRate={item.cropRate} />
           </Form.Item>
         )} */}
-        {item.type === 'Series' && (
+        {item.type === 'TabList' && (
           <Form.Item label={item.name} name={item.key} noStyle>
-            <Series />
+            <TabList {...item} />
           </Form.Item>
         )}
         {item.type === 'Image' && (

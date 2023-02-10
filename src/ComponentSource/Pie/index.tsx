@@ -4,32 +4,20 @@ import MyEcharts from '@/components/MyEcharts';
 
 interface iPieProps {
   dataSource: any[];
-  title: string;
-  titleColor: string;
-  legentTextColor: string;
-  legentTextSize: number;
+  legendTextColor: string;
+  legendTextSize: number;
   color: string;
 }
 
 export default function Pie(props: iPieProps) {
   const {
     dataSource = [],
-    title,
-    titleColor = '#fff',
-    legentTextColor = '#fff',
-    legentTextSize = 16,
+    legendTextColor = '#fff',
+    legendTextSize = 16,
     color,
   } = props;
 
   const options: EChartsOption = {
-    backgroundColor: '',
-    title: {
-      left: 'center',
-      text: title,
-      textStyle: {
-        color: titleColor,
-      },
-    },
     tooltip: {
       trigger: 'item',
     },
@@ -37,8 +25,8 @@ export default function Pie(props: iPieProps) {
       top: '5%',
       left: 'center',
       textStyle: {
-        color: legentTextColor,
-        fontSize: legentTextSize,
+        color: legendTextColor,
+        fontSize: legendTextSize,
       },
     },
     series: [

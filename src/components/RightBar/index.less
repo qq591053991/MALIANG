@@ -1,6 +1,6 @@
 .rightBar {
   width: 300px;
-  background: var(--ml-nav-active-bg);
+  background: var(--ml-gui-background-color-back);
   z-index: 900;
 
   .tabs {
@@ -33,8 +33,16 @@
     }
   }
 
+  .tabsContentWrap {
+    height: calc(100vh - 80px);
+    overflow-y: auto;
+    overflow-x: hidden;
+  }
+
   :global {
     #form_editor {
+      background: var(--ml-nav-active-bg);
+
       .ant-form-item {
         font-size: 12px;
         // height: 24px;
@@ -65,7 +73,7 @@
 
           .ant-input-affix-wrapper {
             border: var(--ml-gui-component-border);
-            background-color: transparent;
+            // background-color: transparent;
             padding: 0 0 0 4px !important;
             margin-bottom: 3px;
             border-radius: 0;
@@ -84,7 +92,6 @@
             .ant-input-number,
             .ant-select-selector {
               border: none;
-              background-color: transparent;
               width: 162px;
               height: 24px;
             }
@@ -95,13 +102,14 @@
         .ant-input-number,
         .ant-select-selector {
           border: var(--ml-gui-component-border);
-          background-color: transparent;
+          background: var(--ml-gui-component-background-color);
           width: 162px;
           height: 24px;
           border-radius: 0;
         }
 
         .ant-select-selector {
+          width: 100%;
           box-shadow: none;
 
           &:hover {
@@ -173,7 +181,6 @@
           color: #fff;
           font-size: 12px;
           line-height: 1.5715;
-          background-color: transparent;
           background-image: none;
           transition: all 0.3s;
           display: inline-block;
@@ -247,8 +254,8 @@
         }
 
         .ant-input-number-input {
-          height: 20px;
-          line-height: 20px;
+          height: 22px;
+          line-height: 22px;
           padding-left: 4px;
         }
 

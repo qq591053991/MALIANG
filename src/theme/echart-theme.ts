@@ -27,9 +27,10 @@ export const default_theme: EChartsOption = {
     lineStyle: {
       width: '2',
     },
+
     symbolSize: '6',
     symbol: 'emptyCircle',
-    smooth: true,
+    smooth: false,
   },
   radar: {
     itemStyle: {
@@ -182,9 +183,9 @@ export const default_theme: EChartsOption = {
       color: 'rgb(144,160,174)',
     },
     splitLine: {
-      show: true,
+      show: false,
       lineStyle: {
-        color: ['rgba(255,255,255,0.2)'],
+        color: ['rgba(255,255,255,0.1)'],
       },
     },
     splitArea: {
@@ -196,7 +197,7 @@ export const default_theme: EChartsOption = {
   },
   valueAxis: {
     axisLine: {
-      show: true,
+      show: false,
       lineStyle: {
         color: 'rgba(255,255,255,0.1)',
       },
@@ -214,7 +215,9 @@ export const default_theme: EChartsOption = {
     splitLine: {
       show: true,
       lineStyle: {
-        color: ['rgba(255,255,255,0.2)'],
+        width: 1.2,
+        type: 'dashed',
+        color: ['rgba(20,65,142,0.84)'],
       },
     },
     splitArea: {

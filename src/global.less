@@ -12,6 +12,7 @@
   --ml-gui-hover-color: #26a5ff;
   --ml-gui-active-color: #2693ff;
   --ml-gui-disabled-color: #424447;
+  --ml-gui-background-color-back: hsl(215, 15%, 8%);
   --ml-gui-background-color-front: hsl(215, 15%, 13%);
   --ml-gui-background-color-front-lighter: hsl(215, 15%, 28%);
   --ml-gui-background-color-back: hsl(215, 15%, 8%);
@@ -144,6 +145,47 @@ li {
 
     .ant-modal-footer {
       border-top: 1px solid #495361;
+    }
+  }
+}
+
+.ant-collapse {
+  color: #fff;
+  background-color: var(--ml-nav-active-bg);
+  border: none;
+
+  .ant-collapse-item {
+    border: none;
+
+    .ant-collapse-header {
+      color: #fff;
+    }
+  }
+
+  .ant-collapse-content {
+    background-color: var(--ml-gui-background-color-back);
+    color: #fff;
+    border: none;
+
+    .ant-collapse-content-box {
+      padding: 0;
+    }
+
+    .ant-form {
+      background: transparent !important;
+
+      .ant-form-item {
+        border: none !important;
+      }
+    }
+
+    .ant-collapse {
+      border-top: 1px solid #29313c;
+      background: transparent;
+
+      // .ant-collapse-header {
+      //   background: transparent;
+      // }
     }
   }
 }

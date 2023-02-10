@@ -2064,10 +2064,10 @@ export const mockCanvasConfigure = {
       { key: 'zIndex', name: '组件层级', type: 'Number' },
       { key: 'title', name: '标题', type: 'Text' },
       { key: 'titleColor', name: '标题颜色', type: 'Color' },
-      { key: 'legentTextColor', name: '图例文字颜色', type: 'Color' },
-      { key: 'legentTextSize', name: '图例文字大小', type: 'Number' },
+      { key: 'legendTextColor', name: '图例文字颜色', type: 'Color' },
+      { key: 'legendTextSize', name: '图例文字大小', type: 'Number' },
       { key: 'color', name: '轴线/柱颜色', type: 'Color' },
-      { key: 'series', name: '系列', type: 'Series' },
+      { key: 'series', name: '系列', type: 'TabList' },
     ],
     dataConfig: [
       {

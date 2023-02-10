@@ -51,7 +51,7 @@ const defaultEditorState: iEditorState =
         canvasConfig: {
           width: 1920,
           height: 960,
-          backgroundColor: 'rgba(7,11,23,1)',
+          backgroundColor: 'rgba(28,34,42,1)',
         },
         ...getCanvasConfigure(),
       };

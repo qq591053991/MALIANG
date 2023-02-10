@@ -20,6 +20,12 @@ export default function Bar(props) {
       {
         data: yAxis,
         type: 'bar',
+        barWidth: 15,
+        itemStyle: {
+          color: function (params) {
+            return '#57cdff';
+          },
+        },
       },
     ],
   };
