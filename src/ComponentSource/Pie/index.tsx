@@ -1,5 +1,6 @@
 import React from 'react';
-import ReactEcharts from 'echarts-for-react';
+import ReactEcharts, { EChartsOption } from 'echarts-for-react';
+import MyEcharts from '@/components/MyEcharts';
 
 interface iPieProps {
   dataSource: any[];
@@ -20,7 +21,8 @@ export default function Pie(props: iPieProps) {
     color,
   } = props;
 
-  const options = {
+  const options: EChartsOption = {
+    backgroundColor: '',
     title: {
       left: 'center',
       text: title,
@@ -66,7 +68,5 @@ export default function Pie(props: iPieProps) {
       },
     ],
   };
-  return (
-    <ReactEcharts option={options} style={{ height: '100%' }} theme="dark" />
-  );
+  return <MyEcharts option={options} />;
 }
