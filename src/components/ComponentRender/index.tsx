@@ -88,7 +88,10 @@ const PollingWrapComponent = (props) => {
   const { data: res, run } = useRequest(
     async () => await BuildDatasource(config?.config),
     {
-      pollingInterval: isPolling ? pollingInterval : 0,
+      pollingInterval:
+        isPolling && config?.config?.dataType !== 'static'
+          ? pollingInterval
+          : 0,
     },
   );
   // config.config.run = run;

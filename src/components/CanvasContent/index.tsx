@@ -180,12 +180,17 @@ export default function CanvasContent(props) {
     }
     const canvasDraftWidth = canvasConfig?.width; //画布的宽度
     const canvasDraftHeight = canvasConfig?.height; //画布的高度
+
     //根据屏幕的变化适配的比例
-    const scale = document.documentElement.clientWidth / canvasDraftWidth;
+    let scale = document.documentElement.clientWidth / canvasDraftWidth;
+    if (document.documentElement.clientHeight < canvasDraftHeight * scale) {
+      // 减去垂直滚动条宽度  */
+      scale = document.documentElement.clientWidth / (canvasDraftWidth - 6);
+    }
     //缩放比例
-    (
-      document.querySelector('#canvasBox') as any
-    ).style.transform = `scale(${scale})`;
+    (document.querySelector(
+      '#canvasBox',
+    ) as any).style.transform = `scale3d(${scale},${scale},1)`;
   };
 
   useEffect(() => {

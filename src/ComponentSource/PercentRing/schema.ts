@@ -2,8 +2,8 @@ import { iComponentCategory } from '@/typings/SchemaCommon';
 import { ChartModel, iChartType } from '../ChartModel';
 
 export default new ChartModel({
-  name: '饼图',
-  type: 'Pie',
+  name: '百分比环',
+  type: 'PercentRing',
   chartType: iChartType.PIE,
   icon: 'icon-shanxingtu',
   category: iComponentCategory.CHART,

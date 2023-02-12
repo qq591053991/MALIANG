@@ -96,8 +96,8 @@ const defaultDatasource = [
 ];
 
 export default new ChartModel({
-  name: '堆积柱状图',
-  type: 'StackBar',
+  name: '垂直堆叠柱状图',
+  type: 'VerticalStackBar',
   chartType: iChartType.BAR,
   icon: 'icon-zhuzhuangduidietu',
   category: iComponentCategory.CHART,

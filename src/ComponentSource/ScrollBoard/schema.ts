@@ -2,6 +2,7 @@ import { iComponentCategory } from '@/typings/SchemaCommon';
 import { BaseModel } from '../BaseConfig';
 
 const mockDataSource = {
+  header: ['列1', '列2', '列3'],
   data: [
     [
       '裸体人像检测*置信度0.23',
@@ -54,16 +55,154 @@ export default new BaseModel({
   icon: 'icon-lunbobiaoge',
   category: iComponentCategory.CONTORL,
   config: {
+    width: 650,
     dataType: 'static',
     requestUrl:
       'https://www.fastmock.site/mock/37597c10a5a6e25ce79c38731203c4fd/maliang/indicator/interest/rate/distribution',
     dataSource: mockDataSource,
-    // dataMapping: [
-    //   { key: 'xAxis', mapping: '' },
-    //   { key: 'yAxis', mapping: '' },
-    // ],
+    globalConfig: {
+      waitTime: 2000,
+      rowNum: 6,
+      index: true,
+    },
+    headerConfig: {
+      headerHeight: 30,
+      headerBGC: 'rgba(10, 115, 217, 0.2)',
+    },
+    lineConfig: {
+      oddRowBGC: 'rgba(10, 115, 255, 0)',
+      evenRowBGC: 'rgba(9,109,217,0.3)',
+    },
+    columns: [
+      {
+        columnWidth: 50,
+        textStyle: {
+          color: '#fff',
+          fontSize: 14,
+        },
+      },
+      {
+        columnWidth: 200,
+        textStyle: {
+          color: '#fff',
+          fontSize: 14,
+        },
+      },
+      {
+        columnWidth: 200,
+        textStyle: {
+          color: '#fff',
+          fontSize: 14,
+        },
+      },
+      {
+        columnWidth: 200,
+        textStyle: {
+          color: '#fff',
+          fontSize: 14,
+        },
+      },
+    ],
   },
-  baseConfig: [],
+  baseConfig: [
+    {
+      key: 'globalConfig',
+      name: '全局设定',
+      type: 'Group',
+      config: [
+        {
+          key: 'index',
+          name: '显示序列号',
+          type: 'Switch',
+        },
+        {
+          key: 'rowNum',
+          name: '表格行数',
+          type: 'Number',
+        },
+        {
+          key: 'waitTime',
+          name: '轮播时间',
+          type: 'Number',
+        },
+      ],
+    },
+    {
+      key: 'headerConfig',
+      name: '表头',
+      type: 'Group',
+      config: [
+        {
+          key: 'headerVisible',
+          name: '是否显示',
+          type: 'Switch',
+        },
+        {
+          key: 'headerHeight',
+          name: '表头行高',
+          type: 'Number',
+        },
+        {
+          key: 'headerBGC',
+          name: '背景颜色',
+          type: 'Color',
+        },
+      ],
+    },
+    {
+      key: 'lineConfig',
+      name: '行配置',
+      type: 'Group',
+      config: [
+        {
+          key: 'oddRowBGC',
+          name: '奇数行背景色',
+          type: 'Color',
+        },
+        {
+          key: 'evenRowBGC',
+          name: '偶数行背景色',
+          type: 'Color',
+        },
+      ],
+    },
+    {
+      key: 'columns',
+      name: '自定义列',
+      type: 'TabList',
+      initialValue: {
+        columnWidth: 200,
+        textStyle: {
+          color: '#fff',
+          fontSize: 12,
+        },
+      },
+      config: [
+        {
+          key: 'columnWidth',
+          name: '列宽度',
+          type: 'Number',
+        },
+        {
+          key: 'textStyle',
+          name: '文本样式',
+          type: 'Group',
+          config: [
+            {
+              key: 'color',
+              name: '颜色',
+              type: 'Color',
+            },
+            {
+              key: 'fontSize',
+              name: '字号',
+              type: 'Number',
+            },
+          ],
+        },
+      ],
+    },
+  ],
   dataConfig: [
     {
       key: 'dataType',

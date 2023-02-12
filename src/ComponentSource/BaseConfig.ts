@@ -40,7 +40,7 @@ export const BaseFormConfig = [
   },
 ];
 
-interface iSchema {
+export interface iBaseSchema {
   name: string;
   type: string;
   icon: string;
@@ -53,7 +53,7 @@ interface iSchema {
 }
 
 export class BaseModel {
-  constructor(config: iSchema) {
+  constructor(config: iBaseSchema) {
     return {
       ...config,
       config: {

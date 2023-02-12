@@ -39,6 +39,7 @@
     "monaco-editor-webpack-plugin": "^7.0.1",
     "moveable": "^0.42.2",
     "react": "^16.8.2",
+    "react-best-gradient-color-picker": "^2.1.12",
     "react-color": "^2.19.3",
     "react-dom": "16.x",
     "react-draggable": "^4.4.4",

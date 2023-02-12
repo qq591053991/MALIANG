@@ -7,8 +7,10 @@ export default new BaseModel({
   icon: 'icon-yduifuxuankuangxuanzhong',
   category: iComponentCategory.CONTORL,
   config: {
-    width: 400,
-    height: 320,
+    width: 650,
+    height: 95,
+    imgUrl:
+      '//cdn-upload.datav.aliyun.com/upload/download/1630634667868-i-6y_Ohc.png',
   },
   baseConfig: [
     {

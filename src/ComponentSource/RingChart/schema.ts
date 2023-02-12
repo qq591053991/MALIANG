@@ -2,8 +2,8 @@ import { iComponentCategory } from '@/typings/SchemaCommon';
 import { ChartModel, iChartType } from '../ChartModel';
 
 export default new ChartModel({
-  name: '饼图',
-  type: 'Pie',
+  name: '环形图',
+  type: 'RingChart',
   chartType: iChartType.PIE,
   icon: 'icon-shanxingtu',
   category: iComponentCategory.CHART,
@@ -48,6 +48,17 @@ export default new ChartModel({
   },
   baseConfig: [],
   dataConfig: [],
-  styleConfig: [],
+  styleConfig: [
+    {
+      key: 'color',
+      name: '标题颜色',
+      type: 'Color',
+    },
+    {
+      key: 'fontSize',
+      name: '文字大小',
+      type: 'Number',
+    },
+  ],
   eventConfig: [{}],
 });

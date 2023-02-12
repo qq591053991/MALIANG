@@ -1,6 +1,7 @@
 import { iComponentCategory } from '@/typings/SchemaCommon';
+import { BaseModel } from '../BaseConfig';
 
-export default {
+export default new BaseModel({
   name: '通用标题',
   type: 'Title',
   icon: 'icon-biaoti',
@@ -52,4 +53,4 @@ export default {
     },
   ],
   eventConfig: [{}],
-};
+});

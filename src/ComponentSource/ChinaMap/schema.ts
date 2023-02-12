@@ -1,6 +1,7 @@
 import { iComponentCategory } from '@/typings/SchemaCommon';
+import { BaseModel } from '../BaseConfig';
 
-export default {
+export default new BaseModel({
   name: '中国地图',
   type: 'ChinaMap',
   icon: 'icon-zhuzhuangtu',
@@ -43,4 +44,4 @@ export default {
     },
   ],
   eventConfig: [{}],
-};
+});

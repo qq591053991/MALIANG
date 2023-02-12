@@ -8,8 +8,10 @@
   display: flex;
 
   &.preview {
-    height: 100%;
-    overflow: initial;
+    // height: auto;
+    min-height: 100vh;
+    overflow-y: auto;
+    overflow-x: hidden;
 
     .canvasBox {
       left: 0;

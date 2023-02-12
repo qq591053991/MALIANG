@@ -8,6 +8,7 @@ import { Collapse, message } from 'antd';
 
 interface iTabList {
   key: string;
+  name: string;
   value: any[];
   config: any[];
   initialValue: any;
@@ -19,56 +20,51 @@ const { Panel } = Collapse;
 export default memo(function TabList(props: iTabList) {
   const {
     key,
+    name,
     config,
     initialValue = {},
     value = [initialValue],
     onChange,
   } = props;
-  const {
-    list: _values,
-    getKey,
-    getIndex,
-    push,
-    remove,
-    replace,
-  } = useDynamicList(value);
-  const tabs = useMemo(
-    () =>
-      _values?.map((item, index) => ({
-        ...item,
-        label: '系列' + (index + 1),
-        key: index,
-        uuid: getKey(index),
-      })),
-    [_values],
+  const { list, getKey, getIndex, push, remove, replace } = useDynamicList(
+    value,
   );
-  const [curTab, setCurTab] = useState({ ...tabs?.[0] });
+  const _values = useMemo(() => {
+    return list?.map((item, index) => ({
+      ...item,
+      label: name + (index + 1),
+      key: index,
+      uuid: item?.uuid || getKey(index),
+      formId: item?.formId || uuid(),
+    }));
+  }, [list]);
+  const [curTab, setCurTab] = useState({ ..._values?.[0] });
   const getFormRenderProps = useMemo(() => {
     return {
-      uid: curTab?.uuid,
+      uid: curTab?.formId,
       config,
-      defaultValue: value[getIndex(curTab?.uuid)],
+      defaultValue: list[getIndex(curTab?.uuid)],
       onSave: (values: Record<string, any>) => {
         replace(getIndex(curTab?.uuid), values);
       },
     };
-  }, [curTab]);
+  }, [curTab, list]);
 
   useEffect(() => {
-    onChange(_values);
-  }, [_values, _values?.length]);
+    onChange(list);
+  }, [list, list?.length]);
 
   useEffect(() => {
-    if (_values?.length <= 0) {
+    if (list?.length <= 0) {
       return;
     }
-    const nIndex = _values?.length - 1;
-    setCurTab({ ..._values[nIndex], uuid: getKey(nIndex) });
-  }, [_values?.length]);
+    const nIndex = list?.length - 1;
+    setCurTab({ ...list[nIndex], uuid: getKey(nIndex) });
+  }, [list?.length]);
 
   const onRemove = useCallback(() => {
     // 只有一条不可删除
-    if (_values?.length === 1) {
+    if (list?.length === 1) {
       message.warning('不可删除，最少为一条！');
       return;
     }
@@ -83,7 +79,7 @@ export default memo(function TabList(props: iTabList) {
       <Collapse expandIconPosition="end">
         <Panel
           key={key}
-          header={'系列'}
+          header={name}
           extra={
             <div className="icon-group">
               <CopyOutlined
@@ -108,7 +104,7 @@ export default memo(function TabList(props: iTabList) {
           }
         >
           <ul className={styles.tabs}>
-            {tabs?.map((tab, index) => (
+            {_values?.map((tab, index) => (
               <li
                 className={`${styles['tab-item']} ${
                   curTab.uuid === tab?.uuid ? styles['active'] : ''

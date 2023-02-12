@@ -4,51 +4,21 @@ import MyEcharts from '@/components/MyEcharts';
 
 interface iPieProps {
   dataSource: any[];
-  legendTextColor: string;
-  legendTextSize: number;
-  color: string;
+  legend: Record<string, any>;
 }
 
 export default function Pie(props: iPieProps) {
-  const {
-    dataSource = [],
-    legendTextColor = '#fff',
-    legendTextSize = 16,
-    color,
-  } = props;
+  const { dataSource = [], legend } = props;
 
   const options: EChartsOption = {
     tooltip: {
       trigger: 'item',
     },
-    legend: {
-      top: '5%',
-      left: 'center',
-      textStyle: {
-        color: legendTextColor,
-        fontSize: legendTextSize,
-      },
-    },
+    legend,
     series: [
       {
-        name: 'Access From',
         type: 'pie',
-        radius: ['40%', '70%'],
-        avoidLabelOverlap: false,
-        label: {
-          show: false,
-          position: 'center',
-        },
-        emphasis: {
-          label: {
-            show: true,
-            fontSize: 20,
-            fontWeight: 'bold',
-          },
-        },
-        labelLine: {
-          show: false,
-        },
+        radius: '50%',
         data: dataSource?.map((item: any) => ({
           name: item?.xAxis,
           value: item?.yAxis,

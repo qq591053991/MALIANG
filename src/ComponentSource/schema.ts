@@ -5,7 +5,10 @@ import Checkbox from './Checkbox/schema';
 import Button from './Button/schema';
 import Line from './Line/schema';
 import Bar from './Bar/schema';
+import VerticalStackBar from './VerticalStackBar/schema';
 import StackBar from './StackBar/schema';
+import RingChart from './RingChart/schema';
+import PercentRing from './PercentRing/schema';
 import Pie from './Pie/schema';
 import Img from './Img/schema';
 import ChinaMap from './ChinaMap/schema';
@@ -18,8 +21,11 @@ export default {
   Button,
   Line,
   Bar,
+  VerticalStackBar,
   StackBar,
   Pie,
+  RingChart,
+  PercentRing,
   Img,
-  // ChinaMap,
+  ChinaMap,
 };

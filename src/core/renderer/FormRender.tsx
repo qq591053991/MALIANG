@@ -18,6 +18,7 @@ import DataMapping from '@/components/FormComponents/DataMapping';
 import TabList from '@/components/FormComponents/TabList';
 import ImageForm from '@/components/FormComponents/ImageForm';
 import GroupForm from '@/components/FormComponents/GroupForm';
+import GradientColorPicker from '@/components/FormComponents/GradientColor';
 
 const normFile = (e: any) => {
   if (Array.isArray(e)) {
@@ -117,7 +118,13 @@ const FormItemRender = memo(
         )}
         {item.type === 'Color' && (
           <Form.Item label={item.name} name={item.key}>
-            <Color />
+            <GradientColorPicker />
+            {/* <Color /> */}
+          </Form.Item>
+        )}
+        {item.type === 'GradientColor' && (
+          <Form.Item label={item.name} name={item.key}>
+            <GradientColorPicker />
           </Form.Item>
         )}
 
