@@ -3,6 +3,7 @@ import { iComponentCategory } from '@/typings/SchemaCommon';
 export const BaseConfig = {
   width: 200,
   height: 200,
+  opacity: 1
   // left: 0,
   // top: 0,
 };
@@ -32,6 +33,13 @@ export const BaseFormConfig = [
     key: 'left',
     name: '横向偏移',
     type: 'Number',
+  },
+  {
+    key: 'opacity',
+    name: '不透明度',
+    type: 'Number',
+    step: 0.1,
+    range: [0, 1]
   },
   {
     key: 'zIndex',

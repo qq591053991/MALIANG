@@ -56,7 +56,7 @@ export default function MoveableWrap(
   }, []);
 
   const { config = {}, componentId } = componentConfig;
-  const { height, width, left, top, zIndex = 1 } = config;
+  const { height, width, left, top, opacity = 1, zIndex = 1 } = config;
   return (
     <>
       <div
@@ -69,6 +69,7 @@ export default function MoveableWrap(
           height,
           width,
           zIndex,
+          opacity,
           transform: `translate(${left}px,${top}px)`,
         }}
         onClick={nativeOnClick}

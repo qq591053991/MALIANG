@@ -1,4 +1,5 @@
 import Title from './Title/schema';
+import Shape from './Shape/schema';
 import BorderBox from './BorderBox/schema';
 import ScrollBoard from './ScrollBoard/schema';
 import Checkbox from './Checkbox/schema';
@@ -16,6 +17,7 @@ import ChinaMap from './ChinaMap/schema';
 
 export default {
   Title,
+  Shape,
   BorderBox,
   ScrollBoard,
   // Checkbox,
