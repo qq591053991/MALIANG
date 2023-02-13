@@ -5,6 +5,7 @@ import Checkbox from './Checkbox/schema';
 import Button from './Button/schema';
 import Line from './Line/schema';
 import Bar from './Bar/schema';
+import PercentBar from './PercentBar/schema';
 import VerticalStackBar from './VerticalStackBar/schema';
 import StackBar from './StackBar/schema';
 import RingChart from './RingChart/schema';
@@ -21,6 +22,7 @@ export default {
   Button,
   Line,
   Bar,
+  PercentBar,
   VerticalStackBar,
   StackBar,
   Pie,

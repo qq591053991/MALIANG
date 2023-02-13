@@ -4,6 +4,10 @@ export default [
     component: '@/pages/Editor/index',
   },
   {
+    path: '/edit',
+    component: '@/pages/Editor/index',
+  },
+  {
     path: '/preview',
     component: '@/pages/Editor/index',
   },

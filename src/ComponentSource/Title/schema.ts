@@ -8,8 +8,9 @@ export default new BaseModel({
   category: iComponentCategory.INOFRMATION,
   config: {
     text: '我是标题',
-    color: '#666',
+    color: '#fff',
     fontSize: 16,
+    textShadow: 'rgb(145 225 255) 0px 0px 6px',
   },
   baseConfig: [
     {
@@ -20,6 +21,11 @@ export default new BaseModel({
     {
       key: 'color',
       name: '标题颜色',
+      type: 'Color',
+    },
+    {
+      key: 'textShadow',
+      name: '文字阴影',
       type: 'Color',
     },
     {

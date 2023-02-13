@@ -13,6 +13,15 @@ body {
 
   :global {
     .project-list {
+      display: flex;
+      flex-wrap: wrap;
+      align-content: flex-start;
+      padding-top: 8px;
+      user-select: none;
+      padding-bottom: 50px;
+      // margin-right: -32px;
+      margin-left: 20px;
+
       .screen {
         display: flex;
         flex-direction: column;
@@ -20,6 +29,7 @@ body {
         height: 184px;
         border: 1px solid #3a4659;
         transition: 0.2s;
+        margin: 16px 32px 16px 0;
 
         .screen-info {
           width: 100%;
@@ -28,7 +38,8 @@ body {
           align-items: center;
           justify-content: center;
 
-          &:hover {
+          &:hover,
+          &.add {
             .screen-edit {
               opacity: 1;
             }

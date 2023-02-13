@@ -13,31 +13,30 @@ export default function ScrollBoard(props) {
   const { oddRowBGC, evenRowBGC } = lineConfig;
   // const { waitTime, rowNum, index, } = headerConfig
 
-  const data = useMemo(() => {
-    return dataSource?.data?.map((item: any[]) => {
-      if (Array.isArray(item)) {
-        return item.map((str, colIndex) => {
-          return `<span 
-                style="
-                  color:${columns?.[colIndex]?.textStyle?.color || '#fff'};
-                  font-size:${
-                    columns?.[colIndex]?.textStyle?.fontSize + 'px' || '14px'
-                  }
-                "
-               >
-                ${str}
-               <span/>
-        `;
-        });
-      }
-      return item;
-    });
-  }, [dataSource?.data]);
+  // const data = useMemo(() => {
+  //   return dataSource?.data?.map((item: any[]) => {
+  //     if (Array.isArray(item)) {
+  //       return item.map((str, colIndex) => {
+  //         return `<span
+  //               style="
+  //                 color:${columns?.[colIndex]?.textStyle?.color || '#fff'};
+  //                 font-size:${columns?.[colIndex]?.textStyle?.fontSize + 'px' || '14px'
+  //           }
+  //               "
+  //              >
+  //               ${str}
+  //              <span/>
+  //       `;
+  //       });
+  //     }
+  //     return item;
+  //   });
+  // }, [dataSource?.data]);
   const config = useMemo(
     () => ({
       columnWidth: columns?.map((item) => item?.columnWidth || 180),
       header: headerVisible ? dataSource?.header : null,
-      data,
+      data: dataSource?.data,
       headerHeight,
       headerBGC,
       oddRowBGC,

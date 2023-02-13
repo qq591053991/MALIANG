@@ -1,15 +1,24 @@
 import { EditorContext } from '@/pages/Editor';
+import { saveCanvas } from '@/services/editor';
 import { EyeFilled, EyeOutlined, SaveOutlined } from '@ant-design/icons';
 import { Button, message, Popover } from 'antd';
 import React, { useContext } from 'react';
+import { history } from 'umi';
 import styles from './index.less';
 
 export default function TopBar() {
-  const [state, dispatch] = useContext(EditorContext);
-
-  function saveCanvas() {
-    localStorage.setItem('configureData', JSON.stringify(state));
-    message.success('保存成功');
+  const [{ mode, ...state }, dispatch] = useContext(EditorContext);
+  async function toSaveCanvas() {
+    const configureStr = JSON.stringify(state);
+    localStorage.setItem('configureData', configureStr);
+    const id = new URLSearchParams(history.location.search).get('id');
+    if (id) {
+      saveCanvas({
+        id,
+        configureData: configureStr,
+      });
+      message.success('保存成功');
+    }
   }
 
   function toPreview() {
@@ -25,7 +34,7 @@ export default function TopBar() {
             size="middle"
             icon={<SaveOutlined className={styles['header-button-icon']} />}
             type="text"
-            onClick={saveCanvas}
+            onClick={toSaveCanvas}
             ghost
           />
         </Popover>

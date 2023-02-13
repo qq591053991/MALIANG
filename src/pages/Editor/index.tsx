@@ -1,4 +1,4 @@
-import React, { useReducer, createContext } from 'react';
+import React, { useReducer, createContext, useState, useEffect } from 'react';
 import echarts, { registerTheme } from 'echarts';
 import { default_theme } from '@/theme/echart-theme';
 import LeftBar from '@/components/LeftBar';
@@ -8,7 +8,8 @@ import styles from './index.less';
 import { v4 as uuid } from 'uuid';
 import TopBar from '@/components/TopBar';
 import { useLocation } from 'umi';
-import { mockCanvasConfigure } from './mock.js';
+import mockCanvasConfigure from './page2.js';
+import { getCanvasInfo } from '@/services/editor';
 
 registerTheme('default_theme', default_theme);
 
@@ -25,23 +26,21 @@ interface iEditorState {
 
 export const EditorContext = createContext();
 
-const mockCanvasConfigureData = mockCanvasConfigure;
-
-function getCanvasConfigure() {
+async function getCanvasConfigure() {
   try {
+    const res = await getCanvasInfo(1);
+    // return JSON.parse(res?.data?.configureData)
     return (
-      JSON.parse(localStorage.getItem('configureData')) ||
-      mockCanvasConfigureData
+      JSON.parse(localStorage.getItem('configureData')) || mockCanvasConfigure
     );
   } catch (error) {
-    return mockCanvasConfigureData;
+    return {};
   }
 }
 
 const defaultEditorState: iEditorState =
   location.pathname === '/preview'
     ? {
-        ...getCanvasConfigure(),
         mode: 'preview',
       }
     : {
@@ -53,11 +52,15 @@ const defaultEditorState: iEditorState =
           height: 960,
           backgroundColor: 'rgba(28,34,42,1)',
         },
-        ...getCanvasConfigure(),
       };
 
 function reducer(state: iEditorState, action: { type: string; payload: any }) {
   switch (action.type) {
+    case 'INITIALIZATION':
+      return {
+        ...state,
+        ...action.payload.initialConfig,
+      };
     case 'ADD_COMPONMENT':
       return {
         ...state,
@@ -169,13 +172,27 @@ function updateLayoutById(componentList, componentId, layoutConfig) {
 }
 
 export default function Editor() {
+  // const [editorState, setEditorState] = useState({ ...defaultEditorState })
   const location = useLocation();
   const mode = location?.pathname === '/preview' ? 'preview' : 'edit';
-  const editorState = useReducer(reducer, { ...defaultEditorState });
+  // const [editorContextState, dispatch] = useReducer(reducer, { ...defaultEditorState });
+  const [editorContextState, dispatch] = useReducer(reducer, {
+    ...defaultEditorState,
+  });
+  useEffect(() => {
+    getCanvasConfigure().then((res) => {
+      dispatch({
+        type: 'INITIALIZATION',
+        payload: {
+          initialConfig: res,
+        },
+      });
+    });
+  }, []);
   if (mode === 'preview') {
     return (
       <div className={styles.editorWrap}>
-        <EditorContext.Provider value={editorState}>
+        <EditorContext.Provider value={[editorContextState, dispatch]}>
           <div className={styles.editor}>
             <CanvasContent></CanvasContent>
           </div>
@@ -186,7 +203,7 @@ export default function Editor() {
 
   return (
     <div className={styles.editorWrap}>
-      <EditorContext.Provider value={editorState}>
+      <EditorContext.Provider value={[editorContextState, dispatch]}>
         <TopBar />
         <div className={styles.editor}>
           <LeftBar></LeftBar>

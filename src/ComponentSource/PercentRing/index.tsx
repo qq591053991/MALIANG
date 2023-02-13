@@ -8,37 +8,41 @@ interface iPercentRingProps {
 }
 
 export default function PercentRing(props: iPercentRingProps) {
-  const { dataSource = [], legend } = props;
-  const value = 55;
+  const { dataSource = [{}], legend, chartConfig = {} } = props;
+  const { ringConfig, fontStyle } = chartConfig;
+  const { bgRingColor, outRingRadius, valueRingColor, innerRingRadius } =
+    ringConfig;
+  const { valueFontColor, valueFontSize, unitFontColor, unitFontSize } =
+    fontStyle;
+  const [{ amis = 100, actual = 100 }] = dataSource;
+  const value = (amis / actual) * 100;
   const options: EChartsOption = {
     tooltip: {
       trigger: 'item',
     },
     legend,
     title: {
-      text: '{a|' + value + '}{c|%}',
+      text: `{a|${value}}{c|%}`,
       x: 'center',
       y: 'center',
       textStyle: {
         rich: {
           a: {
-            fontSize: 48,
-            color: '#29EEF3',
+            fontSize: valueFontSize,
+            color: valueFontColor,
           },
 
           c: {
-            fontSize: 20,
-            color: '#ffffff',
-            // padding: [5,0]
+            fontSize: unitFontSize,
+            color: unitFontColor,
           },
         },
       },
     },
     series: [
       {
-        name: '吃猪肉频率',
         type: 'pie',
-        radius: ['58%', '45%'],
+        radius: [`${outRingRadius}%`, `${innerRingRadius}%`],
         silent: true,
         clockwise: true,
         startAngle: 90,
@@ -55,19 +59,7 @@ export default function PercentRing(props: iPercentRingProps) {
             name: '',
             itemStyle: {
               normal: {
-                color: {
-                  // 完成的圆环的颜色
-                  colorStops: [
-                    {
-                      offset: 0,
-                      color: '#4FADFD', // 0% 处的颜色
-                    },
-                    {
-                      offset: 1,
-                      color: '#28E8FA', // 100% 处的颜色
-                    },
-                  ],
-                },
+                color: valueRingColor,
               },
             },
           },
@@ -81,7 +73,7 @@ export default function PercentRing(props: iPercentRingProps) {
             },
             itemStyle: {
               normal: {
-                color: '#173164',
+                color: bgRingColor,
               },
             },
           },

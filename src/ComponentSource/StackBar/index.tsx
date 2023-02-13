@@ -3,7 +3,7 @@ import ReactEcharts from 'echarts-for-react';
 import MyEcharts from '@/components/MyEcharts';
 
 export default function StackBar(props) {
-  const { dataSource = [] } = props;
+  const { dataSource = [], legend, grid } = props;
   // const defaultXData = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
   // const defaultYData = [150, 230, 224, 218, 135, 147, 260];
   // const xAxis = dataSource?.map((item) => item?.xAxis) || defaultXData;
@@ -12,7 +12,8 @@ export default function StackBar(props) {
 
   const options = {
     tooltip: {},
-    legend: {},
+    legend,
+    grid,
     dataset: {
       dimensions: ['xAxis', ...[...new Set(series)]],
       source: dataSource?.map((item) => ({

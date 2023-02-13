@@ -1,15 +1,43 @@
-import { DeleteOutlined, EyeOutlined } from '@ant-design/icons';
-import { Button } from 'antd';
-import React, { useState } from 'react';
+import { addScreen } from '@/services/project';
+import { DeleteOutlined, EyeOutlined, PlusOutlined } from '@ant-design/icons';
+import { ProFormText } from '@ant-design/pro-components';
+import { Button, Form, FormInstance, Input, Modal } from 'antd';
+import React, { useEffect, useRef, useState } from 'react';
+import { history } from 'umi';
 import styles from './index.less';
 
 export default function Project() {
-  const [projectList, setProject] = useState([{}]);
+  const [projectList, setProject] = useState([
+    {
+      name: '数据大屏',
+    },
+  ]);
+  const [modalVisible, setModalVisible] = useState(false);
+  const [form] = Form.useForm<FormInstance>();
+
+  useEffect(() => {}, []);
+
+  const onCancel = () => {
+    form?.resetFields();
+    setModalVisible(false);
+  };
+  const onOk = async () => {
+    await form?.validateFields().then(async ({ name }) => {
+      // const {data:id} = await addScreen({
+      //   configureName: name,
+      // })
+      // console.log('res', res);
+      form?.resetFields();
+      setModalVisible(false);
+      // history.push(`/edit?id=${id}`)
+      history.push(`/edit?id=1`);
+    });
+  };
   return (
     <div>
       <div className={styles['marin-screen']}>
         <div className="project-list">
-          {projectList?.map((item, index) => (
+          {/* {projectList?.map((item, index) => (
             <div className={`screen`} key={index}>
               <div className="screen-info">
                 <div
@@ -26,6 +54,7 @@ export default function Project() {
                         style={{
                           borderRadius: 0,
                         }}
+                      // onClick={() => setModalVisible(true)}
                       >
                         编辑
                       </Button>
@@ -43,14 +72,63 @@ export default function Project() {
               </div>
 
               <div className="screen-main">
-                <div className="main-name" title={'数据大屏'}>
-                  数据大屏
+                <div className="main-name" title={item.name}>
+                  {item.name}
                 </div>
               </div>
             </div>
-          ))}
+          ))} */}
+          <div className={`screen`} key={'add'}>
+            <div className="screen-info add">
+              <div className="screen-img" />
+              <div className="screen-edit">
+                <div className="screen-button">
+                  <div className="edit-btn">
+                    <Button
+                      type="primary"
+                      style={{
+                        borderRadius: 0,
+                      }}
+                      onClick={() => setModalVisible(true)}
+                      icon={<PlusOutlined />}
+                    >
+                      创建大屏
+                    </Button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div className="screen-main">
+              <div className="main-name">{/* 空白模板 */}</div>
+            </div>
+          </div>
         </div>
       </div>
+      <Modal
+        className={`dark-modal`}
+        open={modalVisible}
+        onCancel={onCancel}
+        onOk={onOk}
+        title="创建数据大屏"
+      >
+        <Form name="project-form" form={form} layout="vertical">
+          {/* <Form.Item
+            name='name'
+            label='数据大屏名称'
+            required={true}
+            rules={[{ required: true, message: '数据大屏名称必须填写' }]}
+          >
+            <Input />
+          </Form.Item> */}
+          <ProFormText
+            name="name"
+            label="数据大屏名称"
+            required={true}
+            rules={[{ required: true, message: '数据大屏名称必须填写' }]}
+          />
+        </Form>
+      </Modal>
     </div>
   );
 }

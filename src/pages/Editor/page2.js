@@ -1,5 +1,4 @@
-const page2 = {
-  mode: 'edit',
+export default {
   componentList: [
     {
       name: '图片',

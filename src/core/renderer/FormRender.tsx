@@ -54,7 +54,11 @@ const FormItemRender = memo(
         )}
         {item.type === 'Number' && (
           <Form.Item label={item.name} name={item.key}>
-            <InputNumber max={item.range && item.range[1]} />
+            <InputNumber
+              min={item.range && item.range[0]}
+              max={item.range && item.range[1]}
+              step={item.step}
+            />
           </Form.Item>
         )}
         {item.type === 'Text' && (

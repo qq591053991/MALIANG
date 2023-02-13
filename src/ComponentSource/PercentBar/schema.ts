@@ -2,12 +2,24 @@ import { iComponentCategory } from '@/typings/SchemaCommon';
 import { ChartModel, iChartType } from '../ChartModel';
 
 export default new ChartModel({
-  name: '柱状图',
-  type: 'Bar',
+  name: '百分比条形图',
+  type: 'PercentBar',
   chartType: iChartType.BAR,
   icon: 'icon-zhuzhuangtu',
   category: iComponentCategory.CHART,
   config: {
+    width: 450,
+    height: 220,
+    grid: {
+      left: 54,
+      top: 10,
+      right: 50,
+      bottom: 10,
+    },
+    dataMapping: [
+      { key: 'xAxis', mapping: '' },
+      { key: 'yAxis', mapping: '' },
+    ],
     dataSource: [
       {
         xAxis: '大盘',

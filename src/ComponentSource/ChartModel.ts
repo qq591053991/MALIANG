@@ -12,7 +12,7 @@ const ChartBaseFormConfig = [
     type: 'Group',
     config: [
       {
-        key: 'horizontalPosition',
+        key: 'left',
         name: '水平位置',
         type: 'Select',
         options: [
@@ -35,7 +35,7 @@ const ChartBaseFormConfig = [
         ],
       },
       {
-        key: 'verticalPosition',
+        key: 'top',
         name: '竖直位置',
         type: 'Select',
         options: [
@@ -49,7 +49,7 @@ const ChartBaseFormConfig = [
           },
           {
             label: '居中对齐',
-            value: 'center',
+            value: 'middle',
           },
           {
             label: '底部对齐',
@@ -80,6 +80,16 @@ const ChartBaseFormConfig = [
       {
         key: 'itemGap',
         name: '图例项间距',
+        type: 'Number',
+      },
+      {
+        key: 'itemWidth',
+        name: '图形宽度',
+        type: 'Number',
+      },
+      {
+        key: 'itemHeight',
+        name: '图形高度',
         type: 'Number',
       },
       {
@@ -259,11 +269,13 @@ const ChartBaseConfig = {
     bottom: 30,
   },
   legend: {
-    horizontalPosition: 'auto',
-    verticalPosition: 'auto',
+    left: 'auto',
+    top: 'auto',
     orient: 'horizontal',
     padding: 30,
     itemGap: 20,
+    itemWidth: 14,
+    itemHeight: 10,
     textStyle: {
       color: '#fff',
       fontWeight: 300,
@@ -272,7 +284,66 @@ const ChartBaseConfig = {
   },
 };
 
-export const LineSeries = [
+export const PieTypeConfig = [
+  // {
+  //   key: 'grid',
+  //   name: '网格',
+  //   type: 'Group',
+  //   config: [
+  //     {
+  //       key: 'left',
+  //       name: '左边距',
+  //       type: 'Number',
+  //     },
+  //     {
+  //       key: 'top',
+  //       name: '上边距',
+  //       type: 'Number',
+  //     },
+  //     {
+  //       key: 'right',
+  //       name: '右边距',
+  //       type: 'Number',
+  //     },
+  //     {
+  //       key: 'bottom',
+  //       name: '下边距',
+  //       type: 'Number',
+  //     },
+  //   ],
+  // },
+];
+
+export const BarTypeConfig = [
+  {
+    key: 'grid',
+    name: '网格',
+    type: 'Group',
+    config: [
+      {
+        key: 'left',
+        name: '左边距',
+        type: 'Number',
+      },
+      {
+        key: 'top',
+        name: '上边距',
+        type: 'Number',
+      },
+      {
+        key: 'right',
+        name: '右边距',
+        type: 'Number',
+      },
+      {
+        key: 'bottom',
+        name: '下边距',
+        type: 'Number',
+      },
+    ],
+  },
+];
+export const LineTypeConfig = [
   {
     key: 'grid',
     name: '网格',
@@ -394,7 +465,11 @@ export enum iChartType {
 export function getChartTypeFormConfig(chartType: iChartType) {
   switch (chartType) {
     case iChartType.LINE:
-      return [...LineSeries];
+      return [...LineTypeConfig];
+    case iChartType.BAR:
+      return [...BarTypeConfig];
+    case iChartType.PIE:
+      return [...PieTypeConfig];
 
     default:
       return [];

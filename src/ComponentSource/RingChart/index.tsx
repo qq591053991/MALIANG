@@ -4,31 +4,20 @@ import MyEcharts from '@/components/MyEcharts';
 
 interface iRingChartProps {
   dataSource: any[];
-  legendTextColor: string;
-  legendTextSize: number;
+  legend: any;
+  grid: any;
   color: string;
 }
 
 export default function RingChart(props: iRingChartProps) {
-  const {
-    dataSource = [],
-    legendTextColor = '#fff',
-    legendTextSize = 16,
-    color,
-  } = props;
+  const { dataSource = [], legend, grid, color } = props;
 
   const options: EChartsOption = {
     tooltip: {
       trigger: 'item',
     },
-    legend: {
-      top: '5%',
-      left: 'center',
-      textStyle: {
-        color: legendTextColor,
-        fontSize: legendTextSize,
-      },
-    },
+    legend,
+    grid,
     series: [
       {
         type: 'pie',

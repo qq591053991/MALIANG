@@ -20,7 +20,6 @@ export default function CanvasContent(props) {
   const [state, dispatch] = useContext(EditorContext);
   const { componentList = [], canvasConfig, curComponentConfig = {} } = state;
   const { mode } = state;
-  console.log(state, dispatch);
   const [scaleNum, setScale] = useState(1);
   const [dragstate, setDragState] = useState({ x: 0, y: 0 });
   const [diffmove, setDiffMove] = useState({
@@ -185,12 +184,12 @@ export default function CanvasContent(props) {
     let scale = document.documentElement.clientWidth / canvasDraftWidth;
     if (document.documentElement.clientHeight < canvasDraftHeight * scale) {
       // 减去垂直滚动条宽度  */
-      scale = document.documentElement.clientWidth / (canvasDraftWidth - 6);
+      scale = document.documentElement.clientWidth / (canvasDraftWidth + 8);
     }
     //缩放比例
-    (document.querySelector(
-      '#canvasBox',
-    ) as any).style.transform = `scale3d(${scale},${scale},1)`;
+    (
+      document.querySelector('#canvasBox') as any
+    ).style.transform = `scale3d(${scale},${scale},1)`;
   };
 
   useEffect(() => {
@@ -202,7 +201,7 @@ export default function CanvasContent(props) {
     return () => {
       window.onresize = null;
     };
-  }, []);
+  }, [canvasConfig]);
 
   // useEffect(() => {
   //   if (diffmove.move && containerRef && containerRef.current && containerRef.current.style) {
@@ -239,6 +238,10 @@ export default function CanvasContent(props) {
       className={styles['main']}
       onDrop={onDrop}
       onDragOver={(event) => event.preventDefault()}
+      onClick={(e) => {
+        e.stopPropagation();
+        selectCanvas();
+      }}
     >
       <div
         className={styles.tickMark}
@@ -282,10 +285,6 @@ export default function CanvasContent(props) {
           <div
             className={styles.canvasBox}
             id="canvasBox"
-            onClick={(e) => {
-              e.stopPropagation();
-              selectCanvas();
-            }}
             style={{
               ...canvasConfig,
             }}
