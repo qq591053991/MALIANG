@@ -11,7 +11,7 @@ export default function ChinaMap(props) {
     geo: {
       map: 'china',
       aspectScale: 0.85,
-      layoutCenter: ['50%', '50%'], //地图位置
+      layoutCenter: ['50%', '60%'], //地图位置
       layoutSize: '100%',
       label: {
         emphasis: {
@@ -57,7 +57,7 @@ export default function ChinaMap(props) {
         type: 'map',
         mapType: 'china',
         aspectScale: 0.85,
-        layoutCenter: ['50%', '50%'], //地图位置
+        layoutCenter: ['50%', '60%'], //地图位置
         layoutSize: '100%',
         zoom: 1, //当前视角的缩放比例
         // roam: true, //是否开启平游或缩放

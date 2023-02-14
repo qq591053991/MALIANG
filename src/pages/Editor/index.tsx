@@ -29,7 +29,7 @@ export const EditorContext = createContext();
 async function getCanvasConfigure() {
   try {
     const res = await getCanvasInfo(1);
-    // return JSON.parse(res?.data?.configureData)
+    return JSON.parse(res?.data?.configureData);
     return (
       JSON.parse(localStorage.getItem('configureData')) || mockCanvasConfigure
     );
