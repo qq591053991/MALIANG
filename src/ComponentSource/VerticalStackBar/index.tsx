@@ -2,7 +2,11 @@ import React from 'react';
 import ReactEcharts from 'echarts-for-react';
 import MyEcharts from '@/components/MyEcharts';
 
+<<<<<<< HEAD
 export default function VerticalStackBar(props) {
+=======
+export default function Line(props) {
+>>>>>>> 2be46f079b3e5c28f05bddc8fcf2794ba8e66fbc
   const {
     dataSource = [],
     legend,

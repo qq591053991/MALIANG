@@ -72,6 +72,11 @@ export default function MoveableWrap(
   }, [componentList.length]);
 
 
+<<<<<<< HEAD
+=======
+  const { config = {}, componentId } = componentConfig;
+  const { height, width, left, top, opacity = 1, zIndex = 1 } = config;
+>>>>>>> 2be46f079b3e5c28f05bddc8fcf2794ba8e66fbc
   return (
     <>
       <div

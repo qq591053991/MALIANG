@@ -29,12 +29,20 @@ export const EditorContext = createContext();
 async function getCanvasConfigure() {
   const id = new URLSearchParams(history?.location?.search).get('id');
   try {
+<<<<<<< HEAD
     const res = await getCanvasInfo(id);
     return JSON.parse(res?.data?.configureData)
     // return mockCanvasConfigure
     // return (
     //   JSON.parse(localStorage.getItem('configureData')) || mockCanvasConfigure
     // );
+=======
+    // const res = await getCanvasInfo(1);
+    // return JSON.parse(res?.data?.configureData)
+    return (
+      JSON.parse(localStorage.getItem('configureData')) || mockCanvasConfigure
+    );
+>>>>>>> 2be46f079b3e5c28f05bddc8fcf2794ba8e66fbc
   } catch (error) {
     return {};
   }

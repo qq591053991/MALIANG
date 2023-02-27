@@ -1,5 +1,8 @@
 import Title from './Title/schema';
+<<<<<<< HEAD
 import DigitFlop from './DigitFlop/schema';
+=======
+>>>>>>> 2be46f079b3e5c28f05bddc8fcf2794ba8e66fbc
 import Shape from './Shape/schema';
 import BorderBox from './BorderBox/schema';
 import ScrollBoard from './ScrollBoard/schema';
@@ -19,7 +22,10 @@ import ChinaMap from './ChinaMap/schema';
 
 export default {
   Title,
+<<<<<<< HEAD
   DigitFlop,
+=======
+>>>>>>> 2be46f079b3e5c28f05bddc8fcf2794ba8e66fbc
   Shape,
   BorderBox,
   ScrollBoard,

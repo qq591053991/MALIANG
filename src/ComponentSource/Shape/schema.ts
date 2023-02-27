@@ -4,8 +4,13 @@ import { BaseModel } from '../BaseConfig';
 export default new BaseModel({
   name: '形状',
   type: 'Shape',
+<<<<<<< HEAD
   icon: 'icon-waibiankuang',
   category: iComponentCategory.OTHER,
+=======
+  icon: 'icon-shanxingtu',
+  category: iComponentCategory.CONTORL,
+>>>>>>> 2be46f079b3e5c28f05bddc8fcf2794ba8e66fbc
   config: {
   },
   baseConfig: [
@@ -50,8 +55,15 @@ export default new BaseModel({
           type: 'Color'
         }
       ]
+<<<<<<< HEAD
     },
   ],
   dataConfig: [],
+=======
+    }
+  ],
+  dataConfig: [],
+  styleConfig: [],
+>>>>>>> 2be46f079b3e5c28f05bddc8fcf2794ba8e66fbc
   eventConfig: [],
 });
