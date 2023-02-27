@@ -34,17 +34,6 @@ export default {
       type: 'List',
     },
   ],
-  styleConfig: [
-    {
-      key: 'color',
-      name: '标题颜色',
-      type: 'Color',
-    },
-    {
-      key: 'fontSize',
-      name: '文字大小',
-      type: 'Number',
-    },
-  ],
+   
   eventConfig: [{}],
 };

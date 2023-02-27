@@ -7,6 +7,7 @@ export function getApiList() {
 export function getCanvasInfo(id: string | number) {
   return request({
     url: '/canvas',
+    params: { id }
   });
 }
 

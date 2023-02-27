@@ -9,6 +9,7 @@ import React, {
 import styles from './index.less';
 import { EditorContext } from '@/pages/Editor';
 import { FormRender } from '@/core';
+import allShema from '@/ComponentSource/schema';
 import { BaseFormConfig } from '@/ComponentSource/BaseConfig';
 import { uuid } from '@/utils/tool';
 import { useWhyDidYouUpdate } from 'ahooks';
@@ -24,29 +25,29 @@ function RightBar(props) {
 
   const tabList = curComponentConfig
     ? [
-        {
-          label: '配置',
-          key: 'config',
-          children: '配置',
-        },
-        {
-          label: '数据',
-          key: 'data',
-          children: '数据',
-        },
-        {
-          label: '交互',
-          key: 'event',
-          children: '交互',
-        },
-      ]
+      {
+        label: '配置',
+        key: 'config',
+        children: '配置',
+      },
+      {
+        label: '数据',
+        key: 'data',
+        children: '数据',
+      },
+      {
+        label: '交互',
+        key: 'event',
+        children: '交互',
+      },
+    ]
     : [
-        {
-          label: '配置',
-          key: 'config',
-          children: '配置',
-        },
-      ];
+      {
+        label: '配置',
+        key: 'config',
+        children: '配置',
+      },
+    ];
 
   const canvasFormConfig = [
     {
@@ -110,13 +111,18 @@ function RightBar(props) {
   }, [dispatch]);
 
   const getFormConfig = function () {
+    const {
+      dataConfig,
+      eventConfig,
+      baseConfig
+    } = allShema[curComponentConfig?.type]
     if (curTab.key === 'data') {
-      return curComponentConfig?.dataConfig;
+      return dataConfig;
     }
     if (curTab.key === 'event') {
-      return curComponentConfig?.eventConfig;
+      return eventConfig;
     }
-    return curComponentConfig?.baseConfig;
+    return baseConfig;
   };
 
   const getFormRenderProps = useMemo(() => {
@@ -141,9 +147,8 @@ function RightBar(props) {
       <ul className={styles.tabs}>
         {tabList.map((category) => (
           <li
-            className={`${styles['tab-item']} ${
-              curTab.key === category.key ? styles['active'] : ''
-            }`}
+            className={`${styles['tab-item']} ${curTab.key === category.key ? styles['active'] : ''
+              }`}
             onClick={() => setCurTab(category)}
           >
             <span>{category?.label}</span>

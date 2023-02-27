@@ -184,6 +184,25 @@ export default new BaseModel({
           type: 'Number',
         },
         {
+          key: 'align',
+          name: '对齐方式',
+          type: 'Select',
+          options: [
+            {
+              label: '左对齐',
+              value: 'left'
+            },
+            {
+              label: '居中对齐',
+              value: 'center'
+            },
+            {
+              label: '右对齐',
+              value: 'right'
+            }
+          ]
+        },
+        {
           key: 'textStyle',
           name: '文本样式',
           type: 'Group',
@@ -324,17 +343,6 @@ export default new BaseModel({
       },
     },
   ],
-  styleConfig: [
-    {
-      key: 'color',
-      name: '标题颜色',
-      type: 'Color',
-    },
-    {
-      key: 'fontSize',
-      name: '文字大小',
-      type: 'Number',
-    },
-  ],
+
   eventConfig: [{}],
 });

@@ -13,6 +13,7 @@ import MoveableWrap from '../MoveableWrap';
 import styles from './index.less';
 import Ruler from '@scena/react-ruler';
 import { useScroll } from 'ahooks';
+import { Slider } from 'antd';
 // import 'react-resizable/css/styles.css';
 
 // 画布主内容
@@ -46,6 +47,7 @@ export default function CanvasContent(props) {
     const componentConfig = JSON.parse(
       event.dataTransfer.getData('componentConfig'),
     );
+    const { width, height } = componentConfig?.config;
     componentConfig.componentId = event.dataTransfer.getData('componentId');
     dispatch({
       type: 'ADD_COMPONMENT',
@@ -54,8 +56,8 @@ export default function CanvasContent(props) {
           ...componentConfig,
           config: {
             ...componentConfig?.config,
-            left: event?.clientX - 350,
-            top: event?.clientY - 50,
+            left: (event?.clientX + scroll?.left - (width / 2)) / scaleNum  - 350,
+            top: (event?.clientY + scroll?.top - (height / 2)) / scaleNum - 90,
             zIndex: componentList?.length + 1,
           },
         },
@@ -192,6 +194,10 @@ export default function CanvasContent(props) {
     ).style.transform = `scale3d(${scale},${scale},1)`;
   };
 
+  function rulerUnit() {
+    return (0.6 / scaleNum).toFixed(1) * 100
+  }
+
   useEffect(() => {
     //初始化自适应  ----在刚显示的时候就开始适配一次
     handleScreenAuto();
@@ -267,8 +273,10 @@ export default function CanvasContent(props) {
               shortLineSize={3}
               longLineSize={5}
               textOffset={[0, 10]}
-              zoom={1}
-              scrollPos={scroll?.left - 30}
+              range={[0, Infinity]}
+              zoom={scaleNum}
+              scrollPos={scroll?.left - (30 / scaleNum)}
+              unit={rulerUnit()}
             />
           </div>
           <div className={styles.tickMarkLeft}>
@@ -277,9 +285,11 @@ export default function CanvasContent(props) {
               type="vertical"
               shortLineSize={3}
               longLineSize={5}
+              zoom={scaleNum}
+              scrollPos={scroll?.top - (30 / scaleNum)}
               textOffset={[10, 0]}
-              zoom={1}
-              scrollPos={scroll?.top - 30}
+              range={[0, Infinity]}
+              unit={rulerUnit()}
             />
           </div>
           <div
@@ -287,12 +297,15 @@ export default function CanvasContent(props) {
             id="canvasBox"
             style={{
               ...canvasConfig,
+              transform: `scale3d(${scaleNum},${scaleNum},1)`
             }}
           >
             {componentList.map((componentConfig) => {
               return (
                 <MoveableWrap
+                  componentList={componentList}
                   componentConfig={componentConfig}
+                  unit={rulerUnit()}
                   actived={
                     componentConfig.componentId ===
                     curComponentConfig?.componentId
@@ -347,6 +360,27 @@ export default function CanvasContent(props) {
             })}
           </div>
         </div>
+      </div>
+      <div
+        className={styles["bottom-bar"]}
+      >
+        <span
+          style={{
+            marginRight: 14
+          }}
+        >
+          缩放比例:{(scaleNum * 1000) / 10}%
+        </span>
+        <Slider
+          value={scaleNum}
+          onChange={setScale}
+          max={2}
+          min={0.18}
+          step={0.17}
+          style={{
+            width: 120
+          }}
+        />
       </div>
     </div>
   );

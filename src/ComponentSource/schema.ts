@@ -1,9 +1,12 @@
 import Title from './Title/schema';
+import DigitFlop from './DigitFlop/schema';
+import Shape from './Shape/schema';
 import BorderBox from './BorderBox/schema';
 import ScrollBoard from './ScrollBoard/schema';
 import Checkbox from './Checkbox/schema';
 import Button from './Button/schema';
 import Line from './Line/schema';
+import StackLine from './StackLine/schema';
 import Bar from './Bar/schema';
 import PercentBar from './PercentBar/schema';
 import VerticalStackBar from './VerticalStackBar/schema';
@@ -16,11 +19,14 @@ import ChinaMap from './ChinaMap/schema';
 
 export default {
   Title,
+  DigitFlop,
+  Shape,
   BorderBox,
   ScrollBoard,
   // Checkbox,
   Button,
   Line,
+  StackLine,
   Bar,
   PercentBar,
   VerticalStackBar,

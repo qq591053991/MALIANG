@@ -24,7 +24,7 @@ export default {
         { key: 'imgUrl', name: '图片', type: 'Image' },
       ],
       dataConfig: [],
-      styleConfig: [],
+       
       eventConfig: [],
       componentId: '7dd6582e-8bc6-4d3f-8521-a9177ebd4ea5',
     },
@@ -52,7 +52,7 @@ export default {
         { key: 'imgUrl', name: '图片', type: 'Image' },
       ],
       dataConfig: [],
-      styleConfig: [],
+       
       eventConfig: [],
       componentId: 'db4c6579-5041-4d24-ba27-3eafc84b9f27',
     },
@@ -116,7 +116,7 @@ export default {
         { key: 'imgUrl', name: '图片', type: 'Image' },
       ],
       dataConfig: [],
-      styleConfig: [],
+       
       eventConfig: [],
       componentId: '250dc3bd-af6a-484d-a4f8-c2be2bc7546d',
     },
@@ -144,7 +144,7 @@ export default {
         { key: 'imgUrl', name: '图片', type: 'Image' },
       ],
       dataConfig: [],
-      styleConfig: [],
+       
       eventConfig: [],
       componentId: '04407146-bc3f-4dce-8beb-611050869bff',
     },
@@ -172,7 +172,7 @@ export default {
         { key: 'imgUrl', name: '图片', type: 'Image' },
       ],
       dataConfig: [],
-      styleConfig: [],
+       
       eventConfig: [],
       componentId: '015c52ee-c9ab-4455-9267-071861ac723a',
     },
@@ -200,7 +200,7 @@ export default {
         { key: 'imgUrl', name: '图片', type: 'Image' },
       ],
       dataConfig: [],
-      styleConfig: [],
+       
       eventConfig: [],
       componentId: '58f90bb8-25f9-416b-a823-7f07c2ff6bef',
     },
@@ -804,7 +804,7 @@ export default {
         { key: 'imgUrl', name: '图片', type: 'Image' },
       ],
       dataConfig: [],
-      styleConfig: [],
+       
       eventConfig: [],
       componentId: 'd82b2213-b6b1-4d98-a0b1-f649c1520d9f',
     },
@@ -832,7 +832,7 @@ export default {
         { key: 'imgUrl', name: '图片', type: 'Image' },
       ],
       dataConfig: [],
-      styleConfig: [],
+       
       eventConfig: [],
       componentId: '31447d5b-7895-4606-a43c-475a848d448b',
     },
@@ -1078,7 +1078,7 @@ export default {
         { key: 'imgUrl', name: '图片', type: 'Image' },
       ],
       dataConfig: [],
-      styleConfig: [],
+       
       eventConfig: [],
       componentId: 'adb3ebff-93a7-4c12-90e7-39c9b1ecc4ef',
     },
@@ -1489,7 +1489,7 @@ export default {
           },
         },
       ],
-      styleConfig: [],
+       
       eventConfig: [{}],
       componentId: '6ec5d5d2-e776-4ec5-8bc6-61a72810408a',
     },
@@ -1591,7 +1591,7 @@ export default {
         { key: 'imgUrl', name: '图片', type: 'Image' },
       ],
       dataConfig: [],
-      styleConfig: [],
+       
       eventConfig: [],
       componentId: '1ddb776f-f900-45c6-ad0b-eab3d85c970a',
     },
@@ -1619,7 +1619,7 @@ export default {
         { key: 'imgUrl', name: '图片', type: 'Image' },
       ],
       dataConfig: [],
-      styleConfig: [],
+       
       eventConfig: [],
       componentId: 'd6035ba1-c99f-4365-a67f-03f6e288541c',
     },
@@ -1684,7 +1684,7 @@ export default {
         { key: 'imgUrl', name: '图片', type: 'Image' },
       ],
       dataConfig: [],
-      styleConfig: [],
+       
       eventConfig: [],
       componentId: '883b024b-e105-4f5a-b92a-1e6984fdde37',
     },
@@ -1989,7 +1989,7 @@ export default {
           },
         },
       ],
-      styleConfig: [],
+       
       eventConfig: [{}],
       componentId: '05fe792e-4455-4a46-b455-c1d46803d18c',
     },
@@ -2216,7 +2216,7 @@ export default {
         { key: 'imgUrl', name: '图片', type: 'Image' },
       ],
       dataConfig: [],
-      styleConfig: [],
+       
       eventConfig: [],
       componentId: 'cc404951-725e-40ec-957a-537a62507b6b',
     },
@@ -2441,7 +2441,7 @@ export default {
           },
         },
       ],
-      styleConfig: [],
+       
       eventConfig: [{}],
       componentId: '264f33c9-0148-4205-9258-0f70cbb09803',
     },

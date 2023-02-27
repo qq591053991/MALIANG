@@ -1,21 +1,22 @@
-import { addScreen } from '@/services/project';
+import { addScreen, delScreen, getList } from '@/services/project';
 import { DeleteOutlined, EyeOutlined, PlusOutlined } from '@ant-design/icons';
 import { ProFormText } from '@ant-design/pro-components';
-import { Button, Form, FormInstance, Input, Modal } from 'antd';
+import { Button, Form, FormInstance, Input, message, Modal, Popconfirm } from 'antd';
 import React, { useEffect, useRef, useState } from 'react';
 import { history } from 'umi';
 import styles from './index.less';
 
 export default function Project() {
-  const [projectList, setProject] = useState([
-    {
-      name: '数据大屏',
-    },
-  ]);
+  const [projectList, setProject] = useState([]);
   const [modalVisible, setModalVisible] = useState(false);
   const [form] = Form.useForm<FormInstance>();
 
-  useEffect(() => {}, []);
+  useEffect(() => {
+    getList()
+      .then(res => {
+        setProject(res?.data || [])
+      })
+  }, []);
 
   const onCancel = () => {
     form?.resetFields();
@@ -23,21 +24,31 @@ export default function Project() {
   };
   const onOk = async () => {
     await form?.validateFields().then(async ({ name }) => {
-      // const {data:id} = await addScreen({
-      //   configureName: name,
-      // })
+      const { data: id } = await addScreen({
+        name,
+      })
       // console.log('res', res);
       form?.resetFields();
       setModalVisible(false);
-      // history.push(`/edit?id=${id}`)
-      history.push(`/edit?id=1`);
+      history.push(`/edit?id=${id}`)
+      // history.push(`/edit?id=1`);
     });
+  };
+  const toDelCanvas = async (id: string | number) => {
+    const delResult = await delScreen(id)
+    if (delResult?.code === 200) {
+      getList()
+        .then(res => {
+          setProject(res?.data || [])
+        })
+      message.success(delResult?.msg)
+    }
   };
   return (
     <div>
       <div className={styles['marin-screen']}>
         <div className="project-list">
-          {/* {projectList?.map((item, index) => (
+          {projectList?.map((item, index) => (
             <div className={`screen`} key={index}>
               <div className="screen-info">
                 <div
@@ -54,17 +65,28 @@ export default function Project() {
                         style={{
                           borderRadius: 0,
                         }}
-                      // onClick={() => setModalVisible(true)}
+                        onClick={() => {
+                          history.push(`/edit?id=${item?.id}`)
+                        }}
                       >
                         编辑
                       </Button>
                     </div>
                     <div className="main-button">
                       <div className="button-span">
-                        <EyeOutlined />
+                        <EyeOutlined
+                          onClick={() => {
+                            history.push(`/preview?id=${item?.id}`)
+                          }}
+                        />
                       </div>
                       <div className="button-span">
-                        <DeleteOutlined />
+                        <Popconfirm
+                          title={'是否删除此大屏？'}
+                          onConfirm={() => toDelCanvas(item?.id)}
+                        >
+                          <DeleteOutlined />
+                        </Popconfirm>
                       </div>
                     </div>
                   </div>
@@ -77,7 +99,7 @@ export default function Project() {
                 </div>
               </div>
             </div>
-          ))} */}
+          ))}
           <div className={`screen`} key={'add'}>
             <div className="screen-info add">
               <div className="screen-img" />
@@ -89,7 +111,9 @@ export default function Project() {
                       style={{
                         borderRadius: 0,
                       }}
-                      onClick={() => setModalVisible(true)}
+                      onClick={() => {
+                        setModalVisible(true)
+                      }}
                       icon={<PlusOutlined />}
                     >
                       创建大屏

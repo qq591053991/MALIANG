@@ -253,7 +253,7 @@ export default {
         { key: 'imgUrl', name: '图片', type: 'Image' },
       ],
       dataConfig: [],
-      styleConfig: [],
+       
       eventConfig: [],
       componentId: '7dd6582e-8bc6-4d3f-8521-a9177ebd4ea5',
     },
@@ -281,7 +281,7 @@ export default {
         { key: 'imgUrl', name: '图片', type: 'Image' },
       ],
       dataConfig: [],
-      styleConfig: [],
+       
       eventConfig: [],
       componentId: 'db4c6579-5041-4d24-ba27-3eafc84b9f27',
     },
@@ -345,7 +345,7 @@ export default {
         { key: 'imgUrl', name: '图片', type: 'Image' },
       ],
       dataConfig: [],
-      styleConfig: [],
+       
       eventConfig: [],
       componentId: '250dc3bd-af6a-484d-a4f8-c2be2bc7546d',
     },
@@ -373,7 +373,7 @@ export default {
         { key: 'imgUrl', name: '图片', type: 'Image' },
       ],
       dataConfig: [],
-      styleConfig: [],
+       
       eventConfig: [],
       componentId: '04407146-bc3f-4dce-8beb-611050869bff',
     },
@@ -401,7 +401,7 @@ export default {
         { key: 'imgUrl', name: '图片', type: 'Image' },
       ],
       dataConfig: [],
-      styleConfig: [],
+       
       eventConfig: [],
       componentId: '015c52ee-c9ab-4455-9267-071861ac723a',
     },
@@ -429,7 +429,7 @@ export default {
         { key: 'imgUrl', name: '图片', type: 'Image' },
       ],
       dataConfig: [],
-      styleConfig: [],
+       
       eventConfig: [],
       componentId: '58f90bb8-25f9-416b-a823-7f07c2ff6bef',
     },
@@ -1485,7 +1485,7 @@ export default {
         { key: 'imgUrl', name: '图片', type: 'Image' },
       ],
       dataConfig: [],
-      styleConfig: [],
+       
       eventConfig: [],
       componentId: 'd82b2213-b6b1-4d98-a0b1-f649c1520d9f',
     },
@@ -1513,7 +1513,7 @@ export default {
         { key: 'imgUrl', name: '图片', type: 'Image' },
       ],
       dataConfig: [],
-      styleConfig: [],
+       
       eventConfig: [],
       componentId: '31447d5b-7895-4606-a43c-475a848d448b',
     },
@@ -1939,7 +1939,7 @@ export default {
         { key: 'imgUrl', name: '图片', type: 'Image' },
       ],
       dataConfig: [],
-      styleConfig: [],
+       
       eventConfig: [],
       componentId: 'adb3ebff-93a7-4c12-90e7-39c9b1ecc4ef',
     },

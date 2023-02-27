@@ -4,7 +4,7 @@ import { BaseModel } from '../BaseConfig';
 export default new BaseModel({
   name: '装饰边框',
   type: 'BorderBox',
-  icon: 'icon-waibiankuang',
+  icon: 'icon-xingzhuang-juxing',
   category: iComponentCategory.CONTORL,
   config: {
     width: 400,
@@ -72,6 +72,6 @@ export default new BaseModel({
     },
   ],
   dataConfig: [],
-  styleConfig: [],
+   
   eventConfig: [],
 });

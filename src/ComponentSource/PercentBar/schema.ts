@@ -1,11 +1,12 @@
 import { iComponentCategory } from '@/typings/SchemaCommon';
-import { ChartModel, iChartType } from '../ChartModel';
+import { BaseModel } from '../BaseConfig';
+import { gridFormConfig } from '../ChartConfig/gridConfig';
+import { ChartDataConfig } from '../ChartModel';
 
-export default new ChartModel({
+export default new BaseModel({
   name: '百分比条形图',
   type: 'PercentBar',
-  chartType: iChartType.BAR,
-  icon: 'icon-zhuzhuangtu',
+  icon: 'icon-tiaoxingtu1',
   category: iComponentCategory.CHART,
   config: {
     width: 450,
@@ -13,7 +14,7 @@ export default new ChartModel({
     grid: {
       left: 54,
       top: 10,
-      right: 50,
+      right: 60,
       bottom: 10,
     },
     dataMapping: [
@@ -51,8 +52,9 @@ export default new ChartModel({
       },
     ],
   },
-  baseConfig: [],
-  dataConfig: [],
-  styleConfig: [],
+  baseConfig: [
+    { ...gridFormConfig }
+  ],
+  dataConfig: [...ChartDataConfig],
   eventConfig: [{}],
 });

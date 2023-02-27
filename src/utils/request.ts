@@ -34,8 +34,9 @@ const request = extend({
  */
 request.interceptors.request.use((url, options) => {
   const headers = options?.headers || {};
+  const prefix = options?.prefix || '';
   return {
-    url: options?.url ? options?.prefix + options?.url : url,
+    url: options?.url ? prefix + options?.url : url,
     options: {
       headers,
       ...options,
@@ -52,7 +53,7 @@ request.interceptors.response.use(async (res: any) => {
   // 未设置状态码则默认成功状态
   // 获取错误信息
   const message = codeMessage[code] || codeMessage['default'];
-  if (code === 401) {
+  if (code && code === 401) {
     const key = `loginTip`;
     notification.open({
       message: '系统提示',
@@ -60,7 +61,8 @@ request.interceptors.response.use(async (res: any) => {
       key,
     });
     return Promise.reject(msg);
-  } else if (code !== 200) {
+  }
+  else if (code && code !== 200) {
     notification.error({
       message: msg,
     });

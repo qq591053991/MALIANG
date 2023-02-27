@@ -7,8 +7,8 @@ import RightBar from '@/components/RightBar';
 import styles from './index.less';
 import { v4 as uuid } from 'uuid';
 import TopBar from '@/components/TopBar';
-import { useLocation } from 'umi';
-import mockCanvasConfigure from './page2.js';
+import { history, useLocation } from 'umi';
+import mockCanvasConfigure from './中国工商银行.js';
 import { getCanvasInfo } from '@/services/editor';
 
 registerTheme('default_theme', default_theme);
@@ -27,32 +27,31 @@ interface iEditorState {
 export const EditorContext = createContext();
 
 async function getCanvasConfigure() {
+  const id = new URLSearchParams(history?.location?.search).get('id');
   try {
-    const res = await getCanvasInfo(1);
-    return JSON.parse(res?.data?.configureData);
-    return (
-      JSON.parse(localStorage.getItem('configureData')) || mockCanvasConfigure
-    );
+    const res = await getCanvasInfo(id);
+    return JSON.parse(res?.data?.configureData)
+    // return mockCanvasConfigure
+    // return (
+    //   JSON.parse(localStorage.getItem('configureData')) || mockCanvasConfigure
+    // );
   } catch (error) {
     return {};
   }
 }
-
 const defaultEditorState: iEditorState =
-  location.pathname === '/preview'
+  history.location.pathname.includes('/preview')
     ? {
-        mode: 'preview',
-      }
+    }
     : {
-        mode: 'edit',
-        componentList: [],
-        curComponentConfig: null,
-        canvasConfig: {
-          width: 1920,
-          height: 960,
-          backgroundColor: 'rgba(28,34,42,1)',
-        },
-      };
+      componentList: [],
+      curComponentConfig: null,
+      canvasConfig: {
+        width: 1920,
+        height: 1080,
+        backgroundColor: 'rgba(28,34,42,1)',
+      },
+    };
 
 function reducer(state: iEditorState, action: { type: string; payload: any }) {
   switch (action.type) {
@@ -116,7 +115,6 @@ function reducer(state: iEditorState, action: { type: string; payload: any }) {
         },
       };
     case 'COPY_COMPONENT':
-      console.log(action.payload?.componentConfig);
       return {
         ...state,
         componentList: [
@@ -172,10 +170,8 @@ function updateLayoutById(componentList, componentId, layoutConfig) {
 }
 
 export default function Editor() {
-  // const [editorState, setEditorState] = useState({ ...defaultEditorState })
   const location = useLocation();
   const mode = location?.pathname === '/preview' ? 'preview' : 'edit';
-  // const [editorContextState, dispatch] = useReducer(reducer, { ...defaultEditorState });
   const [editorContextState, dispatch] = useReducer(reducer, {
     ...defaultEditorState,
   });
@@ -192,7 +188,7 @@ export default function Editor() {
   if (mode === 'preview') {
     return (
       <div className={styles.editorWrap}>
-        <EditorContext.Provider value={[editorContextState, dispatch]}>
+        <EditorContext.Provider value={[{ mode, ...editorContextState }, dispatch]}>
           <div className={styles.editor}>
             <CanvasContent></CanvasContent>
           </div>
@@ -203,7 +199,7 @@ export default function Editor() {
 
   return (
     <div className={styles.editorWrap}>
-      <EditorContext.Provider value={[editorContextState, dispatch]}>
+      <EditorContext.Provider value={[{ mode, ...editorContextState }, dispatch]}>
         <TopBar />
         <div className={styles.editor}>
           <LeftBar></LeftBar>

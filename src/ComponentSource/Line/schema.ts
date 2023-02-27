@@ -1,5 +1,6 @@
 import { iComponentCategory } from '@/typings/SchemaCommon';
 import { ChartModel, iChartType } from '../ChartModel';
+import { seriesFormConfig } from '../ChartTypeConfig/Line';
 
 export default new ChartModel({
   name: '折线图',
@@ -46,19 +47,7 @@ export default new ChartModel({
       { key: 'yAxis', mapping: '' },
     ],
   },
-  baseConfig: [],
+  baseConfig: [...seriesFormConfig],
   dataConfig: [],
-  styleConfig: [
-    {
-      key: 'color',
-      name: '标题颜色',
-      type: 'Color',
-    },
-    {
-      key: 'fontSize',
-      name: '文字大小',
-      type: 'Number',
-    },
-  ],
   eventConfig: [{}],
 });

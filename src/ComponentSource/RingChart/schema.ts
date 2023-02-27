@@ -5,7 +5,7 @@ export default new ChartModel({
   name: '环形图',
   type: 'RingChart',
   chartType: iChartType.PIE,
-  icon: 'icon-shanxingtu',
+  icon: 'icon-huanxingtu2',
   category: iComponentCategory.CHART,
   config: {
     dataType: 'static',
@@ -48,17 +48,6 @@ export default new ChartModel({
   },
   baseConfig: [],
   dataConfig: [],
-  styleConfig: [
-    {
-      key: 'color',
-      name: '标题颜色',
-      type: 'Color',
-    },
-    {
-      key: 'fontSize',
-      name: '文字大小',
-      type: 'Number',
-    },
-  ],
+   
   eventConfig: [{}],
 });

@@ -36,6 +36,10 @@ function formatEchartsColor(color: string) {
 }
 
 function formatEchartsProperty(echartsProperty: any) {
+  if (typeof echartsProperty === 'function') {
+    debugger
+    return echartsProperty
+  }
   if (!isObject(echartsProperty)) {
     return echartsProperty;
   }

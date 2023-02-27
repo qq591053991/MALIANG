@@ -1,11 +1,11 @@
-import React, { useState } from 'react';
-import schema from '@/ComponentSource/schema';
-import styles from './index.less';
-import { v4 as uuid } from 'uuid';
-import { iComponentCategory } from '@/typings/SchemaCommon';
+import React, { useState } from 'react'
+import schema from '@/ComponentSource/schema'
+import styles from './index.less'
+import { v4 as uuid } from 'uuid'
+import { iComponentCategory } from '@/typings/SchemaCommon'
 
-const componentList = Object.values(schema);
-const tabList = [...new Set(componentList.map((item) => item.category))];
+const componentList = Object.values(schema)
+const tabList = [...new Set(componentList.map((item) => item.category))]
 
 const cateInfoSet = {
   [iComponentCategory.INOFRMATION]: {
@@ -20,17 +20,27 @@ const cateInfoSet = {
     title: '图表',
     iconClass: 'icon-a-daohang-tubiao',
   },
-};
+  [iComponentCategory.OTHER]: {
+    title: '其他',
+    iconClass: 'icon-a-daohang-qita',
+  },
+}
 
 export default function LeftBar() {
-  const [curTab, setCurTab] = useState(iComponentCategory.INOFRMATION);
+  const [curTab, setCurTab] = useState(iComponentCategory.INOFRMATION)
 
-  function dragStart(event: React.DragEvent, componentConfig) {
+  function dragStart(event: React.DragEvent, allConfig) {
+    const {
+      baseConfig,
+      dataConfig,
+      eventConfig,
+      ...componentConfig
+    } = allConfig
     event.dataTransfer.setData(
       'componentConfig',
       JSON.stringify(componentConfig),
-    );
-    event.dataTransfer.setData('componentId', uuid());
+    )
+    event.dataTransfer.setData('componentId', uuid())
   }
 
   return (
@@ -38,9 +48,8 @@ export default function LeftBar() {
       <ul className={styles.tabs}>
         {tabList.map((category: iComponentCategory) => (
           <li
-            className={`${styles.tabItem} ${
-              curTab === category ? styles.active : ''
-            }`}
+            className={`${styles.tabItem} ${curTab === category ? styles.active : ''
+              }`}
             onClick={() => setCurTab(category)}
           >
             <i
@@ -69,5 +78,5 @@ export default function LeftBar() {
         </div>
       </div>
     </div>
-  );
+  )
 }

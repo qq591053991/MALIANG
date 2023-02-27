@@ -1,7 +1,7 @@
 export default [
   {
     path: '/',
-    component: '@/pages/Editor/index',
+    component: '@/pages/Project/index',
   },
   {
     path: '/edit',

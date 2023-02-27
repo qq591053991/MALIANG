@@ -46,7 +46,6 @@ const BuildDatasource = async (config) => {
   if (!reqUrl) {
     return null;
   }
-
   const reqRes = await request(reqUrl);
   if (!reqRes) {
     return null;
@@ -65,12 +64,12 @@ const useEventCallback = ({ config }) => {
         case 'filter':
           break;
         case 'refresh':
-          componentList?.forEach((cItem) => {
-            if (cItem?.componentId === config?.componentId) {
-              cItem?.config?.run?.();
-              console.log(cItem?.config?.run);
-            }
-          });
+          // componentList?.forEach((cItem) => {
+          //   if (cItem?.componentId === config?.componentId) {
+          //     cItem?.config?.run?.();
+          //     console.log(cItem?.config?.run);
+          //   }
+          // });
           break;
 
         default:
@@ -100,7 +99,7 @@ const PollingWrapComponent = (props) => {
   return (
     <Component
       {..._config}
-      // {...eventCallback}
+    // {...eventCallback}
     />
   );
 };

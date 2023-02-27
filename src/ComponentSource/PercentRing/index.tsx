@@ -9,7 +9,7 @@ interface iPercentRingProps {
 
 export default function PercentRing(props: iPercentRingProps) {
   const { dataSource = [{}], legend, chartConfig = {} } = props;
-  const { ringConfig, fontStyle } = chartConfig;
+  const { ringConfig = {}, fontStyle = {} } = chartConfig;
   const { bgRingColor, outRingRadius, valueRingColor, innerRingRadius } =
     ringConfig;
   const { valueFontColor, valueFontSize, unitFontColor, unitFontSize } =

@@ -48,6 +48,6 @@ export default new ChartModel({
   },
   baseConfig: [],
   dataConfig: [],
-  styleConfig: [],
+   
   eventConfig: [{}],
 });

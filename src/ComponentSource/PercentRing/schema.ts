@@ -5,7 +5,7 @@ export default new ChartModel({
   name: '百分比环',
   type: 'PercentRing',
   chartType: iChartType.PIE,
-  icon: 'icon-shanxingtu',
+  icon: 'icon-huanxingtu',
   category: iComponentCategory.CHART,
   config: {
     dataType: 'static',
@@ -101,6 +101,6 @@ export default new ChartModel({
     },
   ],
   dataConfig: [],
-  styleConfig: [],
+   
   eventConfig: [{}],
 });

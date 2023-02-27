@@ -6,14 +6,14 @@ interface iImgProps {
 
 export default function Img(props: iImgProps) {
   const { imgUrl = '' } = props;
-  const isLocalImg = imgUrl.startsWith('@/assets');
+  // const isLocalImg = imgUrl.startsWith('@/assets');
   return (
     <img
       style={{
         width: '100%',
         height: '100%',
       }}
-      src={isLocalImg ? require(imgUrl) : imgUrl}
+      src={'https://blog.eirds.cn/image.php?url=' + imgUrl}
     />
   );
 }

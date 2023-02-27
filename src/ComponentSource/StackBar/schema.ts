@@ -96,10 +96,10 @@ const defaultDatasource = [
 ];
 
 export default new ChartModel({
-  name: '堆积柱状图',
+  name: '分组柱状图',
   type: 'StackBar',
   chartType: iChartType.BAR,
-  icon: 'icon-zhuzhuangduidietu',
+  icon: 'icon-zhuzhuangtu',
   category: iComponentCategory.CHART,
   config: {
     width: 540,
@@ -113,17 +113,6 @@ export default new ChartModel({
   },
   baseConfig: [],
   dataConfig: [],
-  styleConfig: [
-    {
-      key: 'color',
-      name: '标题颜色',
-      type: 'Color',
-    },
-    {
-      key: 'fontSize',
-      name: '文字大小',
-      type: 'Number',
-    },
-  ],
+   
   eventConfig: [{}],
 });

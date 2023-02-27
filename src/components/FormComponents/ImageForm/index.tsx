@@ -39,7 +39,7 @@ export default function ImageForm(props) {
       <div className="ml-gui-image-content">
         {value ? (
           <>
-            <img className="design-pro-image" src={value} />
+            <img className="design-pro-image" src={'https://blog.eirds.cn/image.php?url=' + value} />
             <div className="ml-gui-image-cover ml-gui-image-ud">
               <span onClick={() => setVisible(true)}>更改</span>
               &nbsp;&nbsp;|&nbsp;&nbsp;
@@ -103,12 +103,13 @@ export default function ImageForm(props) {
                 <div className="grid-container">
                   {_imgList?.map((item) => (
                     <div
-                      className={`img-use-card ${
-                        item?.id === selectedItem?.id ? '--selected' : ''
-                      }`}
+                      className={`img-use-card ${item?.id === selectedItem?.id ? '--selected' : ''
+                        }`}
                       onClick={() => setSelectedItem(item)}
                     >
-                      <img className="design-pro-image" src={item?.thumbnail} />
+                      <img
+                        className="design-pro-image"
+                        src={`https://blog.eirds.cn/image.php?url=${item?.thumbnail?.includes('http') ? '' : 'https:'}` + item?.thumbnail} />
 
                       <div className="--name ellipsis" title={item?.name}>
                         {item?.name}
@@ -131,7 +132,10 @@ export default function ImageForm(props) {
         zIndex={1050}
         width={890}
       >
-        <img className="design-pro-image" src={value} />
+        <img
+          className="design-pro-image"
+          src={'https://blog.eirds.cn/image.php?url=' + value}
+        />
       </Modal>
     </>
   );

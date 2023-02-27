@@ -4,7 +4,7 @@ import { BaseModel } from '../BaseConfig';
 export default new BaseModel({
   name: '按钮',
   type: 'Button',
-  icon: 'icon-yduifuxuankuangxuanzhong',
+  icon: 'icon-mtbutton',
   category: iComponentCategory.CONTORL,
   config: {
     text: '按钮文字',
@@ -19,7 +19,7 @@ export default new BaseModel({
     },
   ],
   dataConfig: [],
-  styleConfig: [],
+   
   eventConfig: [
     {
       key: 'ClickEvent',

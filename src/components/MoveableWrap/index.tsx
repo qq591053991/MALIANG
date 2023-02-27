@@ -4,6 +4,7 @@ import React, {
   MouseEventHandler,
   ReactNode,
   useEffect,
+  useMemo,
   useRef,
   useState,
 } from 'react';
@@ -13,8 +14,10 @@ import styles from './index.less';
 interface iMoveableWrapProps {
   children: ReactNode;
   componentConfig: Record<string, any>;
+  componentList: Record<string, any>[],
   width?: number;
   height?: number;
+  unit: number;
   actived: boolean;
   nativeOnClick: MouseEventHandler<HTMLDivElement>;
   mode: 'preview' | 'editor';
@@ -41,22 +44,34 @@ export default function MoveableWrap(
 ) {
   const {
     mode,
+    unit,
     children,
     componentConfig,
+    componentList = [],
     actived,
     nativeOnClick,
     ...moveableProps
   } = props;
+  const { config = {}, componentId } = componentConfig;
+  const { height, width, left, top, opacity = 1, zIndex = 1 } = config;
+
+  const unitLine = useMemo(() => {
+    const result = []
+    for (let i = 0; i < 99; i++) {
+      result[i] = (i + 1) * unit
+    }
+    return result
+  }, [unit])
+
   const [target, setTarget] = useState<Element>();
   const [elementGuidelines, setElementGuidelines] = useState<Element[]>([]);
 
   useEffect(() => {
     setTarget(document.querySelector(`.target-${componentId}`)!);
-    setElementGuidelines([document.querySelector('.target')]);
-  }, []);
+    setElementGuidelines([...document.querySelectorAll('.target')]);
+  }, [componentList.length]);
 
-  const { config = {}, componentId } = componentConfig;
-  const { height, width, left, top, zIndex = 1 } = config;
+
   return (
     <>
       <div
@@ -69,6 +84,7 @@ export default function MoveableWrap(
           height,
           width,
           zIndex,
+          opacity,
           transform: `translate(${left}px,${top}px)`,
         }}
         onClick={nativeOnClick}
@@ -80,8 +96,8 @@ export default function MoveableWrap(
         target={target}
         elementGuidelines={elementGuidelines}
         snappable={true}
-        verticalGuidelines={[0, 200, 400]}
-        horizontalGuidelines={[0, 200, 400]}
+        verticalGuidelines={unitLine}
+        horizontalGuidelines={unitLine}
         snapThreshold={5}
         isDisplaySnapDigit={true}
         snapGap={true}

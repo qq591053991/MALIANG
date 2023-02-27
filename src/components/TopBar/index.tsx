@@ -8,10 +8,10 @@ import styles from './index.less';
 
 export default function TopBar() {
   const [{ mode, ...state }, dispatch] = useContext(EditorContext);
+  const id = new URLSearchParams(history.location.search).get('id');
   async function toSaveCanvas() {
     const configureStr = JSON.stringify(state);
     localStorage.setItem('configureData', configureStr);
-    const id = new URLSearchParams(history.location.search).get('id');
     if (id) {
       saveCanvas({
         id,
@@ -22,7 +22,8 @@ export default function TopBar() {
   }
 
   function toPreview() {
-    window.open('/preview');
+    // window.open(`/bi/preview?id=${id}`);
+    window.open(`/bi/index.html#/preview?id=${id}`)
   }
 
   return (
