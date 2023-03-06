@@ -4,25 +4,19 @@ import { BaseModel } from '../BaseConfig';
 export default new BaseModel({
   name: '形状',
   type: 'Shape',
-<<<<<<< HEAD
   icon: 'icon-waibiankuang',
   category: iComponentCategory.OTHER,
-=======
-  icon: 'icon-shanxingtu',
-  category: iComponentCategory.CONTORL,
->>>>>>> 2be46f079b3e5c28f05bddc8fcf2794ba8e66fbc
-  config: {
-  },
+  config: {},
   baseConfig: [
     {
       key: 'backgroundColor',
       name: '背景颜色',
-      type: 'Color'
+      type: 'Color',
     },
     {
       key: 'borderRadius',
       name: '圆角',
-      type: 'Number'
+      type: 'Number',
     },
     {
       key: 'border',
@@ -32,7 +26,7 @@ export default new BaseModel({
         {
           key: 'borderWidth',
           name: '边宽',
-          type: 'Number'
+          type: 'Number',
         },
         {
           key: 'borderStyle',
@@ -41,29 +35,22 @@ export default new BaseModel({
           options: [
             {
               label: '实线',
-              value: 'solid'
+              value: 'solid',
             },
             {
               label: '虚线',
-              value: 'dashed'
+              value: 'dashed',
             },
-          ]
+          ],
         },
         {
           key: 'borderColor',
           name: '边框颜色',
-          type: 'Color'
-        }
-      ]
-<<<<<<< HEAD
+          type: 'Color',
+        },
+      ],
     },
   ],
   dataConfig: [],
-=======
-    }
-  ],
-  dataConfig: [],
-  styleConfig: [],
->>>>>>> 2be46f079b3e5c28f05bddc8fcf2794ba8e66fbc
   eventConfig: [],
 });

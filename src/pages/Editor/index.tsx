@@ -26,32 +26,23 @@ interface iEditorState {
 
 export const EditorContext = createContext();
 
-async function getCanvasConfigure() {
-  const id = new URLSearchParams(history?.location?.search).get('id');
+async function getCanvasConfigure(id) {
   try {
-<<<<<<< HEAD
     const res = await getCanvasInfo(id);
-    return JSON.parse(res?.data?.configureData)
+    return JSON.parse(res?.data?.configureData);
     // return mockCanvasConfigure
     // return (
     //   JSON.parse(localStorage.getItem('configureData')) || mockCanvasConfigure
     // );
-=======
-    // const res = await getCanvasInfo(1);
-    // return JSON.parse(res?.data?.configureData)
-    return (
-      JSON.parse(localStorage.getItem('configureData')) || mockCanvasConfigure
-    );
->>>>>>> 2be46f079b3e5c28f05bddc8fcf2794ba8e66fbc
   } catch (error) {
     return {};
   }
 }
-const defaultEditorState: iEditorState =
-  history.location.pathname.includes('/preview')
-    ? {
-    }
-    : {
+const defaultEditorState: iEditorState = history.location.pathname.includes(
+  '/preview',
+)
+  ? {}
+  : {
       componentList: [],
       curComponentConfig: null,
       canvasConfig: {
@@ -183,8 +174,9 @@ export default function Editor() {
   const [editorContextState, dispatch] = useReducer(reducer, {
     ...defaultEditorState,
   });
+  const id = new URLSearchParams(history?.location?.search).get('id');
   useEffect(() => {
-    getCanvasConfigure().then((res) => {
+    getCanvasConfigure(id).then((res) => {
       dispatch({
         type: 'INITIALIZATION',
         payload: {
@@ -192,11 +184,13 @@ export default function Editor() {
         },
       });
     });
-  }, []);
+  }, [id]);
   if (mode === 'preview') {
     return (
       <div className={styles.editorWrap}>
-        <EditorContext.Provider value={[{ mode, ...editorContextState }, dispatch]}>
+        <EditorContext.Provider
+          value={[{ mode, ...editorContextState }, dispatch]}
+        >
           <div className={styles.editor}>
             <CanvasContent></CanvasContent>
           </div>
@@ -207,7 +201,9 @@ export default function Editor() {
 
   return (
     <div className={styles.editorWrap}>
-      <EditorContext.Provider value={[{ mode, ...editorContextState }, dispatch]}>
+      <EditorContext.Provider
+        value={[{ mode, ...editorContextState }, dispatch]}
+      >
         <TopBar />
         <div className={styles.editor}>
           <LeftBar></LeftBar>

@@ -14,7 +14,7 @@ import styles from './index.less';
 interface iMoveableWrapProps {
   children: ReactNode;
   componentConfig: Record<string, any>;
-  componentList: Record<string, any>[],
+  componentList: Record<string, any>[];
   width?: number;
   height?: number;
   unit: number;
@@ -56,12 +56,12 @@ export default function MoveableWrap(
   const { height, width, left, top, opacity = 1, zIndex = 1 } = config;
 
   const unitLine = useMemo(() => {
-    const result = []
+    const result = [];
     for (let i = 0; i < 99; i++) {
-      result[i] = (i + 1) * unit
+      result[i] = (i + 1) * unit;
     }
-    return result
-  }, [unit])
+    return result;
+  }, [unit]);
 
   const [target, setTarget] = useState<Element>();
   const [elementGuidelines, setElementGuidelines] = useState<Element[]>([]);
@@ -71,12 +71,6 @@ export default function MoveableWrap(
     setElementGuidelines([...document.querySelectorAll('.target')]);
   }, [componentList.length]);
 
-
-<<<<<<< HEAD
-=======
-  const { config = {}, componentId } = componentConfig;
-  const { height, width, left, top, opacity = 1, zIndex = 1 } = config;
->>>>>>> 2be46f079b3e5c28f05bddc8fcf2794ba8e66fbc
   return (
     <>
       <div
