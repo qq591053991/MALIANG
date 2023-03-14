@@ -4,6 +4,7 @@ import Shape from './Shape/schema';
 import BorderBox from './BorderBox/schema';
 import ScrollBoard from './ScrollBoard/schema';
 import Checkbox from './Checkbox/schema';
+import Timer from './Timer/schema';
 import Button from './Button/schema';
 import Line from './Line/schema';
 import StackLine from './StackLine/schema';
@@ -25,6 +26,7 @@ export default {
   ScrollBoard,
   // Checkbox,
   Button,
+  Timer,
   Line,
   StackLine,
   Bar,
